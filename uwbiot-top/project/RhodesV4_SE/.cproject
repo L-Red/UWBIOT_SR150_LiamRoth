@@ -204,7 +204,7 @@
 								<option id="com.crt.advproject.cpp.exe.debug.option.optimization.level.1788700292" name="Optimization Level" superClass="com.crt.advproject.cpp.exe.debug.option.optimization.level" useByScannerDiscovery="true" value="gnu.cpp.compiler.optimization.level.optimize" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.1411776772" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
 								<option id="com.crt.advproject.cpp.exe.debug.option.debugging.level.1235433390" name="Debug Level" superClass="com.crt.advproject.cpp.exe.debug.option.debugging.level" useByScannerDiscovery="false"/>
-								<option id="gnu.cpp.compiler.option.debugging.other.1661407290" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" useByScannerDiscovery="false"/>
+								<option id="gnu.cpp.compiler.option.debugging.other.1661407290" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-4" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.debugging.prof.1818403970" name="Generate prof information (-p)" superClass="gnu.cpp.compiler.option.debugging.prof" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.480925265" name="Generate gprof information (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.debugging.codecov.530207946" name="Generate gcov information (-ftest-coverage -fprofile-arcs)" superClass="gnu.cpp.compiler.option.debugging.codecov" useByScannerDiscovery="false"/>
@@ -413,7 +413,7 @@
 								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1899032221" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" useByScannerDiscovery="true" value="gnu.c.optimization.level.optimize" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.optimization.flags.194357773" name="Other optimization flags" superClass="gnu.c.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
 								<option id="com.crt.advproject.gcc.exe.debug.option.debugging.level.317690451" name="Debug Level" superClass="com.crt.advproject.gcc.exe.debug.option.debugging.level" useByScannerDiscovery="false"/>
-								<option id="gnu.c.compiler.option.debugging.other.1094247263" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" useByScannerDiscovery="false"/>
+								<option id="gnu.c.compiler.option.debugging.other.1094247263" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-4" valueType="string"/>
 								<option id="gnu.c.compiler.option.debugging.prof.2088659804" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.567489042" name="Generate gprof information (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.codecov.2026225314" name="Generate gcov information (-ftest-coverage -fprofile-arcs)" superClass="gnu.c.compiler.option.debugging.codecov" useByScannerDiscovery="false"/>
@@ -802,7 +802,7 @@
 									<listOptionValue builtIn="false" value="../../../boards/Host/Rhodes4/app_preinclude.h"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.flags.1915716635" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
-								<option id="gnu.cpp.compiler.option.debugging.other.529294591" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" useByScannerDiscovery="false"/>
+								<option id="gnu.cpp.compiler.option.debugging.other.529294591" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-4" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.debugging.prof.1284419898" name="Generate prof information (-p)" superClass="gnu.cpp.compiler.option.debugging.prof" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.1435187796" name="Generate gprof information (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.debugging.codecov.1396619680" name="Generate gcov information (-ftest-coverage -fprofile-arcs)" superClass="gnu.cpp.compiler.option.debugging.codecov" useByScannerDiscovery="false"/>
@@ -1011,7 +1011,7 @@
 									<listOptionValue builtIn="false" value="../../../boards/Host/Rhodes4/app_preinclude.h"/>
 								</option>
 								<option id="gnu.c.compiler.option.optimization.flags.490209488" name="Other optimization flags" superClass="gnu.c.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
-								<option id="gnu.c.compiler.option.debugging.other.975908160" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" useByScannerDiscovery="false"/>
+								<option id="gnu.c.compiler.option.debugging.other.975908160" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-4" valueType="string"/>
 								<option id="gnu.c.compiler.option.debugging.prof.394869068" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.2053786984" name="Generate gprof information (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.codecov.732102615" name="Generate gcov information (-ftest-coverage -fprofile-arcs)" superClass="gnu.c.compiler.option.debugging.codecov" useByScannerDiscovery="false"/>

@@ -270,7 +270,7 @@
 		<link>
 			<name>demos/SR1XX/demo_ultdoa_tag</name>
 			<type>2</type>
-			<location>/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/SR1XX</location>
+			<location>/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/demos/SR1XX/demo_ultdoa_sync_tag</location>
 		</link>
 		<link>
 			<name>ext/boards/qn9090</name>
