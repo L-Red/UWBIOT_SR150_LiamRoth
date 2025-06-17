@@ -1,0 +1,61 @@
+# This script generates secured scripts for each of the ADF configured in the adf list below. 
+# For each ADF two secured scripts are generated:
+# 1) Create + Manage ADF 
+# 2) Delete 
+
+################ Script config / data 
+
+# Applet certificate provisioned in the specific applet instance
+# Retrievable via GET DATA BF21 (fira-read-applet-cert.jcsh)
+/s-v applet.cert $(fira-read-applet-cert)
+
+# Output folder 
+/s-v baseOutputFolder "${script.name;dirname}/output/gen_all"
+
+# ADF List
+/s-v adfList[*] "adf/default/controller.jcsh"
+/s-v adfList[#] "adf/default/controlee.jcsh"
+/s-v adfList[#] "adf/base_key/controller.jcsh"
+/s-v adfList[#] "adf/base_key/controlee.jcsh"
+
+################ Script steps
+
+for adf.data ${adfList}
+
+	# Generate script for CREATE and provisioning
+
+	# begin a new script
+	fira-sgt new
+	
+	# authenticate SCP11c
+	fira-sgt authenticate --applet-cert ${applet.cert} --service-provider cfg/ServiceProvider/SP_1.jcsh
+	
+	# CREATE ADF from adf.data file
+	fira-sgt create_adf --adf-data ${adf.data}
+	
+	# SELECT previously created ADF
+	fira-sgt select_adf --adf-data ${adf.data}
+	
+	# Authenticate at ADF level
+	fira-sgt authenticate_adf --applet-cert ${applet.cert} --adf-data ${adf.data}
+	
+	# MANAGE ADF from adf.data file
+	fira-sgt manage_adf --adf-data ${adf.data}
+	
+	# dump script
+	fira-sgt dump --folder ${baseOutputFolder}/${adf.data;dirname} --descr ${adf.data;filename}-CREATE
+	
+	# Generate script for DELETE 
+	
+	# begin a new script
+	fira-sgt new
+	
+	# authenticate SCP11c
+	fira-sgt authenticate --applet-cert ${applet.cert} --service-provider cfg/ServiceProvider/SP_1.jcsh
+	
+	# DELETE ADF 
+	fira-sgt delete_adf --adf-data ${adf.data}
+	
+	# dump script
+	fira-sgt dump --folder ${baseOutputFolder}/${adf.data;dirname} --descr ${adf.data;filename}-DELETE
+end

@@ -1,0 +1,20 @@
+@startuml
+
+    title Use of previous generated key
+
+    participant app as "Application"
+    === Session & Key Store Init ==
+
+    participant app as "Application"
+    participant KS as "Key Store"
+
+    app -> KS : sss_key_object_init
+    app -> KS : sss_key_object_get_handle( \n\
+      keyId : uint32_t)
+    app <- KS : <b>sss_object</b>
+    ... Use the <b>sss_object</b> ...
+    app -> KS : sss_key_object_free
+
+    === Session & Key Store Close ==
+
+@enduml

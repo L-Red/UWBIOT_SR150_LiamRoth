@@ -1,0 +1,218 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+
+########################################
+#  FUNCTION LIST:
+####################
+#     CMAC
+########################################
+#  IMPORTS
+####################
+@${script.dir}/_lib3d
+@${script.dir}/_libBool
+@${script.dir}/_libAssert
+########################################
+#  FUNCTION DECLARATIONS
+####################
+#
+#  CMAC
+#     Description:
+#        Make sure that two arrays are equal in length and data, raise an error otherwise
+#     Params:
+#        -m          Set algorithm (DES/CBC or AES/CBC)
+#        -k          Set key value
+#        -i          Set Initialization Vector
+#     Return:  CMAC value
+#     Usage:   CMAC -m alg -k key [-i iv] data2mac
+#     Example: 
+#        _cmac=   $(CMAC -m AES/CBC -k 00000000000000000000000000000000 FF00FF)
+DEFUN CMAC
+   args[*]=       ${argv[*];q}
+   # ev args
+   try
+      @I_DEFs
+      _args_etc[*]=  $(@I_PARSE_OPTS _cl_defs ${args[*];q})
+      _data= ${_args_etc[0]}
+      if       "${_algorithm}" == "AES/CBC" || "${_algorithm}" == "AES"
+         return $(F_CMAC_AES)
+      elseif   "${_algorithm}" == "DES/CBC" || "${_algorithm}" == "DES"
+         return $(F_CMAC_DES)
+      else
+         /error "Unknown or missing algorithm: '-m ${_algorithm}'"
+      end
+      _data=
+   catch 1
+      F_CMAC_SHOW_HELP
+      /error "${last.error}"
+   end
+END
+#
+#  UTILITY FUNCTIONS
+DEFUN F_CMAC_SHOW_HELP
+   @I_DEFs
+   println
+   println "CMAC -m algorithm -k key [-i vector] data"
+   println
+   println " Options:"
+   F_PRINT_OPTS_NEW _cl_defs
+   println
+   println " Copyright:"
+   println "   (c) 2017-2020 by NXP Semiconductors Austria GmbH"
+   println
+END
+DEFUN I_DEFs
+   # # COMMAND LINE OPTIONS DEFINITONS -------------------------------
+   # usage: CMAC [[-m|--mode algorithm][-k|--key key][-i|--iv vector][data [pattern..]* 
+   _cl_defs[*]= 
+   #            " <opt>  <presence> <command>    <#args>  <description>"
+   _cl_defs[#]= " '-m'     M        '@I_SetAlg'   1         'Set algorithm (DES or AES)'  "
+   _cl_defs[#]= " '-k'     M        '@I_SetKey'   1         'Set key value'                       "
+   _cl_defs[#]= " '-i'     O        '@I_SetIV'    1         'Set Initialization Vector'           "
+END
+DEFUN I_SetKey
+   _key=       ${argv[0]}
+END
+DEFUN I_SetAlg
+   _algorithm= ${argv[0]}
+END
+DEFUN I_SetIV
+   _IV=        ${argv[0]}
+END
+DEFUN F_ShiftL1
+   _in=        ${argv[0]}
+   _out=
+   _msb=       0
+   _offset=    $(/expr 0 + ${_in;l})
+   _chunkLen=  6
+   while ${_offset} > 0
+      _chunkLen=  $(min ${_chunkLen} ${_offset})
+      _offset= $(/expr ${_offset} - ${_chunkLen})
+      # ev _in;s0,8
+      _dword=  ${_in;s${_offset},${_chunkLen}}
+      # ev _dword
+      _newInt= $(/expr 0x${_dword} * 2 + ${_msb})
+      # ev _newInt
+      _msb=    $(/expr 0x${_dword;s0,1} / 8)
+      # ev _dword
+      # ev _dword;s0,1
+      # ev _msb
+      _out= ${_newInt;h${_chunkLen}}${_out}
+   end
+   # ev L
+   # ev _xp_K1
+   # ev _xp_K2
+   # ev _out
+   # ev _in
+   # ev _out
+   return ${_out}
+END
+DEFUN F_GenerateSubkeys
+   _key=          ${argv[0]}
+   _subkeys[*]=   "" ""
+   JCipher
+   
+   ASSERT_VarsAreNotEmpty _key _cipherBlockSize _algorithm _Rb
+   _data=      $(pad -b ${_cipherBlockSize} -p M1 00)
+   
+   _cmd[*]=    encrypt -m ${_algorithm} -p NOPAD -k ${_key} ${_data}
+   # ev _cmd
+   # F_INFO 4 "${_cmd[*]}"
+   L=          $(${_cmd})
+   # F_INFO 4 "result: ${L}"
+   # F_INFO 4 "CIPH(0) is '${L}'"
+   _keyVal=    ${L}
+   for _keyIndex 0 1
+      _msb=    $(/expr 0x${_keyVal;s0,1} / 8)
+      _keyVal= $(F_ShiftL1 ${_keyVal})
+      if ${_msb}
+         _keyVal= $(xor ${_keyVal} ${_Rb})
+      end
+      _subkeys[${_keyIndex}]= ${_keyVal}
+   end
+   # ar _subkeys
+   
+   # F_INFO 4 "SUBKEYS are '${_subkeys[*]}'"
+   return ${_subkeys[*];q}
+END
+DEFUN F_IsBlockAligned
+   _data=   ${argv[0]}
+   # ev _data;l
+   _dataLen=   $(/expr ${_data;l} / 2)
+   if ${_data;l} > 0 && $(/expr ${_dataLen} % ${_cipherBlockSize}) == 0
+      # F_INFO 4 "DATA ${_data;qq}(${_dataLen}) is block(${_cipherBlockSize}) aligned"
+      return 1
+   else
+      _bLen=   $(/expr ${_data;l} / 2)
+      # F_INFO 4 "DATA ${_data;qq}(${_dataLen}) is NOT block(${_cipherBlockSize}) aligned (+$(/expr ${_bLen} % ${_cipherBlockSize}))"
+      return 0
+   end
+END
+DEFUN F_CMAC
+   JCipher
+   @setIfNot _IV  $(pad -b ${_cipherBlockSize} -p M1 00)
+    
+   _subKeys[*]=   $(F_GenerateSubkeys ${_key})
+
+   _subkeyInd= 0
+   # ev _data
+   if $(F_IsBlockAligned ${_data})
+      _dataMod=   ${_data}
+   else
+      _dataMod=   $(pad -b ${_cipherBlockSize} -p M2 ${_data})
+      _subkeyInd= 1
+   end
+   
+   # xor 1st block with IV
+   # F_INFO 4 "XOR 1st block with IV : ${_IV}"
+   # F_INFO 4 " before : ${_dataMod}"
+   
+   # ev _IV
+   # ev _dataMod
+   _dataMod=   $(xor $(byteSubs _dataMod 0 ${_cipherBlockSize}) ${_IV})$(byteSubs _dataMod ${_cipherBlockSize})
+   # println " after  : ${_dataMod}"
+   # ev _dataMod
+   # F_INFO 4 " after  : ${_dataMod}"
+   
+   # xor last block with subkey
+   # F_INFO 4  "XOR last block with subkey $(/expr 1 + ${_subkeyInd}): ${_subKeys[${_subkeyInd}]}"
+   # F_INFO 4   " before : ${_dataMod}"
+   _dataMod=   $(xor ${_dataMod} ${_subKeys[${_subkeyInd}]})
+   # F_INFO 4   " after  : ${_dataMod}"
+   # ev _dataMod
+   # _lastBlock= $(lastBytes _dataMod ${_cipherBlockSize})
+   # ev _lastBlock
+   # _lastBlock= $(xor ${_lastBlock} ${_subKeys[{_subkeyInd}]})
+   # ev _lastBlock
+   # ev _lastBlock
+   # _dataMod=   $(byteSubs _dataMod 0 ${_cipherBlockSize})
+   
+   # F_INFO 4   "Encrypt with key : ${_key}"
+   # F_INFO 4   " before : ${_dataMod}"
+   # _dataMod=   $(encrypt -m ${_algorithm} -p NOPAD -k ${_key} ${_dataMod})
+   _cmd[*]= encrypt -m ${_algorithm} -p NOPAD -k ${_key} ${_dataMod}
+   # ev _cmd
+   # F_INFO 4 "${_cmd[*]}"
+   _dataMod=  $(${_cmd})
+   # F_INFO 4 "result: ${_dataMod}"
+   # F_INFO 4   " after  : ${_dataMod}"
+   return $(lastBytes _dataMod ${_cipherBlockSize})
+END
+DEFUN F_CMAC_DES
+   ASSERT_VarsAreNotEmpty _key 
+   _algorithm=       DES/CBC
+   _cipherBlockSize= 8
+   _Rb=              1B
+   return            $(F_CMAC)
+END
+DEFUN F_CMAC_AES
+   ASSERT_VarsAreNotEmpty _key
+   _algorithm=       AES/CBC
+   _cipherBlockSize= 16
+   _Rb=              87
+   return            $(F_CMAC)
+END

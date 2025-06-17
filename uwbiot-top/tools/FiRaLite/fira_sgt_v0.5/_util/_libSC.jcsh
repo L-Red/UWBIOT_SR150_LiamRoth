@@ -1,0 +1,895 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+########################################
+#   GLOBAL PLATFORM SECURE CHANNEL PROTOCOL SC02 FUNCTIONS
+########################################
+#   FUNCTION LIST:
+####################
+#   SC02_ExternalAuthenticate
+#   SC02_GenerateSessionKeys
+#   SC02_KeyDerivation
+########################################
+#   IMPORTS
+####################
+@${script.dir}/_lib3d
+@${script.dir}/_libCrypto
+@${script.dir}/_keys
+@${script.dir}/_libTlv
+########################################
+#  DEFINITIONS
+####################
+DDC.CardCryptogram=     00
+DDC.HostCryptogram=     01
+DDC.DerivationS_ENC=    04
+DDC.DerivationS_MAC=    06
+DDC.DerivationS_RMAC=   07
+LABEL.SESSION_KEY= 0000000000000046495241
+LABEL.SESSION_ID=  0000000000000046495241
+# Key derivation constants
+CARD.cryptogram.L=   0080
+HOST.cryptogram.L=   0080
+MAC.chainingValue=   00000000000000000000000000000000
+# SECURITY LEVELS
+SCP_SecLevel_=             00
+SCP_SecLevel_PLAIN=        00   #   0x00 "No secure messaging (default)"
+SCP_SecLevel_MAC=          01   #   0x01 "Command MAC (C-MAC) generation"
+SCP_SecLevel_ENC=          03   #   0x03 "Command data encryption (C-ENC) and C-MAC generation"
+SCP_SecLevel_RMAC=         10   #   0x10 "Response MAC (R-MAC) generation"
+SCP_SecLevel_CRMAC=        11   #   0x11 "C-MAC and R-MAC generation"
+SCP_SecLevel_CRMACENC=     13   #   0x13 "C-MAC, R-MAC and C-ENC"
+SCP_SecLevel_CRMACENCRENC= 33   #   0x33 "C-MAC, R-MAC ,R-ENC and C-ENC"
+########################################
+# 
+#AUTHENTICATION_METHODS for GA ASYMM
+SCP_AM_SYM_AES128=              00  # Symmetric authentication with AES128 
+SCP_AM_ASYM_UL_NIST_P256=       40  #  Asymmetric unilateral authentication with NIST P-256
+SCP_AM_ASYM_UL_SAMS_NIST_P256=  48  #  Asymmetric unilateral authentication with seamless authentication method switch allowed with NIST P-256
+SCP_AM_ASYM_MA_NIST_P256=       80  #  Asymmetric mutual authentication with NIST P-256
+SCP_AM_ASYM_MA_SAMS_NIST_P256=  88  #  Asymmetric mutual authentication with seamless authentication method switch allowed with NIST P-256
+
+########################################
+g_SCP_SessionInfo[*]=
+g_SCP_SessionInfo[#]=   "" #  0: SCP Version          ${_SCP}"
+g_SCP_SessionInfo[#]=   "" #  1: KVN                  ${_KVN} (0x${_KVN;h2})"
+g_SCP_SessionInfo[#]=   "" #  2: Security Level       ${_securityLevel}"
+g_SCP_SessionInfo[#]=   "" #  3: Host Challenge       ${HOST.challenge}"
+g_SCP_SessionInfo[#]=   "" #  4: Diversification Data ${_KeyDiversificationData}"
+g_SCP_SessionInfo[#]=   "" #  5: Master Key ENC       ${_SCP0xKeyset[0]}"
+g_SCP_SessionInfo[#]=   "" #  6: Master Key MAC       ${_SCP0xKeyset[1]}"
+g_SCP_SessionInfo[#]=   "" #  7: Master Key DEK       ${_SCP0xKeyset[2]}"
+g_SCP_SessionInfo[#]=   "" #  8: Static S-ENC         ${S.ENC}"
+g_SCP_SessionInfo[#]=   "" #  9: Static S-MAC         ${S.MAC}"
+g_SCP_SessionInfo[#]=   "" # 10: Static DEK           ${S.DEK}"
+g_SCP_SessionInfo[#]=   "" # 11: Static S-RMAC        ${S.RMAC}"
+g_SCP_SessionInfo[#]=   "" # 12: Card Challenge       ${CARD.challenge}"
+g_SCP_SessionInfo[#]=   "" # 13: Sequence Counter     ${SequenceCounter}"
+g_SCP_SessionInfo[#]=   "" # 14: Card Cryptogram      ${CARD.cryptogram}"
+g_SCP_SessionInfo[#]=   "" # 15: Host Cryptogram      ${HOST.cryptogram}"
+g_SCP_SessionInfo[#]=   "" # 16: CMAC                 ${MAC.chainingValue}"
+
+/app JCipher
+keygen -m ECC -o keypairgen -r
+PK_X_Host= ${KEY_ECC_PublicKeyX}
+PK_Y_Host= ${KEY_ECC_PublicKeyY}
+e_Pub_Host= 04${PK_X_Host}${PK_Y_Host}
+e_Priv_Host= ${KEY_ECC_PrivateKey}
+
+#host.Pub.1= 04AD78851E602D79C00927463CE084209F0670F0DA40D35F86791F126DD83D59397C36C2026E0B2EBF60FF1BA729E70EFDC4441EBC7999316BA10DA2DFD314D8FD)
+#host.Priv.1= 3EE0B87757D8A61C7DE3806DBF886E13E56F132B2C3DB8134E907E2704AB9637
+SERIALNO= 00000001
+SUB_ID= 00000001000000010000000100000001
+
+/mode trace off 
+/s-v TBS_DATA_host_cert 93#(${SERIALNO})42#(9999999999999999)5F20#(${SUB_ID})5F25#(${time;fmt=ymd})5F24#(20301231)53#(d1da7a)7F49#(B0#(${host_Pub})F0#(00))
+#ev TBS_DATA_host_cert
+sign -m ECDSA -o genSign -d ${SK.VENDOR-CA.AUT} -h SHA-256 -i ${TBS_DATA_host_cert}
+
+/s-v Cert_Host 7F21%(${TBS_DATA_host_cert}5F37#(${SIGNATURE_ECDSA_R}${SIGNATURE_ECDSA_S}))
+/s-v Cert_Host $(pad -p NOPAD ${CERT.RFID.AUT})
+/mode trace on 
+
+########################################
+#   FUNCTION DECLARATIONS
+####################
+#
+#   SC02_GeneralAuthenticate_1
+#      Description:
+#         Perform GENERAL AUTHENTICATE - part 1 according to Fira SC02 protocol
+#      Params: 
+#         argument 1: (optional)
+#            Host Challenge
+#         argument 2: (optional)
+#            Key Version Number
+#      Return:  Host challenge and GENERAL AUTHENTICATE response from card
+#      Usage:   SC02_GeneralAuthenticate_1 [hostChallenge] [kvn] [keyID]
+#      Example: 
+#         _iuResp[*]= $(SC02_S_GeneralAuthenticate_1)
+DEFUN SC02_S_GeneralAuthenticate_1
+    HOST.challenge=   ${argv[0]}
+    HOST.KVN=         ${argv[1]}
+    HOST.KID=         ${argv[2]}
+
+    if ${HOST.challenge;l} != 32
+        HOST.challenge= ${random;len=16}
+    end
+
+    if ${HOST.KVN;l} == 0
+        HOST.KVN= 0
+    end
+
+    _kvn= ${HOST.KVN;h2}
+    if ${HOST.KID;l} == 0
+        HOST.KID= 0
+    end
+    _kid= ${HOST.KID;h2}
+
+    /send 0087${_kvn}${_kid}#(7C#(81#(${HOST.challenge})))00 *9000
+    _InitAuthResponse= ${last.response.data;uc}
+    # ev	 _InitAuthResponse   
+
+    return ${HOST.challenge} ${_InitAuthResponse}
+END
+#
+#  SC02_ExternalAuthenticate
+#     Description:
+#        Perform External authenticate according to SC02
+#     Params:
+#        argument 1:
+#           Security Level, See SECURITY LEVELS above
+#     Return:  none
+#     Usage:   SC02_ExternalAuthenticate sec_level
+#     Example: 
+#        SC02_ExternalAuthenticate plain
+#     Note: Key values are retrieved from a pool of well-known keys defined in _keys.jcsh
+DEFUN SC02_S_GeneralAuthenticate_2
+    _securityLevelReq=            ${argv[0]}
+    # ev	 _securityLevel
+    _SecurityLevel=               $(F_SCP_GetSecurityLevelCode ${_securityLevelReq})
+    # ev	 _SecurityLevel
+    # ev	 _InitAuthResponse   
+    _KeyDiversificationData=   $(byteSubs _InitAuthResponse 0 10)
+    _KeyInformation=           $(byteSubs _InitAuthResponse 10 3)
+    # ev	 _KeyInformation
+    _KVN=                      $(byteSubs _KeyInformation 0 1)
+    _SCP=                      $(byteSubs _KeyInformation 1 1)
+    _SCPi=                     $(byteSubs _KeyInformation 2 1)
+    CARD.challenge=            $(byteSubs _InitAuthResponse 13 16)
+    # ev	 CARD.challenge
+    CARD.cryptogram=           $(byteSubs _InitAuthResponse 29 16)
+    # ev	 CARD.cryptogram
+    _SequenceCounter=          $(byteSubs _InitAuthResponse 45 3)
+    if ${_SequenceCounter;l} == 0
+        _SequenceCounter= 1
+    end
+
+    _KVN= $(/expr 0 + 0x${_KVN})
+    # ev	 _KVN
+    _SC02Keys[*]= $(F_GET_KEYSETs ${_KVN})
+    # ar		 _SC02Keys
+
+    for _SCP0xKeyset ${_SC02Keys[*];q}
+        _SCP0xKeyset[*]=  ${_SCP0xKeyset[*]}
+        # TODO only pick SC02 keys
+        _SCP0xKeyset[*]=  ${_SCP0xKeyset[2+3]}
+        ar		 _SCP0xKeyset
+        ev	 HOST.challenge
+        ev	 CARD.challenge
+        S_Keys[*]=  $(SC02_GenerateSessionKeys ${_SCP0xKeyset[*]} ${HOST.challenge} ${CARD.challenge})
+        ASSERT_ArrayLengthIs S_Keys 5
+
+        # ar		 S_Keys
+        S.ENC=   ${S_Keys[0]}
+        S.MAC=   ${S_Keys[1]}
+        S.RMAC=  ${S_Keys[2]}
+
+        CARD.offcard.cryptogram=   $(SC02_KeyDerivation  ${DDC.CardCryptogram} ${CARD.cryptogram.L} ${HOST.challenge}${CARD.challenge} ${S.MAC} )
+        CARD.offcard.cryptogram=   $(byteSubs CARD.offcard.cryptogram 0 16)
+        # ev	 CARD.offcard.cryptogram
+        if ${CARD.offcard.cryptogram} != ${CARD.cryptogram}
+            # _skCmd[0]= "set-key ${_KVN}/1/AES/${_SCP0xKeyset[0]} ${_KVN}/2/AES/${_SCP0xKeyset[1]} ${_KVN}/3/AES/${_SCP0xKeyset[2]}"
+            # ar		 _skCmd
+            continue
+        else
+             #_skCmd[0]= "set-key ${_KVN}/1/AES/${_SCP0xKeyset[0]} ${_KVN}/2/AES/${_SCP0xKeyset[1]} ${_KVN}/3/AES/${_SCP0xKeyset[2]}"
+             println "${_skCmd}"
+            # ${_skCmd}
+            break
+        end
+    end
+
+    if ${CARD.offcard.cryptogram} != ${CARD.cryptogram}
+        /error "ERROR in SC02_S_GeneralAuthenticate_2. Card cryptogram invalid"
+    end
+    S.ENC=   ${S_Keys[0]}
+    S.RMAC=  ${S_Keys[2]}
+
+    # calculate HOST cryptogram
+    HOST.cryptogram=  $(SC02_KeyDerivation  ${DDC.HostCryptogram} ${HOST.cryptogram.L} ${HOST.challenge}${CARD.challenge} ${S.MAC})
+    HOST.cryptogram=  $(byteSubs HOST.cryptogram 0 16)
+
+    # Calculate CMAC over the EXTERNAL AUTHENTICATE command
+    # 20210422: MAC TL '8400' is added to CMAC calculation
+    extAuthCmd= 0C87${_SecurityLevel}00267C2482#(${HOST.cryptogram})8400
+    
+    MAC.chainingValue=   $(CRYPTO_AES_CMAC ${MAC.chainingValue}${extAuthCmd} ${S.MAC})
+    MAC.chainingValue=   $(byteSubs MAC.chainingValue 0 16)
+
+    g_SCP_SessionInfo[2]=   "${_SecurityLevel}"
+    g_SCP_SessionInfo[5]=   "${_SCP0xKeyset[0]}"
+    g_SCP_SessionInfo[6]=   "${_SCP0xKeyset[1]}"
+    g_SCP_SessionInfo[7]=   "${_SCP0xKeyset[2]}"
+    g_SCP_SessionInfo[8]=   "${S.ENC}"
+    g_SCP_SessionInfo[9]=   "${S.MAC}"
+    g_SCP_SessionInfo[10]=  "${S.DEK}"
+    g_SCP_SessionInfo[11]=  "${S.RMAC}"
+    g_SCP_SessionInfo[12]=  "${CARD.challenge}"
+    g_SCP_SessionInfo[13]=  "${_SequenceCounter}"
+    g_SCP_SessionInfo[14]=  "${CARD.cryptogram}"
+    g_SCP_SessionInfo[15]=  "${HOST.cryptogram}"
+    g_SCP_SessionInfo[16]=  "${MAC.chainingValue}"
+
+    # Send EXTERNAL AUTHENTICATE
+    _extAuthCmd= /send 0C87${_SecurityLevel}00#(7C#(82#(${HOST.cryptogram})84#(${MAC.chainingValue})))
+    # ev	 _extAuthCmd
+    ${_extAuthCmd}
+END
+#
+# Doesn't support ext. lengthOfData
+# Make sure that CLA byte has coding including SM
+#
+DEFUN SC02_Send
+    /mode trace off 
+    _capdu=  $(pad -p NOPAD -b 1 ${argv[0]})
+    # ev	 _capdu
+    _SecurityLevel=         "${g_SCP_SessionInfo[2]}"  
+    S.ENC=               "${g_SCP_SessionInfo[8]}"
+    S.MAC=               "${g_SCP_SessionInfo[9]}"
+    S.DEK=               "${g_SCP_SessionInfo[10]}"
+    S.RMAC=              "${g_SCP_SessionInfo[11]}"
+    _SequenceCounter=    "${g_SCP_SessionInfo[13]}"
+    MAC.chainingValue=   "${g_SCP_SessionInfo[16]}"
+    # HEADER= $(byteSubs _capdu 0 4)
+    _newLc= 0
+    # check if there is CDATA
+    if $(/expr ${_capdu;l} / 2) > 5
+      
+        _lc= $(/expr 0 + 0x${_capdu;s8,2}) # to dec
+        # ev	 _lc
+        CDATA= $(byteSubs _capdu 5 ${_lc})
+
+        #Check for Le
+        if ${_lc} == $(/expr ${_capdu;l} / 2 - 5)
+         # No Le present
+         # /printf "Case 3\n"
+         _le= ""      
+
+        else
+         # Le present
+         #/printf "Case 4 \n"
+         _le= $(byteSubs _capdu $(/expr 5 + ${_lc}) 1)
+        end
+        # ev	 CDATA
+        # ev _le
+        # ev _SecurityLevel
+      
+    if ${_lc} > 1    
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+         
+            # CDATA need to be encrypted
+            # Prepare IV
+            _iv= $(encrypt -m AES/CBC -p NOPAD -k ${S.ENC} $(F_C_SequenceCounter ${_SequenceCounter}))
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            # encrypt data
+            CDATA= $(encrypt -m AES/CBC -p M4 -k ${S.ENC} -i ${_iv} ${CDATA})
+            # add MAC  length to _Lc
+            _newLc= $(/expr ${CDATA;l} / 2 + 16)
+            _cla= '0C'
+        elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+            _newLc= $(/expr ${_lc} + 16)
+            _cla= '0C'
+        else
+            # no encryption for data
+            _newLc= ${_lc}
+            _cla= '00'
+        end
+    elseif $(/expr ${_capdu;l} / 2) == 5 
+        # Case 2, no CDATA
+        # /printf "Case 2\n"
+        _le= $(byteSubs _capdu 4 1)
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            # Increment shall be done even if there is no data
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            _newLc= $(/expr ${_lc} + 16)
+            _cla= '0C'
+        elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+            _newLc= $(/expr ${_lc} + 16)
+            _cla= '0C'
+        else
+            # no CMAC
+            _newLc= ${_lc}
+            _cla= '00'
+        end
+    else
+        # Case 1 CAPDU, no Le
+        /printf "Case 1\n"
+        _le= ""
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            # Increment shall be done even if there is no data
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            _newLc= 20
+            _cla= '0C'
+            elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+                _newLc= 20
+                _cla= '0C'
+            else
+                # no CMAC
+                _newLc= 4
+                _cla= '00'
+            end
+        end
+        # ev	 _newLc
+
+        if "${_SecurityLevel;s1,1}" == "1" || "${_SecurityLevel;s1,1}" == "3" # CMAC 
+            _cmacInput= ${_cla}$(byteSubs _capdu 1 3)${_newLc;h2}${CDATA}8410
+            # ev	 _cmacInput
+            MAC.chainingValue=   $(CRYPTO_AES_CMAC ${MAC.chainingValue}${_cmacInput} ${S.MAC})
+            MAC.chainingValue=   $(byteSubs MAC.chainingValue 0 16)
+            g_SCP_SessionInfo[16]=  "${MAC.chainingValue}"
+        end
+
+        _capdu= ${_cla}$(byteSubs _capdu 1 3)${_newLc;h2}${CDATA}${MAC.chainingValue}${_le}
+        # # ev	 _capdu
+        /mode trace on 
+        /send ${_capdu}
+        if "${last.response.status;s0,2}" == "69"
+            return ${last.response.status}
+        end   
+        /mode trace off
+        # Unwrap
+        # ev _SecurityLevel
+        if "${_SecurityLevel;s0,1}" == "1" || "${_SecurityLevel;s0,1}" == "3" # RMAC
+            _RDATA_length= $(/expr ${last.response.data;l} - 32)
+            _receivedMac= $(byteSubs last.response.data ${_RDATA_length} 16)
+            # Calculate and verify R-MAC
+            MAC.chainingValue= $(CRYPTO_AES_CMAC ${MAC.chainingValue}${_RDATA}${last.response.status} ${S.RMAC})
+            MAC.chainingValue=  $(byteSubs MAC.chainingValue 0 16)
+
+            if "${MAC.chainingValue}" != "${_receivedMac}"
+                /error R-MAC verification failed!
+            else
+                /echo R-MAC verification successful!
+            end   
+
+            _RDATA= ""
+            if ${_RDATA_length} > 0 && "${_SecurityLevel;s0,1}" == "3"
+                 _RDATA= $(byteSubs last.response.data 0 ${_RDATA_length})
+                 # ev   _encryptedResponse
+                 # ev _SequenceCounter
+                 _iv= $(encrypt -m AES/CBC -p NOPAD -k ${S.ENC} $(F_R_SequenceCounter ${_SequenceCounter}))
+                 _RDATA= $(decrypt -m AES/CBC -p M4 -k ${S.ENC} -i ${_iv} ${_RDATA})
+                 # ev   _decryptedResponse
+            end   
+        else # PLAIN
+            _RDATA= ${last.response.data}
+        end
+    end
+    # ev   _RDATA_length
+    # ev   _receivedMac
+    # ev _RDATA
+    # ev last.response.status
+    
+    return ${_RDATA} ${last.response.status} 
+END
+
+## SC02_A_SelectADF
+#     Description:
+#        Perform Select ADF SC02 with ASSYMETRIC ADF
+#     Params:
+#        argument 1: 
+#           ADF OID with SC2 ASSYMETRIC key
+#        argument 2:
+#           Authentication Method for OptsA, see AUTHENTICATION_METHODS above  
+#     Return:  none
+#     Usage:   SC02_A_SelectADF OID sec_level
+#     Example: 
+#        SC02_A_SelectADF 0101010101010101 ASYM_MA_NIST_P256
+DEFUN SC02_A_SelectADF
+  _oid=                     ${argv[0]}
+  _authenticationMethodReq= ${argv[1]}
+  #ev  _oid
+  _AuthenticationMethod=    $(F_SCP_GetAuthenticationMethodCode ${_authenticationMethodReq})
+  #ev _AuthenticationMethod
+  _E_Pub_Host= 81#(${e_Pub_Host})
+  _OptsA= 8001${_AuthenticationMethod}
+  _OIDs= 06#(${_oid})
+  # 80a50001#(OptsA||E.Pub.1||OIDs)
+  send 80a50400#(${_OptsA}${_E_Pub_Host}${_OIDs})
+  # FCI encoding = {'6F' ║ L ║ {'81'  ║ Le ║ E.Pub.2}}
+  _SelectADFResponse= ${last.response.data;uc}
+  #ev   _SelectADFResponse
+  e_Pub_card= $(TLV_Get 81 $(TLV_Get 6F ${storedCert}))
+  #ev e_Pub_card
+END
+
+## SC02_A_GeneralAuthenticate
+#     Description:
+#        Perform SC02 General Authenticate with ASSYMETRIC key
+#     Params:
+#        argument 1: 
+#           Security Level, See SECURITY LEVELS above
+#        argument 2:
+#           Authentication Method for OptsA, see AUTHENTICATION_METHODS above. Use without "SCP_AM_"  
+#     Return:  none
+#     Usage:   SC02_A_SelectADF OID sec_level
+#     Example: 
+#        SC02_GeneralAuthenticate plain 
+DEFUN SC02_A_GeneralAuthenticate
+    _securityLevelReq=  ${argv[0]}
+    # ev  _securityLevel
+    _SecurityLevel=     $(F_SCP_GetSecurityLevelCode ${_securityLevelReq})
+END
+
+#
+#  SC02_GenerateSessionKeys
+#     Description:
+#        Generate Session keys according to SC02
+#     Params:
+#        argument 1:
+#           ENC Master key
+#        argument 2:
+#           MAC Master key
+#        argument 3:
+#           DEK Master key
+#        argument 4:
+#           HOST Challenge
+#        argument 5:
+#           CARD Challenge
+#     Return:  Session keys: S_ENC, S_MAC and S_DEK, SESSION_ID, SESSION_KEY
+#     Usage:   SC02_GenerateSessionKeys sec_level
+#     Example: 
+#        SC02_GenerateSessionKeys plain
+#     Note: Key values are retrieved from a pool of well-known keys defined in _keys.jcsh
+DEFUN SC02_GenerateSessionKeys
+   arg[*]=           ${argv[*]}
+   if ${arg[*];l} != 5
+      /error "ERROR in SC02_GenerateSessionKeys. Wrong number of parameters: ${arg[*];l}"
+   end
+   _SC02Keys[*]=    ${arg[0+3];q}
+   HOST.challenge=   ${arg[3];q}
+   CARD.challenge=   ${arg[4];q}
+   # ev HOST.challenge
+   # ev CARD.challenge
+   K.ENC=   ${_SC02Keys[0]}
+   K.MAC=   ${_SC02Keys[1]}
+   K.DEK=   ${_SC02Keys[2]}
+
+   L.param= $(/expr ${K.ENC;l} << 2)
+   L.param= ${L.param;h4}
+   
+   S.ENC=   $(SC02_KeyDerivation ${DDC.DerivationS_ENC}  ${L.param} ${HOST.challenge}${CARD.challenge} ${K.ENC})
+   S.MAC=   $(SC02_KeyDerivation ${DDC.DerivationS_MAC}  ${L.param} ${HOST.challenge}${CARD.challenge} ${K.MAC})
+   S.RMAC=  $(SC02_KeyDerivation ${DDC.DerivationS_RMAC} ${L.param} ${HOST.challenge}${CARD.challenge} ${K.DEK})
+   S.UWB.KEY=   $(SC02_KeyDerivation 00 ${L.param} ${HOST.challenge}${CARD.challenge} ${S.MAC} ${LABEL.SESSION_KEY}) 
+   S.UWB.ID=    $(SC02_KeyDerivation 01 ${L.param} ${HOST.challenge}${CARD.challenge} ${S.MAC} ${LABEL.SESSION_ID})
+   S.UWB.ID=    04$(byteSubs S.UWB.ID 0 4)
+   S_Keys[*]= ${S.ENC} ${S.MAC} ${S.RMAC} ${S.UWB.KEY} ${S.UWB.ID}
+   
+   return ${S_Keys[*]}
+END
+
+#
+#  SC03_KeyDerivation
+#     Description:
+#        Derive a session key according to FiRa Secure Channel 2 
+#     Params:
+#        argument 1:
+#           Derivation constant
+#        argument 2:
+#           Length of data
+#        argument 3:
+#           Context
+#        argument 4:
+#           Key
+#        argument 5:
+#           label - optional. If not defined then it's 0000000000000000000000
+#     Return:  A derived session key
+#     Usage:   SC02_KeyDerivation derivationConstant lengthOfData context key
+DEFUN SC02_KeyDerivation  #  derivationConstant lengthOfData context key
+   arg[*]=  ${argv[*]}
+   if ${arg[*];l} != 4 && ${arg[*];l} != 5
+      /error "ERROR in SC02_KeyDerivation. Wrong number of parameters: ${arg[*];l}"
+   end
+
+   derivationConstant=  ${arg[0];q}
+   lengthOfData=        ${arg[1];q}
+   context=             ${arg[2];q}
+   key=                 ${arg[3];q}
+   label=                 ${arg[4];q}
+   counter= 1
+   # ev derivationConstant
+   # ev label
+   # If no external label is provided then use default
+   if "x${label}x" == "xx"
+        label="0000000000000000000000" 
+        data= ${label}${derivationConstant}00${lengthOfData}${counter;h2}${context}
+   else
+        data= ${label}${derivationConstant}00${lengthOfData}${counter;h2}
+   end
+   # ev	 key
+   # ev	 counter
+   # ev	 data
+   _derivData= $(CRYPTO_AES_CMAC ${data} ${key})
+   # ev	 _derivData
+   
+   if "${lengthOfData}" == "00C0" || "${lengthOfData}" == "0100"
+      counter= 2
+      data= "0000000000000000000000"${derivationConstant}00${lengthOfData}${counter;h2}${context}
+      # ev	 data
+      _derivData= ${_derivData}$(CRYPTO_AES_CMAC ${data} ${key})
+      # ev	 _derivData
+   end
+   return ${_derivData}
+END
+
+#  Utility function
+DEFUN F_SCP_GetSecurityLevelCode
+   return ${SCP_SecLevel_${argv[0];uc}}
+   # _tmp[*]= ${_SecLevel[*];q}
+   # while ${_tmp[*];l} > 0
+      # if "${_tmp[0];lc}" == "${argv[0];lc}"
+         # return ${_tmp[1];h2}
+      # end
+      # _tmp[*]= ${_tmp[2..];q}
+   # end
+   # return 00
+END
+
+# 
+DEFUN F_SCP_GetAuthenticationMethodCode
+  met= ${argv[0];uc}
+  #ev met
+   return ${SCP_AM_${argv[0];uc}}
+END
+
+# F_C_SequenceCounter 
+# Description:
+#  Get 16B value of COMMAND sequenceCounter.
+# Params:
+#  argument 1 decimal counter < 16,777,215
+# Return: 16 Bytes hex counter
+# Usage: $(F_C_SequenceCounter ${seqNo})
+DEFUN F_C_SequenceCounter
+   return 00000000000000000000000000${argv[0];h6}
+END
+
+# F_R_SequenceCounter 
+# Description:
+#  Get 16B value of RESPONSE sequenceCounter with MSB = '80'
+# Params:
+#  argument 1 decimal counter < 16,777,215
+# Return: 16 Bytes hex counter
+# Usage: $(F_R_SequenceCounter ${seqNo})
+DEFUN F_R_SequenceCounter
+   return 80000000000000000000000000${argv[0];h6}
+END
+
+DEFUN F_PrintSCPSummary
+   F_INFO 3 "SCP AUTHENTICATION SUMMARY:"
+   setPrintSpacing +2
+   F_INFO 3 "SCP Version          : ${g_SCP_SessionInfo[0]}"
+   F_INFO 3 "KVN                  : ${g_SCP_SessionInfo[1]} (0x${g_SCP_SessionInfo[1];h2})"
+   F_INFO 3 "Security Level       : ${g_SCP_SessionInfo[2]}"
+   F_INFO 3 "Host Challenge       : ${g_SCP_SessionInfo[3]}"
+   F_INFO 3 "Diversification Data : ${g_SCP_SessionInfo[4]}"
+   F_INFO 3 "Master Key ENC       : ${g_SCP_SessionInfo[5]}"
+   F_INFO 3 "Master Key MAC       : ${g_SCP_SessionInfo[6]}"
+   F_INFO 3 "Master Key DEK       : ${g_SCP_SessionInfo[7]}"
+   F_INFO 3 "Static S-ENC         : ${g_SCP_SessionInfo[8]}"
+   F_INFO 3 "Static S-MAC         : ${g_SCP_SessionInfo[9]}"
+   F_INFO 3 "Static DEK           : ${g_SCP_SessionInfo[10]}"
+   F_INFO 3 "Static S-RMAC        : ${g_SCP_SessionInfo[11]}"
+   F_INFO 3 "Card Challenge       : ${g_SCP_SessionInfo[12]}"
+   F_INFO 3 "Sequence Counter     : ${g_SCP_SessionInfo[13]}"
+   F_INFO 3 "Card Cryptogram      : ${g_SCP_SessionInfo[14]}"
+   F_INFO 3 "Host Cryptogram      : ${g_SCP_SessionInfo[15]}"
+   F_INFO 3 "CMAC                 : ${g_SCP_SessionInfo[16]}"
+   setPrintSpacing -2
+END
+
+## FiRa_CreateADF
+#     Description:
+#        Create ADF functions assembles APDU for FiRa provisioning
+#     Params:
+#        argument 1: 
+#           OID of the ADF to create, excluding 06|L|
+#        argument 2:
+#           ADF provisioning credentials, including BF50
+#     Return:  none
+#     Usage:   FiRa_CreateADF OID data
+#     Example: 
+#        FiRa_CreateADF 0101010101010101 BF50
+DEFUN FiRa_CreateADF
+  _oid=            ${argv[0]}
+  _payload=        ${argv[1]}
+  #84e00000 06#OID BF50#data 00 
+  _data= 06#(${_oid})${_payload}
+
+  
+  return $(APDU 80E00000 06#(${_oid})${_payload} 00)
+END
+
+DEFUN FiRa_DeleteADF
+  _oid=            ${argv[0]}
+  #80e40000 06#OID 00 
+  _data= 06#(${_oid})${_payload}
+  return $(APDU 80E40000 06#(${_oid}) 00)
+END
+
+## FiRa_ManageADF
+#     Description:
+#        Manage ADF functions assembles APDU for ADF managment
+#     Params:
+#        argument 1: 
+#           ADF contents
+#     Return:  none
+#     Usage:   FiRa_ManageADF OID data
+#     Example: 
+#        FiRa_ManageADF 
+DEFUN FiRa_ManageADF
+  _payload=        ${argv[0]}
+  #84EA0000 BF70(UWBCapabilieties) DF70#(AccessConditions) || BF50#(secure channel credentials) 00 
+  return $(APDU 80EA0000 ${_payload} 00)
+END
+
+## FiRa_SelectADF
+#     Description:
+#        SELECT ADF functions assembles APDU for SELECT ADF
+#     Params:
+#        argument 1: 
+#           OID
+#     Return:  none
+#     Usage:   FiRa_SelectADF OID
+#     Example: 
+#        FiRa_SelectADF 0101010101010101
+DEFUN FiRa_SelectADF
+  _OID=   ${argv[0]}
+  _OID=   06#(${_OID})
+  # 80A50400#(8000${ADF_01})00 *9000
+  return $(APDU 80A50400 800100${_OID} 00)
+END
+
+## FiRa_Dispatch
+#     Description:
+#        FiRa_Dispatch function assembles APDU for DISPATCH command
+#     Params:
+#        argument 1: 
+#           C/RAPDU
+#     Return:  none
+#     Usage:   FiRa_Dispatch CAPDU
+#     Example: 
+#        FiRa_Dispatch 80A504000D8001000608020202020202020200
+DEFUN FiRa_Dispatch
+  _data=   ${argv[0]}
+  
+  # 80C20000 0000#(70#(81#(${_data})00
+  # DISPATCH must have ext. lenght coding
+  return $(pad -p NOPAD 80C200000000#(70%(81%(${_data})))0000)
+END
+## FiRa_DispatchResp
+#     Description:
+#        FiRa_DispatchResp function assembles RAPDU for DISPATCH command
+#     Params:
+#        argument 1: 
+#           status OK|DEVICE|HOST|NOK - mandatory
+#        argument 2: 
+#           data - optional
+#        argument 3: 
+#           notification event: ADF|SC|RDS - optional
+#        argument 4: 
+#           notification data - optional
+#     Return:  none
+#     Usage:   FiRa_DispatchResp RAPDU ok
+#     Example: 
+#        FiRa_DispatchResp 9000 ok
+DEFUN FiRa_DispatchResp
+    /mode trace off
+    S_OK=     00
+    S_DEVICE= 80
+    S_HOST=   81
+    S_NOK=    FF
+
+    _status= ${argv[0]}
+    _status= ${S_${_status}}
+    #ev _status
+    _tag80= $(tlv 80 ${_status}) # Status
+
+    _data=   ${argv[1]}
+    if "${_data}" != ""
+        _tag81= $(tlv 81 ${_data}) # Data
+    end    
+    #ev _tag81
+    _tagE181= ${argv[2]} 
+    if "${_tagE181}" != ""
+        E_ADF= 00
+        E_SC=  01
+        E_RDS= 02
+        _tagE180= 800100 # Notification format
+        _tagE181= $(tlv 81 ${E_${_tagE181}}) # Notification event
+        _tagE182= ${argv[3]}
+        
+        if "${_tagE182}" != ""
+            _tagE182= $(tlv 82 ${_tagE182}) # Notification data
+        end
+        _tagE1= $(tlv E1 ${_tagE180}${_tagE181}${_tagE182}) # Notification        
+    end  
+    #ev _tagE1
+
+    _tag71= $(tlv 71 ${_tag80}${_tag81}${_tagE1})    
+    #ev _tag71
+    /mode trace on
+    return ${_tag71}
+END
+## FiRa_CheckDispatchResp
+#     Description:
+#        FiRa_CheckDispatchResp function parses the response to DISPATCH command
+#     Params:
+#        argument 1: 
+#           C/RAPDU
+#     Return:  none
+#     Usage:   FiRa_CheckDispatchResponse CAPDU
+#     Example: 
+#        FiRa_Dispatch 712D80018081166F128410A00000039654530000000104500000009000E110800100810100820802020202020202029000
+DEFUN FiRa_CheckDispatchResponse
+    _resp=   ${argv[0]}
+    _tag71= $(TLV_Get 71 ${_resp})
+    _status= $(TLV_Get 80 ${_tag71}) # Status
+    _data= $(TLV_Get 81 ${_tag71}) # Data
+
+    /printf "DATA: %s\n" ${_data}
+
+    if "${_status}" == ""
+        # We have INITIATE TRANSACTION response, forward to conterpart
+        return ${_data} 80
+    end
+
+    S_00= "Transaction complete with no error"
+    S_80= "Command processed, return to counterpart device"
+    S_81= "Command processed, return to host application"
+    S_FF= "Transaction complete with error"
+    /printf "STATUS: %s - %s\n" ${_status} "${S_${_status}}"
+
+
+    _tagE1= $(TLV_Get E1 ${_tag71}) # Notification
+    # ev _tagE1
+    if ${_tagE1;l} > 0
+        _tagE180= $(TLV_Get 80 ${_tagE1}) # Notification format
+        _tagE181= $(TLV_Get 81 ${_tagE1}) # Notification event
+        _tagE182= $(TLV_Get 82 ${_tagE1}) # Notification data
+
+        E_00= "ADF Selected"
+        E_01= "Secure Channel established"
+        E_02= "UWB Config Available"
+        /echo NOTIFICATION:
+        /printf "  FORMAT: %s\n" ${_tagE180}
+        /printf "  EVENT: %s - %s\n" ${_tagE181} "${E_${_tagE181}}"
+        /printf "  DATA: %s\n" ${_tagE182}
+    end
+
+    return ${_data} ${_status} ${_tagE181} ${_tagE182}
+END
+## FiRa_InitiateTrans
+#     Description:
+#        FiRa_InitiateTrans function assembles APDU for INITIATE TRANSACTION command
+#     Params:
+#        argument 1: 
+#           OID
+#     Return:  none
+#     Usage:   FiRa_InitiateTrans OID
+#     Example: 
+#        FiRa_Dispatch 0202020202020202
+DEFUN FiRa_InitiateTrans
+  _OID=   ${argv[0]}
+  _OID=   06#(${_OID})
+  
+  # 80C20000#(70#(81#(${_data})00
+  return $(APDU 80120000 ${_OID} 00)
+END
+## FiRa_Tunnel
+#     Description:
+#        FiRa_Tunnel function assembles APDU for TUNNEL command
+#     Params:
+#        argument 1: 
+#           C/RAPDU
+#     Return:  none
+#     Usage:   FiRa_Tunnel CAPDU
+#     Example: 
+#        FiRa_Tunnel 80A504000D8001000608020202020202020200
+DEFUN FiRa_Tunnel
+  _data=   ${argv[0]}
+  # Tunnel command must be coded in ext. length
+  return $(pad -p NOPAD 801400000000#(70%(81%(${_data})))0000)
+END
+## FiRa_PutData
+#     Description:
+#        FiRa_PutData function assembles APDU for PUT DATA command
+#     Params:
+#        argument 1: 
+#           data tags with values
+#     Return:  none
+#     Usage:   FiRa_PutData taglist
+#     Example: 
+#        FiRa_PutData 80A504000D8001000608020202020202020200
+DEFUN FiRa_PutData
+  _data=   ${argv[0]}
+  
+  return $(APDU 0CDB3FFF ${_data} 00)
+END  
+
+## FiRa_PutData_UCA
+#     Description:
+#        FiRa_PutData function assembles APDU for PUT DATA command with UWB_CONFIG_AVAILABLE tag
+#     Params:
+#        argument 1: 
+#           data tags with values
+#     Return:  none
+#     Usage:   FiRa_PutDataMRA
+#     Example: 
+#        FiRa_PutData_UCA
+DEFUN FiRa_PutData_UCA
+    return $(APDU 00DB3FFF BF78#(8700) 00)
+END
+
+## APDU
+#     Description:
+#        Creates APDU with proper coding short/extened length
+#     Params:
+#        argument 1: 
+#           APDU header
+#        argument 2: 
+#           APDU payload
+#        argument 3: 
+#           APDU Le  
+#     Return:  none
+#     Usage:   APDU header payload le
+#     Example: 
+#        APDU 80EA0000 aabbccdd 00
+DEFUN APDU
+  /mode trace off
+  /app JCipher
+  _header=    ${argv[0]}
+
+  _payload=   $(pad -p NOPAD ${argv[1]})
+  _le=        ${argv[2]}
+  _length= $(/expr ${_payload;l} / 2)
+  # ev _length
+  
+  if "${_length}" > 255
+    
+    # extended lenght 
+    if "x${_le}x" != "xx"
+      # ev _length
+      # ev _le
+      _apdu= ${_header}00${_length;h4}${_payload}${_le;h4}
+    else
+      # /echo No LE
+      _apdu= ${_header}00${_length;h4}${_payload}
+    end
+  else
+    # /echo Short
+    # short APDU
+    _apdu= ${_header}${_length;h2}${_payload}${_le}
+  end
+  # ev _apdu
+  # send ${_apdu}
+  #return ${last.return}
+  /mode trace on 
+  return ${_apdu}
+END

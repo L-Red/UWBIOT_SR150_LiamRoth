@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<!--
+Copyright 2020-2021 NXP
+
+This software is owned or controlled by NXP and may only be used
+strictly in accordance with the applicable license terms.  By expressly
+accepting such terms or by downloading, installing, activating and/or
+otherwise using the software, you are agreeing that you have read, and
+that you agree to comply with and are bound by, such license terms.  If
+you do not agree to be bound by the applicable license terms, then you
+may not retain, install, activate or otherwise use the software.
+
+ _   ___      _____   ___    _____
+| | | \ \    / / _ ) |_ _|__|_   _|
+| |_| |\ \/\/ /| _ \  | |/ _ \| |
+ \___/  \_/\_/ |___/ |___\___/|_|
+
+-->
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7. APIs : SE &#8212; UWB IoT v04.06.05 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=82a976d7" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-sphinx.css?v=b2129fd5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/uwb.css?v=53af4aef" />
+    <script src="../../../_static/documentation_options.js?v=738c5798"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="7.1. SE APDU APIs" href="api_se_apdu_apis.html" />
+    <link rel="prev" title="6.8. APIs for Porting" href="api_porting.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+
+
+<div id="navbar" class="navbar navbar-inverse navbar-default ">
+<div class="container">
+  <div class="navbar-header">
+    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="../toc-sr150.html">
+       </a>
+    <span class="navbar-text navbar-version pull-left"><b>v04.06.05</b></span>
+  </div>
+
+    <div class="collapse navbar-collapse nav-collapse">
+      <ul class="nav navbar-nav">
+      <li class="dropdown globaltoc-container"></li> 
+        
+        
+          <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../toc-sr150.html">TOC <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../uwbiot/index.html">1. UWB IoT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../uwbiot/introduction.html">1.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uwbiot/acronyms.html">1.2. Acronyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uwbiot/folder-structure.html">1.3. Folder Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#root-folder">1.3.1. Root Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#binaries">1.3.2. <code class="docutils literal notranslate"><span class="pre">/binaries</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#boards">1.3.3. <code class="docutils literal notranslate"><span class="pre">/boards</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#demos">1.3.5. <code class="docutils literal notranslate"><span class="pre">/demos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#docs">1.3.6. <code class="docutils literal notranslate"><span class="pre">/docs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#ext-boards">1.3.7. <code class="docutils literal notranslate"><span class="pre">/ext/boards</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#ext-freertos">1.3.8. <code class="docutils literal notranslate"><span class="pre">/ext/freertos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#ext-tml-libuwbd">1.3.9. <code class="docutils literal notranslate"><span class="pre">/ext/TML-libuwbd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#firmware-images">1.3.10. <code class="docutils literal notranslate"><span class="pre">/firmware_images</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#libs">1.3.11. <code class="docutils literal notranslate"><span class="pre">/libs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#libs-halimpl">1.3.12. <code class="docutils literal notranslate"><span class="pre">/libs/halimpl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#libs-uci-core">1.3.13. <code class="docutils literal notranslate"><span class="pre">/libs/uci-core</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#libs-uwb-iot">1.3.14. <code class="docutils literal notranslate"><span class="pre">/libs/uwb-iot</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#libs-uwbradar">1.3.15. <code class="docutils literal notranslate"><span class="pre">/libs/uwbradar</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#project">1.3.16. <code class="docutils literal notranslate"><span class="pre">/project</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#scripts">1.3.17. <code class="docutils literal notranslate"><span class="pre">/scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwbiot/folder-structure.html#tools">1.3.18. <code class="docutils literal notranslate"><span class="pre">/tools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/arch-block-diag.html">1.4. Block Diagram</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-block-diag.html#components">1.4.1. Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-block-diag.html#sr150-freertos">1.4.2. SR150 - FreeRTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-block-diag.html#sr040">1.4.5. SR040</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/arch-mw-modes-index.html">1.5. Modes of operation of the MW</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-mw-standalonemode.html">1.5.1. Standalone Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-mw-pnpmode.html">1.5.2. PNP Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-mw-fira-mctt-pcttmode.html">1.5.3. FiRa / MCTT / PCTT Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/arch-dynamic.html">1.6. Dynamic View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#uwb-stack-init-sequence">1.6.1. UWB Stack Init Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#uwb-stack-deinit-sequence">1.6.2. UWB Stack DeInit Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#p2p-multicast-ranging">1.6.3. P2P, Multicast Ranging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#ble-oob">1.6.4. BLE - OOB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#recovery-uci-command-timeout">1.6.5. Recovery : UCI Command Timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../arch/arch-dynamic.html#recovery-fw-crash-handling-from-mw">1.6.6. Recovery : FW Crash Handling from MW</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changes/index-sr150.html">2. Changes &amp; Release History (SR150)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changes/current.html">2.1. Build <code class="samp docutils literal notranslate"><span class="pre">v04.06.05</span></code> (Current, NXP Internal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#scope-of-build">2.1.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#mw-changes">2.1.2. MW Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#api-changes">2.1.3. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#folder-restructuring">2.1.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#new-features-added">2.1.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#features-removed">2.1.6. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#features-updated">2.1.7. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#build-system-changes">2.1.8. Build system changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#demo-updates">2.1.9. Demo updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/current.html#id25">2.1.10. Folder Restructuring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v04.05.07-sr150.html">2.2. Release <code class="docutils literal notranslate"><span class="pre">v04.05.07</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#scope-of-build">2.2.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#mw-changes">2.2.2. MW Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#api-changes">2.2.3. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#folder-restructuring">2.2.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#new-features-added">2.2.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#features-removed">2.2.6. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#features-updated">2.2.7. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#build-system-changes">2.2.8. Build system changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.05.07-sr150.html#demo-updates">2.2.9. Demo updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v04.04.05-sr150.html">2.3. Release <code class="docutils literal notranslate"><span class="pre">v04.04.05</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#scope-of-build">2.3.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#api-changes">2.3.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#folder-restructuring">2.3.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#new-features-added">2.3.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#features-removed">2.3.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#features-updated">2.3.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#build-system-changes">2.3.7. Build system changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.05-sr150.html#demo-updates">2.3.8. Demo updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v04.04.03-sr150.html">2.4. Release <code class="docutils literal notranslate"><span class="pre">v04.04.03</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#firmware">2.4.1. Firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#scope-of-build">2.4.2. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#api-changes">2.4.3. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#folder-restructuring">2.4.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#new-features-added">2.4.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#features-removed">2.4.6. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#features-updated">2.4.7. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#build-system-changes">2.4.8. Build system changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.04.03-sr150.html#demo-updates">2.4.9. Demo updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v04.03.15-sr150.html">2.5. Release <code class="docutils literal notranslate"><span class="pre">v04.03.15</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#scope-of-build">2.5.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#api-changes">2.5.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#folder-restructuring">2.5.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#new-features-added">2.5.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#features-removed">2.5.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#features-updated">2.5.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#id1">2.5.7. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.03.15-sr150.html#build-system-changes">2.5.8. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v04.02.01-sr150.html">2.6. Release <code class="docutils literal notranslate"><span class="pre">v04.02.01</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#scope-of-build">2.6.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#api-changes">2.6.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#folder-restructuring">2.6.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#new-features-added">2.6.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#features-removed">2.6.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#features-updated">2.6.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#build-system-changes">2.6.7. Build system changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v04.02.01-sr150.html#demo-updates">2.6.8. Demo updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.15.11-sr150.html">2.7. Release <code class="docutils literal notranslate"><span class="pre">v03.15.11</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#scope-of-build">2.7.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#api-changes">2.7.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#folder-restructuring">2.7.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#new-features-added">2.7.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#features-removed">2.7.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#features-updated">2.7.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.11-sr150.html#build-system-changes">2.7.7. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.15.03-sr150.html">2.8. Release <code class="docutils literal notranslate"><span class="pre">v03.15.03</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#scope-of-build">2.8.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#api-changes">2.8.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#folder-restructuring">2.8.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#new-features-added">2.8.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#features-removed">2.8.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#features-updated">2.8.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.15.03-sr150.html#build-system-changes">2.8.7. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.14.04-sr150.html">2.9. Release <code class="docutils literal notranslate"><span class="pre">v03.14.04</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#scope-of-build">2.9.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#api-changes">2.9.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#folder-restructuring">2.9.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#new-features-added">2.9.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#features-removed">2.9.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#features-updated">2.9.6. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.14.04-sr150.html#build-system-changes">2.9.7. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.13.03.html">2.10. Release <code class="docutils literal notranslate"><span class="pre">v03.13.03</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#scope-of-build">2.10.1. Scope of Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#api-changes">2.10.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#tml-refactoring">2.10.3. TML Refactoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#folder-restructuring">2.10.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#new-features-added">2.10.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#features-removed">2.10.6. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#features-updated">2.10.7. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.13.03.html#build-system-changes">2.10.8. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.10.02-sr150.html">2.11. Release <code class="docutils literal notranslate"><span class="pre">v03.10.02</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#scope-of-release">2.11.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#api-changes">2.11.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#folder-restructuring">2.11.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#new-features-added">2.11.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#features-removed">2.11.5. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.10.02-sr150.html#features-updated">2.11.6. Features Updated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.09.00-sr150.html">2.12. Release <code class="docutils literal notranslate"><span class="pre">v03.09.00</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.09.00-sr150.html#scope-of-release">2.12.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.09.00-sr150.html#new-features-added">2.12.2. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.09.00-sr150.html#build-system-changes">2.12.3. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.08.01.html">2.13. Release <code class="docutils literal notranslate"><span class="pre">v03.08.01</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.08.01.html#scope-of-release">2.13.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.08.01.html#api-changes">2.13.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.08.01.html#folder-restructuring">2.13.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.08.01.html#new-features-added">2.13.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.08.01.html#features-updated">2.13.5. Features Updated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.06.01.html">2.14. Release <code class="docutils literal notranslate"><span class="pre">v03.06.01</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#scope-of-release">2.14.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#api-changes">2.14.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#id1">2.14.3. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#folder-restructuring">2.14.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#new-features-added">2.14.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.06.01.html#features-updated">2.14.6. Features Updated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.05.00-sr150.html">2.15. Release <code class="docutils literal notranslate"><span class="pre">v03.05.00</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.05.00-sr150.html#scope-of-release">2.15.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.05.00-sr150.html#new-features-added">2.15.2. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.05.00-sr150.html#features-updated">2.15.3. Features Updated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.04.00.html">2.16. Release <code class="docutils literal notranslate"><span class="pre">v03.04.00</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#scope-of-release">2.16.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#api-changes">2.16.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#folder-restructuring">2.16.3. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#new-features-added">2.16.4. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#features-updated">2.16.5. Features Updated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.04.00.html#build-system-changes">2.16.6. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.02.00.html">2.17. Release <code class="docutils literal notranslate"><span class="pre">v03.02.00</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.02.00.html#scope-of-release">2.17.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.02.00.html#api-changes">2.17.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.02.00.html#new-features-added">2.17.3. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.02.00.html#build-system-changes">2.17.4. Build system changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v03.00.01-sr150.html">2.18. Release <code class="docutils literal notranslate"><span class="pre">v03.00.01</span></code> (SR150)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.00.01-sr150.html#scope-of-release">2.18.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.00.01-sr150.html#api-changes">2.18.2. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v03.00.01-sr150.html#new-features-added">2.18.3. New Features Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v01.04.00-nxpint.html">2.19. Build <code class="docutils literal notranslate"><span class="pre">v01.04.00</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.04.00-nxpint.html#scope-of-release">2.19.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.04.00-nxpint.html#new-features-added">2.19.2. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.04.00-nxpint.html#api-changes">2.19.3. API Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changes/v01.00.00-nxpint.html">2.20. Release <code class="docutils literal notranslate"><span class="pre">v01.00.00</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#scope-of-release">2.20.1. Scope of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#validation-platforms-counterparts">2.20.2. Validation platforms / counterparts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#api-changes">2.20.3. API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#folder-restructuring">2.20.4. Folder Restructuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#new-features-added">2.20.5. New Features Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#features-removed">2.20.6. Features Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#features-not-available">2.20.7. Features not available</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changes/v01.00.00-nxpint.html#features-with-limited-testing">2.20.8. Features with limited testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling/index.html">3. Compiling &amp; Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/pre-requisites.html">3.1. Pre-Requisites for compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/mcuxpresso-ide-default-projects.html">3.2. MCUXpresso IDE Projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../project/RhodesV4_SE/sr1xx-readme.html">3.2.2. RhodesV4-SE Standalone MCUXpresso Project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/segger-ide-default-projects.html">3.3. SEGGER IDE Projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../project/Nrf52840_SR1XX/readme.html">3.3.1. NRF52840-SR1XX Standalone Segger Embedded Studio Project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/build-pi-mk-shield.html">3.4. Raspberry PI + MK Shield CMake Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/pre-compiled-binaries.html">3.8. Pre Compiled binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../binaries/Rhodes4_SE/README.html">3.8.2. Precompiled Binaries for Rhodes V4 : SE Demos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../binaries/Rhodes4/README.html">3.8.3. Precompiled Binaries for Rhodes V4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../binaries/SE051W/README.html">3.8.4. SEMS Lite Update header files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../demos/index-sr150.html">4. SR150 Demos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../demos/demo-list-sr150.html">4.1. Demo List SR150</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../demos/demo-list-sr150.html#standalone-c-examples-for-sr150">4.1.1. Standalone C Examples for SR150</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controlee/readme.html">4.2. Demo Ranging Controlee</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controlee/readme.html#how-to-build">4.2.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controlee/readme.html#how-to-run">4.2.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controlee/readme.html#log-success">4.2.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controller/readme.html">4.3. Demo Ranging Controller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controller/readme.html#how-to-build">4.3.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controller/readme.html#how-to-run">4.3.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controller/readme.html#tof-2d-and-3d-aoa-modes">4.3.3. TOF, 2D and 3D AoA Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ranging_controller/readme.html#log-success">4.3.4. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html">4.4. SR150 FiraLite Initiator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#secure-ranging-on-sr150-se051w-with-firalite-applet">4.4.1. Secure Ranging on SR150-SE051W with FiRaLite Applet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#firalite-applet-version">4.4.2. FiRaLite Applet Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#prerequisites">4.4.3. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#how-to-build">4.4.4. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#steps-to-be-followed-to-run-from-rtos-embedded-device">4.4.5. Steps to be followed to run from RTOS-embedded device:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#steps-to-be-followed-to-run-from-linux-host-like-rpi">4.4.6. Steps to be followed to run from linux host like Rpi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_initiator/readme.html#log-success">4.4.7. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder/readme.html">4.5. SR150 FiraLite Responder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder/readme.html#prerequisites">4.5.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder/readme.html#how-to-build">4.5.2. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder/readme.html#how-to-run">4.5.3. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder/readme.html#log-success">4.5.4. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder_iot_concurrency/readme.html">4.6. SR150 FiraLite Responder IOT Concurrency</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder_iot_concurrency/readme.html#prerequisites">4.6.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder_iot_concurrency/readme.html#how-to-build">4.6.2. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder_iot_concurrency/readme.html#how-to-run">4.6.3. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_fl_responder_iot_concurrency/readme.html#log-success">4.6.4. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_factory/readme.html">4.7. SR1XX OTP Storage Factory Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_factory/readme.html#prerequisites">4.7.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_factory/readme.html#how-to-build">4.7.2. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_factory/readme.html#how-to-run">4.7.3. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_factory/readme.html#log-success">4.7.4. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_mainline/readme.html">4.8. SR1XX OTP Storage Mainline Mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_mainline/readme.html#how-to-build">4.8.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_mainline/readme.html#how-to-run">4.8.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_otp_storage_mainline/readme.html#log-success">4.8.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_anchor/readme.html">4.9. TDOA Anchor UCI 2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_anchor/readme.html#how-to-build">4.9.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_anchor/readme.html#how-to-run">4.9.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_anchor/readme.html#log-success">4.9.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_tag/readme.html">4.10. TDOA Tag</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_tag/readme.html#how-to-build">4.10.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_tag/readme.html#how-to-run">4.10.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_tag/readme.html#log-success">4.10.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_sync_anchor/readme.html">4.11. TDOA Sync Anchor UCI 2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_sync_anchor/readme.html#how-to-build">4.11.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_sync_anchor/readme.html#how-to-run">4.11.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_ultdoa_sync_anchor/readme.html#log-success">4.11.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_binding/readme.html">4.12. demo_binding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_binding/readme.html#how-to-build">4.12.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_binding/readme.html#how-to-run">4.12.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR150_SE051W/demo_binding/readme.html#log-success">4.12.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/pnp/Rhodes4/readme.html">4.13. RV4 Plug-n-Play FW</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Rhodes4/readme.html#how-to-use">4.13.1. How to Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Rhodes4/readme.html#how-to-run-pnp-at-higher-baudrate">4.13.2. How to run PNP at higher baudrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Rhodes4/readme.html#how-to-run-pnp-with-hardware-flow-control">4.13.3. How to run PNP with Hardware flow control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Rhodes4/readme.html#watch-dog-timer">4.13.4. Watch Dog Timer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/pnp/Socket/readme.html">4.14. Plug-n-Play FW Over Socket</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Socket/readme.html#how-to-build">4.14.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/pnp/Socket/readme.html#how-to-use-on-linux-host">4.14.2. How to Use on linux host</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_initiator/readme.html">4.15. SR1XX DLTDOA Ranging Initiator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_initiator/readme.html#how-to-build">4.15.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_initiator/readme.html#how-to-run">4.15.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_initiator/readme.html#log-success">4.15.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_responder/readme.html">4.16. SR1XX DLTDOA Ranging Responder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_responder/readme.html#how-to-build">4.16.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_responder/readme.html#how-to-run">4.16.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_responder/readme.html#log-success">4.16.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_tag/readme.html">4.17. SR1XX DLTDOA Ranging Tag</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_tag/readme.html#how-to-build">4.17.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_tag/readme.html#how-to-run">4.17.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_dltdoa_tag/readme.html#log-success">4.17.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/mctt_pctt/readme.html">4.18. MCTT &amp; PCTT Demo (SR1XX)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/mctt_pctt/readme.html#how-to-use">4.18.1. How to Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/mctt_pctt/readme.html#how-to-build-standalone-project">4.18.2. How to Build(Standalone project)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/mctt_pctt/readme.html#how-to-build-cmake-project">4.18.3. How to Build(CMAKE project)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/mctt_pctt/readme.html#how-to-run">4.18.4. How to Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction/readme.html">4.19. Demo nearby interaction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction/readme.html#ios">4.19.1. IOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction/readme.html#android">4.19.2. Android</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction_client/readme.html">4.20. Demo nearby interaction Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction_client/readme.html#android">4.20.1. Android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_nearby_interaction_client/readme.html#ios">4.20.2. IOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_owr_aoa_advertiser/readme.html">4.21. OWR AoA advertiser</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_owr_aoa_advertiser/readme.html#how-to-build">4.21.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_owr_aoa_advertiser/readme.html#how-to-run">4.21.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_owr_aoa_advertiser/readme.html#log-success">4.21.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_rx/readme.html">4.22. SR150 In Band Data Transfer Rx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_rx/readme.html#how-to-build">4.22.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_rx/readme.html#how-to-run">4.22.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_rx/readme.html#log-success">4.22.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_tx/readme.html">4.23. SR150 IN Band Data Transfer Tx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_tx/readme.html#prerequisites">4.23.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_tx/readme.html#how-to-build">4.23.2. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_tx/readme.html#how-to-run">4.23.3. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_inband_data_transfer_tx/readme.html#log-success">4.23.4. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_test_tx/readme.html">4.24. SR1XX Demo Test TX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_tx/readme.html#how-to-build">4.24.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_tx/readme.html#how-to-run">4.24.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_tx/readme.html#log-success">4.24.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_test_rx/readme.html">4.25. SR1XX Demo Test Rx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_rx/readme.html#how-to-build">4.25.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_rx/readme.html#how-to-run">4.25.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_test_rx/readme.html#log-success">4.25.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controlee/readme.html">4.26. Demo Hybrid Scheduled Ranging Controlee</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controlee/readme.html#how-to-build">4.26.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controlee/readme.html#how-to-run">4.26.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controlee/readme.html#log-success">4.26.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controller/readme.html">4.27. Demo Hybrid Scheduled Ranging Controller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controller/readme.html#how-to-build">4.27.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controller/readme.html#how-to-run">4.27.2. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_hybrid_ranging_controller/readme.html#log-success">4.27.3. Log (Success)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/SR1XX/demo_csa_controlee/readme.html">4.28. Demo CSA Controlee</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_csa_controlee/readme.html#how-to-set-wrapped-rds-optional">4.28.1. How to Set Wrapped Rds(optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_csa_controlee/readme.html#how-to-build">4.28.2. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_csa_controlee/readme.html#how-to-run">4.28.3. How to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/SR1XX/demo_csa_controlee/readme.html#log-success">4.28.4. Log (Success)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../demos/index-se051w.html">5. SE051W Demos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../demos/demo-list-se051w.html">5.1. Demo List SE051W</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../demos/demo-list-se051w.html#standalone-c-examples-for-se051w">5.1.1. Standalone C Examples for SE051W</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../demos/se_vcom/readme.html">5.2. se_vcom</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/se_vcom/readme.html#how-to-build">5.2.1. How to Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../demos/se_vcom/readme.html#how-to-run">5.2.2. How to Run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index-sr150.html">6. APIs : UWB IoT and SR150</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_status.html">6.1. UWB API Status Codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_status.html#_CPPv430eSESSION_STATUS_REASON_CODES_t"><code class="docutils literal notranslate"><span class="pre">eSESSION_STATUS_REASON_CODES_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_const.html">6.2. UWB API Consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_types.html">6.3. UWB API Data Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414tUWBAPI_STATUS"><code class="docutils literal notranslate"><span class="pre">tUWBAPI_STATUS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419UWB_RangingMethod_t"><code class="docutils literal notranslate"><span class="pre">UWB_RangingMethod_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv49resetType"><code class="docutils literal notranslate"><span class="pre">resetType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412session_type"><code class="docutils literal notranslate"><span class="pre">session_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414linkLayerModes"><code class="docutils literal notranslate"><span class="pre">linkLayerModes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417notification_type"><code class="docutils literal notranslate"><span class="pre">notification_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416demo_chip_type_t"><code class="docutils literal notranslate"><span class="pre">demo_chip_type_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417demo_board_type_t"><code class="docutils literal notranslate"><span class="pre">demo_board_type_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420PreferedUpdateRate_t"><code class="docutils literal notranslate"><span class="pre">PreferedUpdateRate_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416eAntennaSelect_t"><code class="docutils literal notranslate"><span class="pre">eAntennaSelect_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417UWB_ChannelNumber"><code class="docutils literal notranslate"><span class="pre">UWB_ChannelNumber</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414UWB_MacFcsType"><code class="docutils literal notranslate"><span class="pre">UWB_MacFcsType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv49UWB_SfdId"><code class="docutils literal notranslate"><span class="pre">UWB_SfdId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420UWB_PreambleIndxCode"><code class="docutils literal notranslate"><span class="pre">UWB_PreambleIndxCode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420UWB_PreambleDuration"><code class="docutils literal notranslate"><span class="pre">UWB_PreambleDuration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419UWB_Session_InfoNtf"><code class="docutils literal notranslate"><span class="pre">UWB_Session_InfoNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv427UWB_CoEx_InterfaceSelection"><code class="docutils literal notranslate"><span class="pre">UWB_CoEx_InterfaceSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421UWB_CoEx_NtfSelection"><code class="docutils literal notranslate"><span class="pre">UWB_CoEx_NtfSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419UWB_CoEx_ChannelCfg"><code class="docutils literal notranslate"><span class="pre">UWB_CoEx_ChannelCfg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv411UWB_PrfMode"><code class="docutils literal notranslate"><span class="pre">UWB_PrfMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416UWB_PsduDataRate"><code class="docutils literal notranslate"><span class="pre">UWB_PsduDataRate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417UWB_RfFrameConfig"><code class="docutils literal notranslate"><span class="pre">UWB_RfFrameConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416UWB_DeviceRole_t"><code class="docutils literal notranslate"><span class="pre">UWB_DeviceRole_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417UWB_MultiNodeMode"><code class="docutils literal notranslate"><span class="pre">UWB_MultiNodeMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414UWB_DeviceType"><code class="docutils literal notranslate"><span class="pre">UWB_DeviceType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421UWB_RangingRoundUsage"><code class="docutils literal notranslate"><span class="pre">UWB_RangingRoundUsage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv418UWB_AOA_Result_Req"><code class="docutils literal notranslate"><span class="pre">UWB_AOA_Result_Req</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413UWB_StsConfig"><code class="docutils literal notranslate"><span class="pre">UWB_StsConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420UWB_MacAddressMode_t"><code class="docutils literal notranslate"><span class="pre">UWB_MacAddressMode_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417UWB_ScheduledMode"><code class="docutils literal notranslate"><span class="pre">UWB_ScheduledMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413UWB_RadarMode"><code class="docutils literal notranslate"><span class="pre">UWB_RadarMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv426UWB_phaseParticipationCtrl"><code class="docutils literal notranslate"><span class="pre">UWB_phaseParticipationCtrl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv426UWB_phaseParticipationClee"><code class="docutils literal notranslate"><span class="pre">UWB_phaseParticipationClee</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412phSlotBitmap"><code class="docutils literal notranslate"><span class="pre">phSlotBitmap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv426multicastControllerActions"><code class="docutils literal notranslate"><span class="pre">multicastControllerActions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413UWB_ProfileID"><code class="docutils literal notranslate"><span class="pre">UWB_ProfileID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416phUwbSessionData"><code class="docutils literal notranslate"><span class="pre">phUwbSessionData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420phUwbSessionsContext"><code class="docutils literal notranslate"><span class="pre">phUwbSessionsContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413phRangingMesr"><code class="docutils literal notranslate"><span class="pre">phRangingMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412phRxInfoMesr"><code class="docutils literal notranslate"><span class="pre">phRxInfoMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416phRxInfoDebugNtf"><code class="docutils literal notranslate"><span class="pre">phRxInfoDebugNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413phAoaPdoaMesr"><code class="docutils literal notranslate"><span class="pre">phAoaPdoaMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv418phSnrPathIndexMesr"><code class="docutils literal notranslate"><span class="pre">phSnrPathIndexMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421phTwoWayRangingVsMesr"><code class="docutils literal notranslate"><span class="pre">phTwoWayRangingVsMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421phTwoWayRangingVsData"><code class="docutils literal notranslate"><span class="pre">phTwoWayRangingVsData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421phOneWayRangingVsMesr"><code class="docutils literal notranslate"><span class="pre">phOneWayRangingVsMesr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421phOneWayRangingVsData"><code class="docutils literal notranslate"><span class="pre">phOneWayRangingVsData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417phRangingMesrTdoa"><code class="docutils literal notranslate"><span class="pre">phRangingMesrTdoa</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419phTdoaRangingVsData"><code class="docutils literal notranslate"><span class="pre">phTdoaRangingVsData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv421phRangingMesrOwrAoa_t"><code class="docutils literal notranslate"><span class="pre">phRangingMesrOwrAoa_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412RANGING_MEAS"><code class="docutils literal notranslate"><span class="pre">RANGING_MEAS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419VENDORSPECIFIC_MEAS"><code class="docutils literal notranslate"><span class="pre">VENDORSPECIFIC_MEAS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413phRangingData"><code class="docutils literal notranslate"><span class="pre">phRangingData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phRangingParams"><code class="docutils literal notranslate"><span class="pre">phRangingParams</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phTxTelecConfig"><code class="docutils literal notranslate"><span class="pre">phTxTelecConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv426AccessoryConfigDataContent"><code class="docutils literal notranslate"><span class="pre">AccessoryConfigDataContent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv418UwbPhoneConfigData"><code class="docutils literal notranslate"><span class="pre">UwbPhoneConfigData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419UwbDeviceConfigData"><code class="docutils literal notranslate"><span class="pre">UwbDeviceConfigData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv427UserAccessoryConfigData_iOS"><code class="docutils literal notranslate"><span class="pre">UserAccessoryConfigData_iOS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414phDataTransmit"><code class="docutils literal notranslate"><span class="pre">phDataTransmit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412phDataCredit"><code class="docutils literal notranslate"><span class="pre">phDataCredit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416phUwbRadarcirNtf"><code class="docutils literal notranslate"><span class="pre">phUwbRadarcirNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420phUwbRadarTestIsoNtf"><code class="docutils literal notranslate"><span class="pre">phUwbRadarTestIsoNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv410RADAR_MEAS"><code class="docutils literal notranslate"><span class="pre">RADAR_MEAS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv413phUwbRadarNtf"><code class="docutils literal notranslate"><span class="pre">phUwbRadarNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415UWB_CoEx_IndNtf"><code class="docutils literal notranslate"><span class="pre">UWB_CoEx_IndNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phCtlrPhaseList"><code class="docutils literal notranslate"><span class="pre">phCtlrPhaseList</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv428phControllerHusSessionConfig"><code class="docutils literal notranslate"><span class="pre">phControllerHusSessionConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phCleePhaseList"><code class="docutils literal notranslate"><span class="pre">phCleePhaseList</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv427phControleeHusSessionConfig"><code class="docutils literal notranslate"><span class="pre">phControleeHusSessionConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv420phDataTxPhaseMngList"><code class="docutils literal notranslate"><span class="pre">phDataTxPhaseMngList</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419phDataTxPhaseConfig"><code class="docutils literal notranslate"><span class="pre">phDataTxPhaseConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv419phDataTxPhaseCfgNtf"><code class="docutils literal notranslate"><span class="pre">phDataTxPhaseCfgNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phUwbappContext"><code class="docutils literal notranslate"><span class="pre">phUwbappContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv414phGenericError"><code class="docutils literal notranslate"><span class="pre">phGenericError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416phUwbSessionInfo"><code class="docutils literal notranslate"><span class="pre">phUwbSessionInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phControleeList"><code class="docutils literal notranslate"><span class="pre">phControleeList</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv431phMulticastControleeListContext"><code class="docutils literal notranslate"><span class="pre">phMulticastControleeListContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv430phMulticastControleeStatusList"><code class="docutils literal notranslate"><span class="pre">phMulticastControleeStatusList</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv434phMulticastControleeListNtfContext"><code class="docutils literal notranslate"><span class="pre">phMulticastControleeListNtfContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv423phBlinkDataTxNtfContext"><code class="docutils literal notranslate"><span class="pre">phBlinkDataTxNtfContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412phUwbDataPkt"><code class="docutils literal notranslate"><span class="pre">phUwbDataPkt</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv415phUwbRcvDataPkt"><code class="docutils literal notranslate"><span class="pre">phUwbRcvDataPkt</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv431phDataControlTransmitNtfContext"><code class="docutils literal notranslate"><span class="pre">phDataControlTransmitNtfContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv416phUwbProfileInfo"><code class="docutils literal notranslate"><span class="pre">phUwbProfileInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv412phUwbCapInfo"><code class="docutils literal notranslate"><span class="pre">phUwbCapInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv417phUwbRframeLogNtf"><code class="docutils literal notranslate"><span class="pre">phUwbRframeLogNtf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_types.html#_CPPv418phUwbQueryDataSize"><code class="docutils literal notranslate"><span class="pre">phUwbQueryDataSize</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_apis.html">6.4. UWB Functional APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv415UwbApi_Init_NewP17phUwbappContext_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_Init_New()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv423UwbApi_SwitchToMCTTModeP17phUwbappContext_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SwitchToMCTTMode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv411UwbApi_InitP19tUwbApi_AppCallback"><code class="docutils literal notranslate"><span class="pre">UwbApi_Init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv415UwbApi_ShutDownv"><code class="docutils literal notranslate"><span class="pre">UwbApi_ShutDown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv416UwbApi_UwbdReset7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_UwbdReset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv421UwbApi_GetUwbDevStateP7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetUwbDevState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv418UwbApi_SessionInit8uint32_t12eSessionTypeP8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SessionInit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv420UwbApi_SessionDeinit8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SessionDeinit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv420UwbApi_GetDeviceInfoP14phUwbDevInfo_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetDeviceInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv423UwbApi_SetRangingParams8uint32_tPK17phRangingParams_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetRangingParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv423UwbApi_GetRangingParams8uint32_tP17phRangingParams_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetRangingParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv419UwbApi_SetAppConfig8uint32_t10eAppConfig8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetAppConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv433UwbApi_SetAppConfigMultipleParams8uint32_t7uint8_tPK20UWB_AppParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetAppConfigMultipleParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv426UwbApi_SetVendorAppConfigs8uint32_t7uint8_tPK26UWB_VendorAppParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetVendorAppConfigs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv419UwbApi_GetAppConfig8uint32_t10eAppConfigP8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetAppConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv433UwbApi_GetAppConfigMultipleParams8uint32_t7uint8_tP20UWB_AppParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetAppConfigMultipleParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv426UwbApi_GetVendorAppConfigs8uint32_t7uint8_tP26UWB_VendorAppParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetVendorAppConfigs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv419UwbApi_SetStaticSts8uint32_t8uint16_tPCK7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetStaticSts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv426UwbApi_StartRangingSession8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_StartRangingSession()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv422UwbApi_SetDeviceConfig13eDeviceConfig7uint8_tP20phDeviceConfigData_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetDeviceConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv422UwbApi_GetDeviceConfig13eDeviceConfigP20phDeviceConfigData_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetDeviceConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv425UwbApi_StopRangingSession8uint32_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_StopRangingSession()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv427UwbApi_EnableRangingDataNtf8uint32_t7uint8_t8uint16_t8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_EnableRangingDataNtf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv422UwbApi_GetSessionState8uint32_tP7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetSessionState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv421UwbApi_SendRawCommandA_7uint8_t8uint16_tP7uint8_tP8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SendRawCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv436UwbApi_UpdateControllerMulticastListP33phMulticastControleeListContext_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_UpdateControllerMulticastList()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv414UwbApi_GetTrng7uint8_tP7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetTrng()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv423UwbApi_SetProfileParamsP7uint8_t8uint16_tP18phUwbProfileInfo_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetProfileParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv427UwbApi_GetUwbConfigData_iOS16UWB_DeviceRole_tP31AccessoryUwbConfigDataContent_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetUwbConfigData_iOS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv431UwbApi_GetUwbConfigData_AndroidP21UwbDeviceConfigData_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetUwbConfigData_Android()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv426UwbApi_GetDeviceCapabilityP14phUwbCapInfo_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetDeviceCapability()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv415UwbApi_SendDataP14phUwbDataPkt_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SendData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv430UwbApi_SetControllerHusSessionP30phControllerHusSessionConfig_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetControllerHusSession()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv429UwbApi_SetControleeHusSessionP29phControleeHusSessionConfig_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetControleeHusSession()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis.html#_CPPv431UwbApi_SessionDataTxPhaseConfigP21phDataTxPhaseConfig_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SessionDataTxPhaseConfig()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_apis_sr1xx.html">6.5. UWB Functional APIs (SR100/SR150 Specific)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv419SetAppParams_type_t"><code class="docutils literal notranslate"><span class="pre">SetAppParams_type_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv424SetAppParams_value_au8_t"><code class="docutils literal notranslate"><span class="pre">SetAppParams_value_au8_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420SetAppParams_value_t"><code class="docutils literal notranslate"><span class="pre">SetAppParams_value_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv419SetAppParams_List_t"><code class="docutils literal notranslate"><span class="pre">SetAppParams_List_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv411otpRWOption"><code class="docutils literal notranslate"><span class="pre">otpRWOption</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv49appConfig"><code class="docutils literal notranslate"><span class="pre">appConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv415vendorAppConfig"><code class="docutils literal notranslate"><span class="pre">vendorAppConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv417UWB_SR1XX_DBG_CFG"><code class="docutils literal notranslate"><span class="pre">UWB_SR1XX_DBG_CFG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv418UWB_AppParams_type"><code class="docutils literal notranslate"><span class="pre">UWB_AppParams_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420UWB_DebugParams_type"><code class="docutils literal notranslate"><span class="pre">UWB_DebugParams_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv412deviceConfig"><code class="docutils literal notranslate"><span class="pre">deviceConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv418kUWBAntCfgRxMode_t"><code class="docutils literal notranslate"><span class="pre">kUWBAntCfgRxMode_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv413otpParam_Type"><code class="docutils literal notranslate"><span class="pre">otpParam_Type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv410calibParam"><code class="docutils literal notranslate"><span class="pre">calibParam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv413otpCalibParam"><code class="docutils literal notranslate"><span class="pre">otpCalibParam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv414calibTagOption"><code class="docutils literal notranslate"><span class="pre">calibTagOption</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv411eCalibState"><code class="docutils literal notranslate"><span class="pre">eCalibState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv49phChannel"><code class="docutils literal notranslate"><span class="pre">phChannel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv47antPair"><code class="docutils literal notranslate"><span class="pre">antPair</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416localizationZone"><code class="docutils literal notranslate"><span class="pre">localizationZone</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420UwbApi_GetFwCrashLogP18phFwCrashLogInfo_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetFwCrashLog()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv428UwbApi_SetDefaultCoreConfigsv"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetDefaultCoreConfigs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv426UwbApi_DoVcoPllCalibration7uint8_tP19phCalibRespStatus_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_DoVcoPllCalibration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421UwbApi_SetCalibration7uint8_t11eCalibParamP7uint8_t8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetCalibration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421UwbApi_GetCalibration7uint8_t11eCalibParamP19phCalibRespStatus_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetCalibration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421UwbApi_SetDebugParams8uint32_t7uint8_tPK22UWB_DebugParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SetDebugParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421UwbApi_GetDebugParams8uint32_t7uint8_tP22UWB_DebugParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetDebugParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv422UwbApi_GetBindingCountP21phSeGetBindingCount_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GetBindingCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv423UwbApi_QueryTemperatureP7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_QueryTemperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv424UwbApi_QueryUwbTimestamp7uint8_tA_7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_QueryUwbTimestamp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv422UwbApi_VerifyCalibDataP7uint8_t7uint8_t8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_VerifyCalibData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv437UwbApi_CalibrationIntegrityProtection15eCalibTagOption8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_CalibrationIntegrityProtection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv431UwbApi_UpdateActiveRoundsAnchor8uint32_t7uint8_t20UWB_MacAddressMode_tA_K22phActiveRoundsConfig_tP22phNotActivatedRounds_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_UpdateActiveRoundsAnchor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv433UwbApi_UpdateActiveRoundsReceiver8uint32_t7uint8_tA_K7uint8_tP22phNotActivatedRounds_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_UpdateActiveRoundsReceiver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv414phCalibPayload"><code class="docutils literal notranslate"><span class="pre">phCalibPayload</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv423UWB_AppParams_value_au8"><code class="docutils literal notranslate"><span class="pre">UWB_AppParams_value_au8</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv419UWB_AppParams_value"><code class="docutils literal notranslate"><span class="pre">UWB_AppParams_value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv422UWB_Debug_Params_value"><code class="docutils literal notranslate"><span class="pre">UWB_Debug_Params_value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421UWB_DebugParams_value"><code class="docutils literal notranslate"><span class="pre">UWB_DebugParams_value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv418UWB_AppParams_List"><code class="docutils literal notranslate"><span class="pre">UWB_AppParams_List</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv424UWB_VendorAppParams_List"><code class="docutils literal notranslate"><span class="pre">UWB_VendorAppParams_List</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416UWB_WiFiCoEx_Ftr"><code class="docutils literal notranslate"><span class="pre">UWB_WiFiCoEx_Ftr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420UWB_DebugParams_List"><code class="docutils literal notranslate"><span class="pre">UWB_DebugParams_List</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv412phUwbDevInfo"><code class="docutils literal notranslate"><span class="pre">phUwbDevInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv417phCalibRespStatus"><code class="docutils literal notranslate"><span class="pre">phCalibRespStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv423phGenerateTagRespStatus"><code class="docutils literal notranslate"><span class="pre">phGenerateTagRespStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv417phBlinkRespStatus"><code class="docutils literal notranslate"><span class="pre">phBlinkRespStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416phSeDoBindStatus"><code class="docutils literal notranslate"><span class="pre">phSeDoBindStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420phSeGetBindingStatus"><code class="docutils literal notranslate"><span class="pre">phSeGetBindingStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420SeConnectivityStatus"><code class="docutils literal notranslate"><span class="pre">SeConnectivityStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv421phSessionHandleList_t"><code class="docutils literal notranslate"><span class="pre">phSessionHandleList_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv429phUrskDeletionRequestStatus_t"><code class="docutils literal notranslate"><span class="pre">phUrskDeletionRequestStatus_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv418hSeGetBindingCount"><code class="docutils literal notranslate"><span class="pre">hSeGetBindingCount</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv412phRframeData"><code class="docutils literal notranslate"><span class="pre">phRframeData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv411phDebugData"><code class="docutils literal notranslate"><span class="pre">phDebugData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420phSchedStatusNtfData"><code class="docutils literal notranslate"><span class="pre">phSchedStatusNtfData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416phSeTestLoopData"><code class="docutils literal notranslate"><span class="pre">phSeTestLoopData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv413phSeCommError"><code class="docutils literal notranslate"><span class="pre">phSeCommError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv414phPdoaTableDef"><code class="docutils literal notranslate"><span class="pre">phPdoaTableDef</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv412clkConfigSrc"><code class="docutils literal notranslate"><span class="pre">clkConfigSrc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416phDdfsToneConfig"><code class="docutils literal notranslate"><span class="pre">phDdfsToneConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv427phAoACalibCtrlAvgThreshPdoa"><code class="docutils literal notranslate"><span class="pre">phAoACalibCtrlAvgThreshPdoa</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416phAntennaDefines"><code class="docutils literal notranslate"><span class="pre">phAntennaDefines</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv414phDeviceConfig"><code class="docutils literal notranslate"><span class="pre">phDeviceConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420phActiveRoundsConfig"><code class="docutils literal notranslate"><span class="pre">phActiveRoundsConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv420phNotActivatedRounds"><code class="docutils literal notranslate"><span class="pre">phNotActivatedRounds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv416phFwCrashLogInfo"><code class="docutils literal notranslate"><span class="pre">phFwCrashLogInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr1xx.html#_CPPv419phSessionSetLocZone"><code class="docutils literal notranslate"><span class="pre">phSessionSetLocZone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_apis_sr150.html">6.6. UWB Functional APIs (SR150 Specific)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr150.html#_CPPv417UwbApi_ReadOtpCmd16eOtpParam_Type_tP7uint8_tP7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_ReadOtpCmd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr150.html#_CPPv424UwbApi_ConfigureData_iOSP7uint8_t8uint16_tP18phUwbProfileInfo_t7uint8_tPK26UWB_VendorAppParams_List_t7uint8_tPK22UWB_DebugParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_ConfigureData_iOS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr150.html#_CPPv428UwbApi_ConfigureData_AndroidP7uint8_t8uint16_tP18phUwbProfileInfo_t7uint8_tPK26UWB_VendorAppParams_List_t7uint8_tPK22UWB_DebugParams_List_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_ConfigureData_Android()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_sr150.html#_CPPv424UwbApi_SessionSetLocZoneP21phSessionSetLocZone_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_SessionSetLocZone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_uwb_apis_factory.html">6.7. UWB Factory test APIs (SR100/SR150 Specific)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv418UwbApi_FactoryInitP19tUwbApi_AppCallback"><code class="docutils literal notranslate"><span class="pre">UwbApi_FactoryInit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv425UwbApi_RecoverFactoryUWBSv"><code class="docutils literal notranslate"><span class="pre">UwbApi_RecoverFactoryUWBS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv430UwbApi_ConfigureAuthTagOptions7uint8_t7uint8_t8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_ConfigureAuthTagOptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv430UwbApi_ConfigureAuthTagVersion8uint16_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_ConfigureAuthTagVersion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv418UwbApi_GenerateTag7uint8_tP25phGenerateTagRespStatus_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_GenerateTag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_uwb_apis_factory.html#_CPPv418UwbApi_WriteOtpCmd16eOtpParam_Type_tP7uint8_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">UwbApi_WriteOtpCmd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_porting.html">6.8. APIs for Porting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv417uwb_uwbs_tml_initP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv420uwb_uwbs_tml_setmodeP18uwb_uwbs_tml_ctx_t19uwb_uwbs_tml_mode_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_setmode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv419uwb_uwbs_tml_deinitP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_deinit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv419uwb_uwbs_tml_mode_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_mode_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv418uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_ctx_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv420uwb_uwbs_tml_data_txP18uwb_uwbs_tml_ctx_tP7uint8_t6size_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_data_tx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv420uwb_uwbs_tml_data_rxP18uwb_uwbs_tml_ctx_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_data_rx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv421uwb_uwbs_tml_data_trxP18uwb_uwbs_tml_ctx_tP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_data_trx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv430uwb_uwbs_tml_data_trx_with_LenP18uwb_uwbs_tml_ctx_tP7uint8_t6size_tP7uint8_t6size_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_data_trx_with_Len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv425uwb_uwbs_tml_helios_resetP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_helios_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv429uwb_uwbs_tml_helios_hardresetP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_helios_hardreset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv436uwb_uwbs_tml_helios_get_hdll_edl_ntfP18uwb_uwbs_tml_ctx_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_helios_get_hdll_edl_ntf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv418uwb_uwbs_tml_resetP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_porting.html#_CPPv430uwb_uwbs_tml_flush_read_bufferP18uwb_uwbs_tml_ctx_t"><code class="docutils literal notranslate"><span class="pre">uwb_uwbs_tml_flush_read_buffer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. APIs : SE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html">7.1. SE APDU APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv415SUS_API_GetData15pSe05xSession_t7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_GetData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv423SUS_API_InitiateBinding15pSe05xSession_t7uint8_t7uint8_tP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_InitiateBinding()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv416SUS_API_WrapData15pSe05xSession_tP11se_plainRDSP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_WrapData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv412SUS_API_Init15pSe05xSession_t7uint8_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_Init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv411se_plainRDS"><code class="docutils literal notranslate"><span class="pre">se_plainRDS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html">7.2. SE Functional APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv413pBindHistry_t"><code class="docutils literal notranslate"><span class="pre">pBindHistry_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv413pSusSession_t"><code class="docutils literal notranslate"><span class="pre">pSusSession_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv415firalite_status"><code class="docutils literal notranslate"><span class="pre">firalite_status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv411se_status_t"><code class="docutils literal notranslate"><span class="pre">se_status_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv416se_boundStatus_t"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv420se_lifeCycleStatus_t"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv411se_applet_t"><code class="docutils literal notranslate"><span class="pre">se_applet_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv416Se_API_SetHandlePv"><code class="docutils literal notranslate"><span class="pre">Se_API_SetHandle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv418Se_API_ResetHandlev"><code class="docutils literal notranslate"><span class="pre">Se_API_ResetHandle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv411Se_API_Init11se_applet_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">Se_API_Init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv422Se_API_GetBindingStateP14se_bindState_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetBindingState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv417Se_API_GetVersionP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetVersion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv425Se_API_GetFiraLiteVersionP7uint8_tP6size_tPcP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetFiraLiteVersion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_GetLifeCycleP20se_lifeCycleStatus_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetLifeCycle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv424Se_API_GetBindingHistory13pBindHistry_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetBindingHistory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv418Se_API_SendReceiveP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_SendReceive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv422Se_API_InitiateBinding7uint8_t7uint8_tP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_InitiateBinding()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_GetWrappedRDS11se_applet_tP8se_rds_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetWrappedRDS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv415Se_API_WrapDataP11se_plainRDSP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_WrapData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv413Se_API_DeInitv"><code class="docutils literal notranslate"><span class="pre">Se_API_DeInit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv416Se_API_SelectADFK19se_firalite_optsa_tP21se_firelite_oid_entryK6size_tP31se_firelite_selectadf_reponse_t"><code class="docutils literal notranslate"><span class="pre">Se_API_SelectADF()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv426Se_API_InitiateTransactionP21se_firelite_oid_entryK6size_tP7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_InitiateTransaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv415Se_API_DispatchP7uint8_t6size_tP7uint8_tP7uint8_tP6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_Dispatch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_RemoteGetDataPK7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemoteGetData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_RemotePutDataPK7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemotePutData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_LocalGetDataK7uint8_tK7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_LocalGetData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_LocalPutDataPK7uint8_tK6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_LocalPutData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv434Se_API_RemoteGetData_WithoutTunnelPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemoteGetData_WithoutTunnel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv434Se_API_RemotePutData_WithoutTunnelPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemotePutData_WithoutTunnel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv414se_bindState_t"><code class="docutils literal notranslate"><span class="pre">se_bindState_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv420firaLiteWrappedRds_t"><code class="docutils literal notranslate"><span class="pre">firaLiteWrappedRds_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv48se_rds_t"><code class="docutils literal notranslate"><span class="pre">se_rds_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv417uwbSystmHistory_t"><code class="docutils literal notranslate"><span class="pre">uwbSystmHistory_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv419se_bindingHistory_t"><code class="docutils literal notranslate"><span class="pre">se_bindingHistory_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv415se_SusSession_t"><code class="docutils literal notranslate"><span class="pre">se_SusSession_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html">7.3. SE FiRaLite APDU APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv426se_firalite_route_target_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_route_target_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv419se_firalite_optsa_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_optsa_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv422se_FiRaLite_API_Select15pSe05xSession_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv425se_FiRaLite_API_SelectADF15pSe05xSession_tK19se_firalite_optsa_tP21se_firelite_oid_entryK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_SelectADF()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv435se_FiRaLite_API_InitiateTransaction15pSe05xSession_tP21se_firelite_oid_entryK6size_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_InitiateTransaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv424se_FiRaLite_API_Dispatch15pSe05xSession_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Dispatch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv422se_FiRaLite_API_Tunnel15pSe05xSession_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Tunnel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv429se_FiRaLite_API_RemoteGetDataPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_RemoteGetData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv429se_FiRaLite_API_RemotePutDataPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_RemotePutData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv428se_FiRaLite_API_LocalGetData15pSe05xSession_t7uint8_t7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_LocalGetData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv428se_FiRaLite_API_LocalPutData15pSe05xSession_tPK7uint8_tK6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_LocalPutData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv421se_firelite_oid_entry"><code class="docutils literal notranslate"><span class="pre">se_firelite_oid_entry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv431se_firelite_selectadf_reponse_t"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv433se_firalite_secure_ranging_info_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv430se_firalite_cmd_routing_info_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_cmd_routing_info_t</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sr1xx/index.html">8. SR1XX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../sr1xx/spi.html">8.1. SR1XX SPI communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../sr1xx/spi.html#hbci-spi-write">8.1.1. HBCI SPI Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sr1xx/spi.html#hbci-spi-read">8.1.2. HBCI SPI Read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sr1xx/spi.html#spi-write">8.1.3. SPI Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sr1xx/spi.html#spi-read">8.1.4. SPI Read</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sr1xx/hbci.html">8.2. HBCI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../sr1xx/hbci.html#sr1xx-fw-download-flow">8.2.1. SR1XX FW download Flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index.html">9. Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/index.html">9.1. UWB Basics (Ongoing)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/p2p_ranging.html">9.2. Peer-to-Peer ranging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/uci_command_timeout_handling.html">9.3. UCI Command timeout handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/logging-details.html">9.4. Logging Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/QN9090_reference_manual.html">9.5. QN9090 Reference Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/ExtFlash_fwDownload.html">9.6. Firmware Download From External Flash</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/ExtFlash_fwDownload.html#setup-and-steps-to-download-firmware-from-external-flash">9.6.1. Setup and Steps to Download Firmware From External Flash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/ExtFlash_fwDownload.html#firmware-download-from-external-flash-flow">9.6.2. Firmware download from External Flash Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/firalite-adf-provisioning.html">9.7. FiRaLite ADF Provisioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/firalite-adf-provisioning.html#setup-and-steps-for-jcshell-usage">9.7.1. Setup and Steps for JCShell usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/firalite-adf-provisioning.html#usage-of-jrcpproxy">9.7.2. Usage of JRCPProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/firalite-adf-provisioning.html#using-the-jcshell">9.7.3. Using the JCShell</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../appendix/boards/index-sr150.html">9.8. SR150 Boards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/boards/rhodes_v4.html">9.8.1. RHODES IV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../appendix/boards/nrf52840_mk_sr150.html">9.8.2. Nordic(NRF52840) + MK Shield Board (SR150)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+          
+            <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">7. APIs : SE</a></li>
+</ul>
+</ul>
+</li>
+          
+        
+        
+          
+            
+  <li>
+    <a href="api_porting.html" title="Previous Chapter: 6.8. APIs for Porting"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 6.8. APIs for Porting</span>
+    </a>
+  </li>
+  <li>
+    <a href="api_se_apdu_apis.html" title="Next Chapter: 7.1. SE APDU APIs"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">7.1. SE APDU APIs &raquo;</span>
+    </a>
+  </li>
+          
+        
+        
+        
+        
+      </ul>
+
+      
+      
+    </div>
+</div>
+</div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+
+<div class="sidebar-header">
+    <h3>UWB IoT</h3>
+</div>
+
+<div class="row">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../uwbiot/index.html">1. UWB IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes/index-sr150.html">2. Changes &amp; Release History (SR150)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling/index.html">3. Compiling &amp; Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demos/index-sr150.html">4. SR150 Demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demos/index-se051w.html">5. SE051W Demos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index-sr150.html">6. APIs : UWB IoT and SR150</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. APIs : SE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html">7.1. SE APDU APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html">7.2. SE Functional APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html">7.3. SE FiRaLite APDU APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sr1xx/index.html">8. SR1XX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index.html">9. Appendix</a></li>
+</ul>
+
+</div>
+<div class="row">
+    <form class="form" action="../../../search.html" method="get">
+     <div class="form-group">
+      <label for="Search">Search:</label>
+      <input type="text" name="q" class="form-control" placeholder="Search" />
+     </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <section id="apis-se">
+<h1><span class="section-number">7. </span>APIs : SE<a class="headerlink" href="#apis-se" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_se_apdu_apis.html">7.1. SE APDU APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv415SUS_API_GetData15pSe05xSession_t7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_GetData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv423SUS_API_InitiateBinding15pSe05xSession_t7uint8_t7uint8_tP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_InitiateBinding()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv416SUS_API_WrapData15pSe05xSession_tP11se_plainRDSP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_WrapData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv412SUS_API_Init15pSe05xSession_t7uint8_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">SUS_API_Init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv411se_plainRDS"><code class="docutils literal notranslate"><span class="pre">se_plainRDS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS18pRangingSessionKeyE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pRangingSessionKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS17pRspndrRangingKeyE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pRspndrRangingKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS12proxDistanceE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::proxDistance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS3AoAE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::AoA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS11pClientDataE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pClientData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS14pTransactionIdE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pTransactionId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS6pKeyIdE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pKeyId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS9pArbtDataE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pArbtData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS10pAppletAidE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pAppletAid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apdu_apis.html#_CPPv4N11se_plainRDS10pSessionIdE"><code class="docutils literal notranslate"><span class="pre">se_plainRDS::pSessionId</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_se_apis.html">7.2. SE Functional APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv413pBindHistry_t"><code class="docutils literal notranslate"><span class="pre">pBindHistry_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv413pSusSession_t"><code class="docutils literal notranslate"><span class="pre">pSusSession_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv415firalite_status"><code class="docutils literal notranslate"><span class="pre">firalite_status</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N15firalite_status51FIRALITE_STATUS_TRANSACTION_COMPLETE_WITH_NO_ERRORSE"><code class="docutils literal notranslate"><span class="pre">firalite_status::FIRALITE_STATUS_TRANSACTION_COMPLETE_WITH_NO_ERRORS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N15firalite_status62FIRALITE_STATUS_COMMAND_PROCESSED_RETURN_TO_COUNTERPART_DEVICEE"><code class="docutils literal notranslate"><span class="pre">firalite_status::FIRALITE_STATUS_COMMAND_PROCESSED_RETURN_TO_COUNTERPART_DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N15firalite_status52FIRALITE_STATUS_COMMAND_PROCESSED_RETURN_TO_HOST_APPE"><code class="docutils literal notranslate"><span class="pre">firalite_status::FIRALITE_STATUS_COMMAND_PROCESSED_RETURN_TO_HOST_APP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N15firalite_status48FIRALITE_STATUS_TRANSACTION_COMPLETE_WITH_ERRORSE"><code class="docutils literal notranslate"><span class="pre">firalite_status::FIRALITE_STATUS_TRANSACTION_COMPLETE_WITH_ERRORS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv411se_status_t"><code class="docutils literal notranslate"><span class="pre">se_status_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N11se_status_t12SE_STATUS_OKE"><code class="docutils literal notranslate"><span class="pre">se_status_t::SE_STATUS_OK</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N11se_status_t16SE_STATUS_NOT_OKE"><code class="docutils literal notranslate"><span class="pre">se_status_t::SE_STATUS_NOT_OK</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv416se_boundStatus_t"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N16se_boundStatus_t12SE_Not_BoundE"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t::SE_Not_Bound</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N16se_boundStatus_t21SE_Bound_And_UnlockedE"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t::SE_Bound_And_Unlocked</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N16se_boundStatus_t19SE_Bound_And_LockedE"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t::SE_Bound_And_Locked</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N16se_boundStatus_t11SE_Bound_NAE"><code class="docutils literal notranslate"><span class="pre">se_boundStatus_t::SE_Bound_NA</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv420se_lifeCycleStatus_t"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N20se_lifeCycleStatus_t7SE_NoneE"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t::SE_None</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N20se_lifeCycleStatus_t15SE_PersonalizedE"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t::SE_Personalized</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N20se_lifeCycleStatus_t8SE_ReadyE"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t::SE_Ready</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N20se_lifeCycleStatus_t9SE_LockedE"><code class="docutils literal notranslate"><span class="pre">se_lifeCycleStatus_t::SE_Locked</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv411se_applet_t"><code class="docutils literal notranslate"><span class="pre">se_applet_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N11se_applet_t13SE_APPLET_SUSE"><code class="docutils literal notranslate"><span class="pre">se_applet_t::SE_APPLET_SUS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N11se_applet_t20SE_APPLET_SUS_CLIENTE"><code class="docutils literal notranslate"><span class="pre">se_applet_t::SE_APPLET_SUS_CLIENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N11se_applet_t18SE_APPLET_FIRALITEE"><code class="docutils literal notranslate"><span class="pre">se_applet_t::SE_APPLET_FIRALITE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv416Se_API_SetHandlePv"><code class="docutils literal notranslate"><span class="pre">Se_API_SetHandle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv418Se_API_ResetHandlev"><code class="docutils literal notranslate"><span class="pre">Se_API_ResetHandle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv411Se_API_Init11se_applet_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">Se_API_Init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv422Se_API_GetBindingStateP14se_bindState_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetBindingState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv417Se_API_GetVersionP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetVersion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv425Se_API_GetFiraLiteVersionP7uint8_tP6size_tPcP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetFiraLiteVersion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_GetLifeCycleP20se_lifeCycleStatus_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetLifeCycle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv424Se_API_GetBindingHistory13pBindHistry_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetBindingHistory()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv418Se_API_SendReceiveP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_SendReceive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv422Se_API_InitiateBinding7uint8_t7uint8_tP7uint8_t6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_InitiateBinding()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_GetWrappedRDS11se_applet_tP8se_rds_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_GetWrappedRDS()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv415Se_API_WrapDataP11se_plainRDSP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_WrapData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv413Se_API_DeInitv"><code class="docutils literal notranslate"><span class="pre">Se_API_DeInit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv416Se_API_SelectADFK19se_firalite_optsa_tP21se_firelite_oid_entryK6size_tP31se_firelite_selectadf_reponse_t"><code class="docutils literal notranslate"><span class="pre">Se_API_SelectADF()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv426Se_API_InitiateTransactionP21se_firelite_oid_entryK6size_tP7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_InitiateTransaction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv415Se_API_DispatchP7uint8_t6size_tP7uint8_tP7uint8_tP6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_Dispatch()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_RemoteGetDataPK7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemoteGetData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv420Se_API_RemotePutDataPK7uint8_tK6size_tP7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemotePutData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_LocalGetDataK7uint8_tK7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_LocalGetData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv419Se_API_LocalPutDataPK7uint8_tK6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_LocalPutData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv434Se_API_RemoteGetData_WithoutTunnelPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemoteGetData_WithoutTunnel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv434Se_API_RemotePutData_WithoutTunnelPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">Se_API_RemotePutData_WithoutTunnel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv414se_bindState_t"><code class="docutils literal notranslate"><span class="pre">se_bindState_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv420firaLiteWrappedRds_t"><code class="docutils literal notranslate"><span class="pre">firaLiteWrappedRds_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv48se_rds_t"><code class="docutils literal notranslate"><span class="pre">se_rds_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N8se_rds_t13pFlWrappedRdsE"><code class="docutils literal notranslate"><span class="pre">se_rds_t::pFlWrappedRds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_apis.html#_CPPv4N8se_rds_t13pSusPlaindRdsE"><code class="docutils literal notranslate"><span class="pre">se_rds_t::pSusPlaindRds</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv417uwbSystmHistory_t"><code class="docutils literal notranslate"><span class="pre">uwbSystmHistory_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv419se_bindingHistory_t"><code class="docutils literal notranslate"><span class="pre">se_bindingHistory_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_apis.html#_CPPv415se_SusSession_t"><code class="docutils literal notranslate"><span class="pre">se_SusSession_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_se_firalite_apdu_apis.html">7.3. SE FiRaLite APDU APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv426se_firalite_route_target_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_route_target_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N26se_firalite_route_target_t20se_firalite_route_NAE"><code class="docutils literal notranslate"><span class="pre">se_firalite_route_target_t::se_firalite_route_NA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N26se_firalite_route_target_t32se_firalite_route_firaLiteAppletE"><code class="docutils literal notranslate"><span class="pre">se_firalite_route_target_t::se_firalite_route_firaLiteApplet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N26se_firalite_route_target_t22se_firalite_route_hostE"><code class="docutils literal notranslate"><span class="pre">se_firalite_route_target_t::se_firalite_route_host</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv419se_firalite_optsa_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_optsa_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N19se_firalite_optsa_t29se_firalite_optsa_symm_cryptoE"><code class="docutils literal notranslate"><span class="pre">se_firalite_optsa_t::se_firalite_optsa_symm_crypto</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv422se_FiRaLite_API_Select15pSe05xSession_t7uint8_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Select()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv425se_FiRaLite_API_SelectADF15pSe05xSession_tK19se_firalite_optsa_tP21se_firelite_oid_entryK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_SelectADF()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv435se_FiRaLite_API_InitiateTransaction15pSe05xSession_tP21se_firelite_oid_entryK6size_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_InitiateTransaction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv424se_FiRaLite_API_Dispatch15pSe05xSession_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Dispatch()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv422se_FiRaLite_API_Tunnel15pSe05xSession_tP7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_Tunnel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv429se_FiRaLite_API_RemoteGetDataPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_RemoteGetData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv429se_FiRaLite_API_RemotePutDataPK7uint8_tK6size_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_RemotePutData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv428se_FiRaLite_API_LocalGetData15pSe05xSession_t7uint8_t7uint8_tP7uint8_tP6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_LocalGetData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv428se_FiRaLite_API_LocalPutData15pSe05xSession_tPK7uint8_tK6size_t"><code class="docutils literal notranslate"><span class="pre">se_FiRaLite_API_LocalPutData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv421se_firelite_oid_entry"><code class="docutils literal notranslate"><span class="pre">se_firelite_oid_entry</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N21se_firelite_oid_entry8pOIDDataE"><code class="docutils literal notranslate"><span class="pre">se_firelite_oid_entry::pOIDData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N21se_firelite_oid_entry10OIDDataLenE"><code class="docutils literal notranslate"><span class="pre">se_firelite_oid_entry::OIDDataLen</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv431se_firelite_selectadf_reponse_t"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N31se_firelite_selectadf_reponse_t4pAidE"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t::pAid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N31se_firelite_selectadf_reponse_t6aidLenE"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t::aidLen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N31se_firelite_selectadf_reponse_t18is_privacy_enabledE"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t::is_privacy_enabled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N31se_firelite_selectadf_reponse_t9pPropInfoE"><code class="docutils literal notranslate"><span class="pre">se_firelite_selectadf_reponse_t::pPropInfo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv433se_firalite_secure_ranging_info_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t14pUWBSessionKeyE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::pUWBSessionKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t16UWBSessionKeyLenE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::UWBSessionKeyLen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t17pUWBSubSessionKeyE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::pUWBSubSessionKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t19UWBSubSessionKeyLenE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::UWBSubSessionKeyLen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t12subSessionIdE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::subSessionId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N33se_firalite_secure_ranging_info_t16makeRDSAvailableE"><code class="docutils literal notranslate"><span class="pre">se_firalite_secure_ranging_info_t::makeRDSAvailable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv430se_firalite_cmd_routing_info_t"><code class="docutils literal notranslate"><span class="pre">se_firalite_cmd_routing_info_t</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N30se_firalite_cmd_routing_info_t6targetE"><code class="docutils literal notranslate"><span class="pre">se_firalite_cmd_routing_info_t::target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N30se_firalite_cmd_routing_info_t4pCmdE"><code class="docutils literal notranslate"><span class="pre">se_firalite_cmd_routing_info_t::pCmd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_se_firalite_apdu_apis.html#_CPPv4N30se_firalite_cmd_routing_info_t6CmdLenE"><code class="docutils literal notranslate"><span class="pre">se_firalite_cmd_routing_info_t::CmdLen</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020-2021 NXP.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

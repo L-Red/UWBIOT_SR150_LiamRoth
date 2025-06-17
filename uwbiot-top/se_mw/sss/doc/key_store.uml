@@ -1,0 +1,19 @@
+@startuml
+
+    title Normal usage of Session and Key Store
+
+    participant app as "Application"
+    participant S as "Session"
+    participant KS as "Key Store"
+
+    app -> S : sss session open
+    app -> KS : sss_key_store_context_init
+    app -> KS : sss_key_store_load
+
+    === Operation with SSS objects ==
+
+    app -> KS : sss_key_store_save
+    app -> KS : sss_key_store_context_free
+    app -> S : sss_session_close
+
+@enduml

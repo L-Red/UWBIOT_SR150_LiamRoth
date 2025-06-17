@@ -1,0 +1,20 @@
+@startuml
+
+    title Change value of previously created object
+
+    participant app as "Application"
+    ... Session, Key Store & Key Object Init ...
+
+    participant app as "Application"
+    participant KS as "Key Store"
+
+    app -> KS : sss_key_object_get_handle( \n\
+      keyId : uint32_t)
+    app <- KS : <b>sss_object</b>
+    app -> KS : sss_key_store_set_key( \n\
+      key : const uint8_t\n \
+      keyBitLen : size_t)
+
+    ... Session, Key Store & Key Object Free ...
+
+@enduml

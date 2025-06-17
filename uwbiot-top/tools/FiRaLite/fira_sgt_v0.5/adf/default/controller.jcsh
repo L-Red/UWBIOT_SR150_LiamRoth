@@ -1,0 +1,15 @@
+# SP specific data
+/s-v adf.provisioning.ca.publicKey "0466CFCB0CFFC5D0C1995BB477F16E989B6D116E48FAEE82B78918F84CC4FC97C124F3E09423395D072D11A061831A11F73E2F4AE85F882AFC41E7332BD8203598"
+/s-v adf.provisioning.ca.privateKey "68FC97F01EA767CBEC24EFBB018F572E8837D504454B466F137FB8D9E4D1D941"
+
+# data used for create ADF
+/s-v adf.oid 060A6086480186FF13010101
+/s-v adf.provisioning.keyset "BF50%(BA%(80010481010183011884#(${adf.provisioning.ca.publicKey})))"
+
+# data used for manage ADF
+/s-v adf.uwbServicePreferences "BF70#(80#(0100))"
+/s-v adf.secureChannel.keyset "BF50%(B9%(8001028201008301068410606162636465666768696A6B6C6D6E6F8510606162636465666768696A6B6C6D6E6F))"
+/s-v adf.instanceUid ""
+/s-v adf.extendedOptions ""
+/s-v adf.accessConditions ""
+/s-v adf.applicationData ""

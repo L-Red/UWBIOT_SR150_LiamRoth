@@ -1,0 +1,59 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+DEFUN _iBoolMath_
+    /applet JCipher
+
+    if ${argv[*];l} != 3
+        /echo "_iBoolMath_: invalid number of arguments [${argv[*];l}]."
+        return
+    end
+    
+    /set-var lhs $(pad -b 1 -p NOPAD ${argv[1];q})
+    /set-var rhs $(pad -b 1 -p NOPAD ${argv[2];q})
+    /set-var rc[*]
+  
+    while ${lhs;l} < ${rhs;l}
+        /set-var lhs 0${lhs}
+    end
+    while ${rhs;l} < ${lhs;l}
+        /set-var rhs 0${rhs}
+    end
+    
+    /set-var idx 0
+    /set-var len ${lhs;l}
+    if ${rhs;l} < ${len}
+      /set-var len ${rhs;l}
+    end
+    
+    while ${idx} < ${len}
+        /expr 0x${lhs;s${idx},2} ${argv[0];q} 0x${rhs;s${idx},2}
+        /set-var rc[#] ${last.return;h2}
+        /set-var idx $(/expr ${idx} + 2)
+    end
+
+    pad -p NOPAD -b 1 "${rc[*]}"
+END
+
+#
+# Usage: xor <lhs> <rhs>
+#
+# computes the xor of both provided streams right justified, i.e. least significant
+# bit first. The shorter of both arguments is left padded with zero bits to meet the
+# length of the longer argument.
+#
+# Return: the xor'red result of both arguments.
+#
+DEFUN xor
+  _iBoolMath_ "^" ${argv[*];q}
+END
+DEFUN and
+  _iBoolMath_ "&" ${argv[*];q}
+END
+DEFUN or
+  _iBoolMath_ "|" ${argv[*];q}
+END

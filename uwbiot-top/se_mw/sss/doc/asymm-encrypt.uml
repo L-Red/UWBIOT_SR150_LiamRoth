@@ -1,0 +1,20 @@
+@startuml
+
+    title Asymmetric : Encrypt
+
+    participant app as "Application"
+    participant asym as "Asymmetric"
+    === Session & Key Store Init ==
+    === Get KeyObject ==
+    app -> asym : sss_asymmetric_context_init(\n\
+    algorithm \n\
+    mode)
+    app -> asym : sss_asymmetric_encrypt(\n\
+    source\n\
+    destination)
+    app -> asym : sss_asymmetric_context_free
+
+    === Free KeyObject ==
+    === Session & Key Store Close ==
+
+@enduml

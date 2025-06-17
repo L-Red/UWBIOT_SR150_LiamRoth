@@ -1,0 +1,25 @@
+
+/*!
+@page middleware_log Secure Element Change Log
+
+@section se_hostlib Secure Element hostlib for KSDK
+
+  - 2.0.x
+    - Simplified APPLET Name selection
+
+  - 2.0.0
+    - Updated to SSS APIs
+
+  - 1.4.2
+    - Upgraded rtos\amazon-freertos\lib\pkcs11\portable\nxp\se_hostlib\pkcs11_se.c
+    - Added GCP (Google Cloud Platform Demo)
+    - Readme updates for AWS JITR Demo
+
+  - 1.4.0.1
+    - Examples: Fix time stamp printing on embedded platform.
+      (Time stams are supported only for Linux/Windows)
+
+  - 1.0.0
+    - New integration
+
+*/

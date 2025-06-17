@@ -1,0 +1,4 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/PrintUtility_RfTest.c:18:14:printPerParams	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/PrintUtility_RfTest.c:36:14:printLoopbackRecvData	32	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/PrintUtility_RfTest.c:71:14:printPerRecvData	32	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/PrintUtility_RfTest.c:112:14:printrxRecvData	32	static

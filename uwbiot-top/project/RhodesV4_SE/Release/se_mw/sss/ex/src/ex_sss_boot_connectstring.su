@@ -1,0 +1,4 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c:56:14:ex_sss_boot_connectstring	24	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c:135:6:ex_sss_boot_isSerialPortName	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c:159:6:ex_sss_boot_isSocketPortName	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c:177:6:ex_sss_boot_isHelp	8	static

@@ -1,0 +1,24 @@
+@startuml
+
+    title Creation of key
+
+    participant app as "Application"
+    === Session & Key Store Init ==
+
+    participant app as "Application"
+    participant KS as "Key Store"
+
+    app -> KS : sss_key_object_init
+    app -> KS : sss_key_object_allocate_handle
+    app -> KS : sss_key_store_generate_key( \n\
+      keyId : uint32_t, \n\
+      keyType : sss_key_type_t , \n\
+      keyByteLenMax : size_t , \n\
+      options : uint32_t )
+    app -> KS : sss_key_store_save
+    ... Key is now persisted inside the SE ...
+    app -> KS : sss_key_object_free
+
+    === Session & Key Store Close ==
+
+@enduml

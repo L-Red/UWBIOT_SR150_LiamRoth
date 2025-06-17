@@ -1,0 +1,21 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+# SP specific data
+/s-v adf.provisioning.ca.publicKey "0466CFCB0CFFC5D0C1995BB477F16E989B6D116E48FAEE82B78918F84CC4FC97C124F3E09423395D072D11A061831A11F73E2F4AE85F882AFC41E7332BD8203598"
+/s-v adf.provisioning.ca.privateKey "68FC97F01EA767CBEC24EFBB018F572E8837D504454B466F137FB8D9E4D1D941"
+
+# data used for create ADF
+/s-v adf.oid 060C6086480186FF130101021111
+/s-v adf.provisioning.keyset "BF50%(BA%(80010481010183011884#(${adf.provisioning.ca.publicKey})))"
+
+# data used for manage ADF
+/s-v adf.uwbServicePreferences "BF70#(80#(0100))"
+/s-v adf.secureChannel.keyset "BF50%(B9#(80010282010083010084108E13D43951DCC360E7EE55F9328D15138510D677581294D8EA5154FCF60D0C0FEF63))"
+/s-v adf.instanceUid "4F#(3817A6BFC2E58B89)"
+/s-v adf.extendedOptions ""
+/s-v adf.accessConditions ""
+/s-v adf.applicationData ""

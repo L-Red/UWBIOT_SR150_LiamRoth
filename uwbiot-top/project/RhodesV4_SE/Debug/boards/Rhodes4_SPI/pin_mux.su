@@ -1,0 +1,12 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:96:6:RV4_Init_HeliosPins	24	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:264:6:RV4_Init_HeliosIRQPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:305:6:RV4_Init_UARTPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:354:6:RV4_Init_I2CPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:406:6:RV4_Init_SWDPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:470:6:RV4_Init_SPIFIPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:59:6:BOARD_InitBootPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:543:6:RV4_Init_ISPPins	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:565:6:RV4_Init_HeliosCEPin	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:661:6:RV4_Init_VenusPins	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:706:6:RV4_Init_RevC_VenusIRQPins	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c:746:6:RV4_Init_RevB_VenusIRQPins	8	static

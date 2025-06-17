@@ -1,0 +1,423 @@
+########################################
+#  TLV RELATED FUNCTIONS
+########################################
+#  FUNCTION LIST:
+####################
+#     TLV_Get
+#     TLV_GetAll
+#     TLV_IsTagConstructed
+#     TLV_GetTagProperties
+#     TLV_GetDescription
+#     TLV_FormatValue
+#     TLV_Print
+#     TLV_Command
+#     
+#  for legacy:
+#     GET_TLVs       (use TLV_Get instead)
+#     GET_All_TLVs   (use TLV_GetAll instead)
+########################################
+#  IMPORTS
+####################
+@${script.name;dirname}/_libHex
+@${script.name;dirname}/_libAssert
+########################################
+#  CONFIG
+if ${tlvStopOnError;l} == 0
+   tlvStopOnError=   false
+end
+########################################
+#  FUNCTION DECLARATIONS
+####################
+#
+#  TLV_Get
+#     Description:
+#        Search occurrences of a given tag in BER encoded data and return its value(s) (the 'V' in TLV)
+#     Params:
+#        argument 1:
+#           Tag to search
+#        argument 2:
+#           BER encoded data
+#     Return:  An array of values, one value for each occurrence of the tag found in the input _data.
+#     Usage:   TLV_Get tag ber_data
+#     Example: 
+#        data[*]= $(TLV_Get E3 E32C4F06A000000003109F700101CE0201008407A00000000310568407A000000003104DCC08A000000151000000E3234F06A000000003169F700101CE0201008407A0000000031650CC08A000000151000000)
+#        aid=     $(TLV_Get 4F $(TLV_Get E3 E32C4F06A000000003109F700101CE0201008407A00000000310568407A000000003104DCC08A000000151000000E3234F06A000000003169F700101CE0201008407A0000000031650CC08A000000151000000))
+#     Note: The search is only performed among top-level tags of the BER encoded data.If a tag is nested in another tag, it will not be found. (see example with '4F' above)
+DEFUN TLV_Get
+   if ${argv[*];l} < 2
+      return
+   end
+   _return_tags[*]=
+   _target_tag=      ${argv[0];uc}
+   _input_tlv=       ${argv[1];uc}
+   while ${_input_tlv;l} > 0
+      _curTlv= ${_input_tlv}
+      
+      # if bits 5 to 1 are all 1 then it's a 2-bytes TAG
+      if $(/expr $(hex2dec ${_curTlv;s0,2}) & 31) == 31
+         _curTag=    ${_curTlv;s0,4}
+         _curLenOff= 4
+      else
+         _curTag=    ${_curTlv;s0,2}
+         _curLenOff= 2
+      end
+      _curLenLen=    2
+      _curLen=   $(hex2dec ${_curTlv;s${_curLenOff},2})
+      if ${_curLen} > 127
+         if ${_curLen} > 133
+            if "${tlvStopOnError}" == "true"
+               /error "Wrong TLV length marker ${_curLen;h2} (${_curLen}) at position ${gTlvPos}"
+            else
+               printsp +1 "Warning: wrong TLV length marker ${_curLen;h2} (${_curLen}) at position ${gTlvPos}"
+               return ${_return_tags[*];q}
+            end
+         end
+         _curLenLen= $(/expr 2 * ${_curLen} & 7)
+         _curLenOff= $(/expr 2 + ${_curLenOff})
+         _curLen=    $(hex2dec ${_curTlv;s${_curLenOff},${_curLenLen}})
+      end
+      if "x${_curTag}x" == "x00x"
+         if "${tlvStopOnError}" == "true"
+            /error "TAG '${_curTag}' not valid!"
+         else
+            printsp +1 "Warning: tag '${_curTag}' found at position ${gTlvPos}, skipping..."
+            _input_tlv= "${_curTlv;s2}"
+            # ev _input_tlv
+            continue
+         end
+      end
+      _curDataOff=   $(/expr ${_curLenLen} + ${_curLenOff})
+      _skip=         $(/expr ${_curLenLen} + ${_curLenOff} + 2 * ${_curLen})
+      _data=         ${_curTlv;s${_curDataOff},$(/expr 2 * ${_curLen})}
+      if ${_curTag} == ${_target_tag}
+         _return_tags[#]=  ${_data}
+      end
+      if ${_skip} == ${_curTlv;l}
+         return ${_return_tags[*]}
+      end
+      # next _input_tlv...
+      _input_tlv= ${_curTlv;s${_skip}}
+   end
+   # ar _return_tags
+   return ${_return_tags[*]}
+END
+#
+#  TLV_GetAll
+#     Description:
+#        Return all occurrences of tags in BER encoded data
+#     Params:
+#        argument 1:
+#           BER encoded data
+#     Return:  An array of strings "TAG length DATA" (tag, length and data separated by a withspace)
+#     Usage:   TLV_GetAll ber_data
+#     Example: 
+#        data[*]= $(TLV_GetAll E32C4F06A000000003109F700101CE0201008407A00000000310568407A000000003104DCC08A000000151000000E3234F06A000000003169F700101CE0201008407A0000000031650CC08A000000151000000)
+#        data[*]= $(TLV_GetAll 4F06A000000003169F700101CE0201008407A0000000031650CC08A000000151000000)
+#     Note: The returned length is expressed in DECIMAL base
+DEFUN TLV_GetAll
+   if ${argv[*];l} < 1
+         return
+   end
+   /set-var _tags[*]
+   # /set-var tag ${argv[0];uc}
+   /set-var _tlv ${argv[0];uc}
+   # ev _tags
+   # ev _tlv 
+   gTlvPos= 0
+   while ${_tlv;l} > 0
+      /set-var _curTlv ${_tlv;s0}
+      # ev _curTlv
+      # if bits 5 to 1 are all 1 then it's a 2-bytes TAG
+      if $(/expr $(hex2dec ${_curTlv;s0,2}) & 31) == 31
+         /set-var _curTag ${_curTlv;s0,4}
+         /set-var curLenOff 4
+      else
+         /set-var _curTag ${_curTlv;s0,2}
+         /set-var curLenOff 2
+      end
+      _curLenLen= 2
+      # ev _curTag
+      /set-var _curLen $(hex2dec ${_curTlv;s${curLenOff},2})
+      if ${_curLen} > 127
+         # ev _curLen
+         if ${_curLen} > 133
+            if "${tlvStopOnError}" == "true"
+               /error "Wrong TLV length marker ${_curLen;h2} (${_curLen}) at position ${gTlvPos}"
+            else
+               printsp +1 "Warning: Wrong TLV length marker ${_curLen;h2} (${_curLen}) at position ${gTlvPos}"
+               # ev _curTlv
+               return ${_tags[*];q}
+            end
+         end
+         _curLenLen= $(/expr 2 * ${_curLen} & 7)
+         
+         /set-var curLenOff 2 + ${curLenOff}
+         # ev curLenOff
+         /set-var _curLen $(hex2dec ${_curTlv;s${curLenOff},${_curLenLen}})
+         # ev _curLen
+      end
+      # ev _curTag
+      # ev _curLen
+      if "x${_curTag}x" == "x00x"
+         if "${tlvStopOnError}" == "true"
+            /error "TAG '${_curTag}' not valid!"
+         else
+            printsp +1 "Warning: tag '${_curTag}' found at position ${gTlvPos}, skipping..."
+            # printsp +1 NOT BER ENCODED!!! : "${_curTlv}"
+            _tlv= "${_curTlv;s2}"
+            # ev _tlv
+            continue
+         end
+      end
+      /set-var _curDataOff ${_curLenLen} + ${curLenOff}
+      /set-var _skip $(/expr ${_curLenLen} + ${curLenOff} + 2 * ${_curLen})
+      /set-var _data ${_curTlv;s${_curDataOff},$(/expr 2 * ${_curLen})}
+      # if ${_curTag} == ${tag}
+            # /set-var _tags[#] ${_data}
+      # end
+      # ev _data
+      /set-var _tags[#] "${_curTag} ${_curLen} ${_data}"
+      if ${_skip} > ${_curTlv;l}
+         # ev _skip
+         # ev _curTlv;l
+         if "${tlvStopOnError}" == "true"
+            /error "TLV length out of bounds at position ${gTlvPos}, tag ${_curTag}, length $(/expr ${_curLen} / 2)"
+         end
+         printsp +1 ERROR: TLV length out of bounds in ${_curTlv}
+         printsp +2 "  Declared length : $(/expr ${_skip} / 2)"
+         printsp +2 "  TLV length      : $(/expr ${_curTlv;l} / 2)"
+         return ${_tags[*];q}
+      elseif ${_skip} == ${_curTlv;l}
+         return ${_tags[*];q}
+      end
+      # next _tlv...
+      gTlvPos= $(/expr ${gTlvPos} / 2 + ${_skip} / 2)
+      /set-var _tlv ${_curTlv;s${_skip}}
+   end
+   # ev _tags[*];l
+   # ar _tags
+   return ${_tags[*];q}
+END
+#
+#  TLV_IsTagConstructed
+#     Description:
+#        Tells if a tag is constructed (i.e. may contain nested tags) or atomic (may only contain raw data)
+#     Params:
+#        argument 1:
+#           The tag
+#     Return:  true if the tag is constructed, false otherwise
+#     Usage:   TLV_IsTagConstructed tag
+#     Example: 
+#        hasChildren=   $(TLV_IsTagConstructed 6F)
+#     Note: if variable 'g_tags_not_to_parse' is defined it desctibes tags that are forced to be atomic
+#           i.e. g_tags_not_to_parse= ":7F99:"
+#     See:  BER Encoding rules
+DEFUN TLV_IsTagConstructed
+   _curTag= ${argv[0]}
+   # ev g_tags_not_to_parse
+   if "${g_tags_not_to_parse}" =~ "*:${_curTag}:*"
+      # pretend some tags aren't constructed
+      return false
+   elseif ${_curTag;l} != 2 && ${_curTag;l} != 4
+      return false
+   elseif $(/expr $(hex2dec ${_curTag;s0,2}) & 32) == 32
+      return true
+   else
+      return false
+   end
+END
+#
+#  TLV_GetTagProperties
+#     Description:
+#        Return properties related to a tag defined in a given property table.
+#     Params:
+#        argument 1:
+#           the NAME of the table containing the properties. DO NOT use the ${} notation here!
+#        argument 2:
+#           The tag whose properties are to be returned
+#     Return:  A string representing (each separated by a whitespace) tag, tad description and optionally a formatter for a tag's value
+#     Usage:   TLV_GetTagProperties table_name tag
+#     Example: 
+#        gp_lc_props=   $(TLV_GetTagProperties g_TAG_Definitions 9F70)
+#     Note: The property table has to be defined as an array of strings like follow:
+#              "<tag> 'decription of the tag' <optional_formatter>"
+#              See '.\_def\gp\_tags.jcsh' for property table examples
+DEFUN TLV_GetTagProperties
+   _tableName= ${argv[0]}
+   _tag=       ${argv[1];uc}
+   ASSERT_VarsAreNotEmpty _tableName _tag
+   _tag_definitions[*]=   ${${_tableName}[*];q}
+   for _tDesc ${_tag_definitions[*];q}
+      _tDesc[*]=  ${_tDesc[*]}
+      _curTag=    ${_tDesc[0];uc}
+      if "${_tag}" == "${_curTag}"
+         return "${_tDesc[*];q}"
+      end
+   end
+   return "${_tag} 'n/a' "
+END
+#
+#  TLV_GetDescription
+#     Description:
+#        Return the text description of a given tag, if found.
+#     Params:
+#        argument 1:
+#           The tag whose description is to be returned
+#     Return:  A string describing the tag
+#     Usage:   TLV_GetDescription tag
+#     Example: 
+#        description=   $(TLV_GetDescription 9F36)
+#        /echo "Tag 4F means: $(TLV_GetDescription 4F)"
+DEFUN TLV_GetDescription
+   _tag=       ${argv[0];uc}
+   _tag_definitions[*]=   $(TLV_GetTagProperties g_TAG_Definitions ${_tag})
+   # ar _tag_definitions
+   _tag_definitions[*]=   ${_tag_definitions[*]}
+   return "${_tag_definitions[1]}"
+END
+#
+#  TLV_FormatValue
+#     Description:
+#        Return properties related to a tag defined in a given property table.
+#     Params:
+#        argument 1:
+#           The tag whose value is to be formatted
+#        argument 2:
+#           The binary data representing the tag value
+#     Return:  A string representing the formatted value of the tag.
+#     Usage:   TLV_FormatValue tag binary_value
+#     Example: 
+#              /echo PPSE AID is : $(TLV_FormatValue 4F 325041592E5359532E4444463031)
+#              /echo ICS Application Privileges are : $(TLV_FormatValue C5 9EFE80)
+#              /echo Application Currency Code : $(TLV_FormatValue 9F42 0840)
+#              /echo Application Interchange Profile is $(TLV_FormatValue 82 7C00)
+#     Note: Formatters are defined in the global table g_TAG_Definitions which is dynamically constructed with the inclusion of the various @_libGP, @_libEMV, @_libVISA etc.
+#           If no formatter is found, the binary value is returned unchanged.
+DEFUN TLV_FormatValue
+   _tag=  ${argv[0]}
+   _val[*]=  ${argv[1..];q}
+   _tag_definitions[*]=   $(TLV_GetTagProperties g_TAG_Definitions ${_tag})
+   # ar _tag_definitions
+   _tag_definitions[*]=   ${_tag_definitions[*]}
+   # ar _tag_definitions
+   _formatter= ${_tag_definitions[2]}
+   if "${_formatter}" != ""
+      _frm= "$(${_formatter} ${_val[*];q})"
+   else
+      _frm= "${_val}"
+   end
+   return "${_frm}"
+END
+#
+#  TLV_Print
+#     Description:
+#        Prints BER encoded data according to tag hierarchy and formatters
+#     Params:
+#        argument 1:
+#           The binary data representing the BER encoded TLV data
+#     Return:  none
+#     Usage:   TLV_Print ber_tlv_data
+#     Example: 
+#              TLV_Print ${last.response.data}
+#     Note: Formatters are defined in the global table g_TAG_Definitions which is dynamically constructed with the inclusion of the various @_libGP, @_libEMV, @_libVISA etc.
+#           If no formatter is found, the binary value is returned unchanged.
+DEFUN TLV_Print
+   _tlv=    ${argv[0];uc}
+   # ev _tlv
+   _allTLVs[*]=   $(TLV_GetAll ${_tlv}) 
+   # ar _allTLVs
+   for _t_l_v ${_allTLVs[*];q}
+      _t_l_v[*]=  ${_t_l_v[*]}
+      _curT=   ${_t_l_v[0]}
+      _curL=   ${_t_l_v[1]}
+      _curV=   ${_t_l_v[2]}
+      if $(TLV_IsTagConstructed ${_curT}) == true
+         println "${_curT} %$(/expr 4 - ${_curT;l})s- $(TLV_GetDescription ${_curT}):"
+         setPrintSpacing +2
+         TLV_Print ${_curV}
+         setPrintSpacing -2
+      else
+         println "${_curT} %$(/expr 4 - ${_curT;l})s- $(TLV_GetDescription ${_curT}): $(TLV_FormatValue ${_curT} ${_curV;q})"
+      end
+   end
+END
+#
+#  TLV_Command
+#     Description:
+#        Execute a command against a card and print the formatted BER encoded response
+#     Params:
+#        argument 1+:
+#           The command line to execute
+#     Return:  none
+#     Usage:   TLV_Command command
+#     Example: 
+#              TLV_Command /select A000000151000000
+#                 ________________________________________________________________________
+#                 Command: /select A000000151000000
+#                 Status Word : 9000
+#                 Response TLV:
+#                  6F   - File Control Information (FCI template):
+#                    84   - Executable Module AID: A000000151000000
+#                    A5   - Proprietary data:
+#                      9F65 - Maximum length of data field in command message: FF
+#
+#     Note: If a variable is set as "cfgShowCommand= false" the command will be executed but no output will be printed.
+DEFUN TLV_Command
+   cmd[*]=  ${argv[*];q}
+   # ev cmd
+   if "${cfgShowCommand}" == "false" # default is: print command and response
+      ${cmd[*];q}
+   else
+      printsp +1 ________________________________________________________________________
+      printsp +1 "Command: ${cmd[*]}"
+      ${cmd[*];q}
+      printsp +1 Status Word : ${last.response.status;uc}
+      if ${last.response.data;l} > 0
+         printsp +1 Response: ${last.response.data;uc}
+         printsp +1 Response TLV:
+         setPrintSpacing +2
+         TLV_Print ${last.response.data;uc}
+         setPrintSpacing -2
+         println
+      end
+   end
+END
+
+DEFUN GET_TLVs
+   return $(TLV_Get ${argv[*]})
+END
+DEFUN GET_All_TLVs
+   # in the legacy implementation of GET_All_TLVs the return was:
+   #     tag1 len1 val1 .... tagN lenN valN
+   # rather than:
+   #     "tag1 len1 val1"
+   #     ...
+   #     "tagN lenN valN"
+   _return[*]= $(TLV_GetAll ${argv[*]})
+   _return[*]= ${_return[*]}
+   # ar  _return
+   return ${_return[*]}
+END
+
+#
+# usage: tlv tag value
+# 
+# Returns a constructed TLV object with given tag and payload
+#
+DEFUN tlv
+  /applet JCipher
+  
+  /set-var tag $(pad -p NOPAD -b 1 ${argv[0];q})
+  /set-var value $(pad -p NOPAD -b 1 "${argv[1..]}")
+  
+  /set-var len $(/expr ${value;l} / 2)
+  if ${len} > 255
+    /set-var obj ${tag;q}82${len;h4}${value;q}
+  elseif ${len} > 127
+    /set-var obj ${tag;q}81${len;h2}${value;q}
+  else
+    /set-var obj ${tag;q}${len;h2}${value;q}
+  end
+  
+  return ${obj;q}
+END

@@ -1,0 +1,26 @@
+@startuml
+box "FiRaLite Demo " #LightBlue
+	entity      SE051W_Init
+	entity      UWBD_SR150_Init
+	participant FiRaLite_Initiator
+	actor Orchestrator
+	participant FiRaLite_Responder
+	entity      UWBD_SR150_Resp
+	entity      SE051W_Resp
+end box
+
+
+FiRaLite_Initiator -> SE051W_Init :GetData(UWB_Capabilites)
+SE051W_Init -->FiRaLite_Initiator :Returns APDU GetData(UWB_Capabilites)
+FiRaLite_Initiator ->Orchestrator : GetData(UWB_Capabilites)
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:Se_API_Dispatch GetData(UWB_Capabilites)
+SE051W_Resp --> FiRaLite_Responder :UWB_Capabilites
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator -> FiRaLite_Initiator :Send command to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response)
+SE051W_Init-->FiRaLite_Initiator : UWB_Capabilites.
+
+
+
+@enduml

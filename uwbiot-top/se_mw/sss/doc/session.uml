@@ -1,0 +1,22 @@
+@startuml
+
+    title Opening a Session
+
+    participant app as "Application"
+    participant SSS as sss
+    participant "Secure Element" as se
+
+    app -> sss : sss session opens
+    activate sss
+    sss -> se : I2C Open
+    activate se
+    app /-- sss : Session
+    ...
+    == communication with SE ==
+    ...
+    app -> sss : sss session close
+    sss --\ se : I2C Close
+    deactivate se
+    app /-- sss : Closed
+    deactivate sss
+@enduml

@@ -1,0 +1,25 @@
+This is the README for the FiRa Script Generation Tool / fira-sgt
+###################################################################
+1. Intro
+
+The fira-sgt is a tool that allows to perform several FiRa applet 
+related tasks without requiring in depth knowledge of the implementation.
+The tool provides:
+- injection of test keys into the FiRa applet, for development purposes
+- generation of SCP11c secure scripts to create and provision ADFs
+
+###################################################################
+2. Preconditions
+The tool requires JCShell and the FiRa applet must be installed.
+
+###################################################################
+3. Applet provisioning
+If the applet is not provisioned (e.g. applet was sideloaded or 
+updated from an older development version), the script 
+fira-provision shall be executed in order to inject test keys.
+
+If provisioning had already been done, the script fira-read-applet-cert
+can be used to retrieve the applet SCP11c certificate.
+
+###################################################################
+4. Script generation 

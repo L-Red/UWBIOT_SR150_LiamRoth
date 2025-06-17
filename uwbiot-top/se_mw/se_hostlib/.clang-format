@@ -1,0 +1,44 @@
+AlignTrailingComments            : true
+AllowAllParametersOfDeclarationOnNextLine : true
+AllowShortBlocksOnASingleLine : false
+AllowShortFunctionsOnASingleLine : "None"
+AllowShortIfStatementsOnASingleLine : false
+AllowShortLoopsOnASingleLine : false
+AlwaysBreakBeforeMultilineStrings : true
+BasedOnStyle : "Google"
+BinPackParameters : false
+BreakBeforeBinaryOperators : false
+BreakBeforeTernaryOperators : false
+ColumnLimit : 120
+ContinuationIndentWidth :     4
+DerivePointerAlignment : false
+DisableFormat : false
+IndentCaseLabels : false
+IndentWrappedFunctionNames : false
+IndentWidth : 4
+Language : "Cpp"
+MaxEmptyLinesToKeep :         1
+PointerBindsToType : false
+SpaceBeforeAssignmentOperators : true
+SpaceBeforeParens : "ControlStatements"
+SpacesBeforeTrailingComments : 1
+SpacesInCStyleCastParentheses : false
+SpacesInParentheses : false
+Standard : "Cpp03"
+TabWidth : 1
+UseTab : "Never"
+AlignAfterOpenBracket : "DontAlign"
+BinPackArguments : false
+BinPackParameters : false
+ReflowComments : false
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterEnum: true
+  AfterStruct: true
+  SplitEmptyFunction: true
+  AfterFunction: true
+  BeforeElse: true
+SortIncludes: false
+AlignConsecutiveAssignments: true
+#AlignConsecutiveMacros: true
+

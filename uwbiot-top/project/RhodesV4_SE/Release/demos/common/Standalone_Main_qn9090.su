@@ -1,0 +1,5 @@
+../../../se_mw/sss/ex/inc/ex_sss_main_inc_qn9090.h:44:6:ex_sss_main_ksdk_bm	8	static
+../../../se_mw/sss/ex/inc/ex_sss_main_inc_qn9090.h:71:6:ex_sss_main_ksdk_boot_rtos_task	0	static
+../../../se_mw/sss/ex/inc/ex_sss_main_inc_qn9090.h:75:6:ex_sss_main_ksdk_success	0	static
+../../../se_mw/sss/ex/inc/ex_sss_main_inc_qn9090.h:82:6:ex_sss_main_ksdk_failure	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/common/Standalone_Main_qn9090.c:62:5:main	8	static

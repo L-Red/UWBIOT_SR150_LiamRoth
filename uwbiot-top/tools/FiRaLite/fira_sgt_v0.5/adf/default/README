@@ -1,0 +1,8 @@
+This ADF profile defines equal configuration to controller and controlee, with the following features:
+
+- OID value 060A6086480186FF13010101
+- SC2 symmetric keys
+- no specific UWB service preferences
+- default access conditions
+- no application data
+- multicast not supported

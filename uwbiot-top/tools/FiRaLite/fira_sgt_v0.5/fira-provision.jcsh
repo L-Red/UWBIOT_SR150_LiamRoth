@@ -1,0 +1,46 @@
+@_defs
+@cfg/FK/FK_default.jcsh
+@cfg/ProvisioningAuthority/PA_default.jcsh
+
+DEFUN trustProvisioning
+	/atr
+	/select ${FIRA.AID}
+	
+	# SCP11 cert and private key
+	/send 80191100#(${sgt.CERT.SD.ECKA})
+	/send 80192100#(${sgt.SK.SD.ECKA})
+	
+	# SC2 cert and private key
+	/send 80191000#(${sgt.CERT.SC2.ECKA})
+	/send 80192000#(${sgt.SK.SC2.ECKA})
+	
+	# Lock the provisioning 
+	/send 80198000
+END
+
+DEFUN installProvisioningAuthority
+	/atr
+	/app cm
+	# select ISD or SSD
+	/select ${sgt.SSD.FIRA.AID}
+	
+	set-key ${sgt.SSD.FIRA.KVN}/1/AES/${sgt.SSD.FIRA.ENC} ${sgt.SSD.FIRA.KVN}/2/AES/${sgt.SSD.FIRA.MAC} ${sgt.SSD.FIRA.KVN}/3/AES/${sgt.SSD.FIRA.DEK}
+	
+	auth mac
+	personalize ${FIRA.AID}
+	store-data -b 0 1000#(41#(${sgt.ID.PA})42#(01)43#(${sgt.PK.PA}))
+	/app JCipher
+END
+
+DEFUN putDeviceCapabilities
+	# TODO
+END
+
+DEFUN putRegulatoryInformation
+	# TODO
+END
+
+#trustProvisioning
+installProvisioningAuthority
+putDeviceCapabilities
+putRegulatoryInformation

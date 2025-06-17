@@ -1,0 +1,20 @@
+
+
+prod_name = "Applet_SE050"
+
+prod_desc = "Applet AR6"
+
+lang_c_prefix = prod_name.upper()
+
+lang_namespace = ""
+
+v_major  = "03"
+
+v_minor  = "01"
+
+v_dev    = "00"
+
+v_meta   = ""
+
+maturity = "P"
+

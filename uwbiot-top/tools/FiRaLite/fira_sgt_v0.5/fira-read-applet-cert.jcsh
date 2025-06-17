@@ -1,0 +1,26 @@
+@${script.name;dirname}/_util/_libTlv
+@_defs
+
+
+/atr
+/select ${FIRA.AID}
+/send 80CABF21000000
+
+certificateList=$(TLV_Get BF21 ${last.response.data})
+if ${certificateList;l} == 0
+	/error Applet is not provisioned. Run fira-provision and then retry.
+end
+
+certs[*]=$(TLV_Get 7F21 ${certificateList})
+idx=0
+while ${idx} < ${certs[*];l}
+	scpId=$(TLV_Get 90 $(TLV_Get 73 ${certs[${idx}]}))
+	if ${scpId} == "04"
+		cert=$(pad -b 1 -p NOPAD 7F21%(${certs[${idx}]}))
+		/echo Found SCP11 certificate: ${cert}
+		return ${cert}
+	end
+	idx=$(/expr ${idx} + 1)
+end
+
+/error SCP11 certificate not found

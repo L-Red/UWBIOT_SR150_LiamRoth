@@ -1,0 +1,58 @@
+
+@startuml
+box "FiRaLite Demo " #LightBlue
+	entity      SE051W_Init
+	entity      UWBD_SR150_Init
+	participant FiRaLite_Initiator
+	actor Orchestrator
+	participant FiRaLite_Responder
+	entity      UWBD_SR150_Resp
+	entity      SE051W_Resp
+end box
+
+Orchestrator -> FiRaLite_Initiator :/start(command = [0x0B, 0x00, 0x00])
+FiRaLite_Initiator -> SE051W_Init :Se_API_Init()
+SE051W_Init -->FiRaLite_Initiator :Returns
+FiRaLite_Initiator -> SE051W_Init :Se_API_SelectADF()
+SE051W_Init -->FiRaLite_Initiator :Returns
+FiRaLite_Initiator -> SE051W_Init :Se_API_InitiateTransaction()
+	
+SE051W_Init -->FiRaLite_Initiator :Returns APDU SELECT
+FiRaLite_Initiator ->Orchestrator : SELECT
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:SendData(Lc1SelectFiRaLite)
+SE051W_Resp --> FiRaLite_Responder :SELECT Response
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator -> FiRaLite_Initiator :Send command to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response of Select FiRaLite)
+
+SE051W_Init -->FiRaLite_Initiator :Returns command SelectADF
+FiRaLite_Initiator ->Orchestrator : SelectADF
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:Se_API_Dispatch(SelectADF)
+SE051W_Resp --> FiRaLite_Responder :SelectADF Response
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator --> FiRaLite_Initiator :Send response to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response SelectADF)
+
+SE051W_Init -->FiRaLite_Initiator :Returns command GenAuth1
+FiRaLite_Initiator ->Orchestrator : GenAuth1
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:Se_API_Dispatch(GenAuth1)
+SE051W_Resp --> FiRaLite_Responder :GenAuth1 Response
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator --> FiRaLite_Initiator :Send response to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response GenAuth1)
+
+SE051W_Init -->FiRaLite_Initiator :Returns command GenAuth2
+FiRaLite_Initiator ->Orchestrator : GenAuth2
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:Se_API_Dispatch(GenAuth2)
+SE051W_Resp --> FiRaLite_Responder :GenAuth2 Response
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator --> FiRaLite_Initiator :Send response to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response GenAuth2)
+
+SE051W_Init-->FiRaLite_Initiator : SC Established.
+
+@enduml

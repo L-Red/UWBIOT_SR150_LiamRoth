@@ -1,0 +1,19 @@
+FIRA Script Generation Tool
+------------------------------------------------------------------
+VERSION 0.5
++ gen_all and gen_script now read the certificate, meaning a 
+sample is required to be present
++ commented trustProvisioning function
+------------------------------------------------------------------
+VERSION 0.4
++ FiRa AID update according to CSML 
++ Updated applet certificate format to be better aligned with CSML
+------------------------------------------------------------------
+VERSION 0.3
++ bug fix for support for IoT SSD
+------------------------------------------------------------------
+VERSION 0.2
++ add support for IoT SSD
+------------------------------------------------------------------
+VERSION 0.1
++ add support for basic scripting with CREATE ADF and MANAGE ADF

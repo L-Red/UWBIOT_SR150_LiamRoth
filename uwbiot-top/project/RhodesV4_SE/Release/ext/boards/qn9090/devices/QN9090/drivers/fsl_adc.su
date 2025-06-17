@@ -1,0 +1,7 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:48:6:ADC_Init	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:149:6:ADC_GetDefaultConfig	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:182:6:ADC_Deinit	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:304:6:ADC_SetConvSeqAConfig	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:408:6:ADC_GetConvSeqAGlobalConversionResult	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:471:6:ADC_GetChannelConversionResult	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_adc.c:510:6:ADC_EnableTemperatureSensor	0	static

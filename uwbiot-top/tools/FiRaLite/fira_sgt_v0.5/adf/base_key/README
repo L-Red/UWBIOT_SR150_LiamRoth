@@ -1,0 +1,9 @@
+This ADF profile contains:
+
+- Controller OID value 060C6086480186FF130101020000
+- Controlee OID value 060C6086480186FF130101021111
+- SC2 symmetric keys with base key derivation
+- standard UWB service preferences
+- default access conditions
+- no application data
+- multicast not supported

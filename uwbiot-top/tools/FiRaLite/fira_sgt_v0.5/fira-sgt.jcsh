@@ -1,0 +1,664 @@
+# Script execution
+/register JCipher |JCipher com.ibm.jc.tools.CryptoPlugin
+/app JCipher 
+
+@${script.name;dirname}/_util/_libTlv
+@${script.name;dirname}/_util/_libApdu
+@_defs
+
+####################
+#
+#  f_new_script
+#     Description:
+#        Starts generation of a new script. Any previously started script is discarded.
+#		 A script can be dumped into a file using the dump command.
+#     Params:
+#     Return:  void
+#     Usage:   f_new_script
+DEFUN f_new_script
+	# clear variables from previous scripts
+	f_clear_vars
+	
+	# add SELECT FIRA command 
+	/s-v -g fira_sgt_script[*] "00A40400#(${FIRA.AID})"
+END
+
+####################
+#
+#  f_clear_vars
+#     Description:
+#        Clear internal variables. Only the JCShell 'path' variable is kept
+#     Params:
+#     Return:  void
+#     Usage:   f_clear_vars
+DEFUN f_clear_vars
+	/s-v backup.path ${path}
+	/clear-vars
+	/s-v path "${backup.path}"
+END
+
+####################
+#
+#  f_verify_cert
+#     Description:
+#        Verifies the signature of a given certificate.
+#     Params:
+#              --cert <certificate>: certificate to be validated
+#              --ca <CA public key>: public key of the CA to perform validation
+#     Return:  true or false
+#     Usage:   f_verify_cert --cert <applet certificate> --ca <CA public key>
+DEFUN f_verify_cert
+	
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--cert"
+			/s-v certificate ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--ca"
+			/s-v caPublicKey ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${certificate;l} == 0
+		/error "[authenticate] missing mandatory parameter '--cert'"
+	end
+	if ${caPublicKey;l} == 0
+		/error "[authenticate] missing mandatory parameter '--ca'"
+	end
+	
+	/s-v tags[*] $(TLV_GetAll $(TLV_Get 7F21 ${certificate}))
+	/s-v idx 0
+	/s-v tbsData ""
+	while ${idx} < ${tags[*];l}
+		/s-v tag[*] ${tags[${idx}]}
+		if ${tag[0];uc} != "5F37"
+			/s-v tbsData ${tbsData}${tag[0]}${tag[1];h2}${tag[2]}
+			if ${tag[0];uc} == "7F49"
+				/s-v PK.FIRA-SCP11.ECDSA $(TLV_Get B0 ${tag[2]})
+			end		
+		else 
+			/s-v signature ${tag[2]}
+			/s-v signatureR ${signature;s0,64}
+			/s-v signatureS ${signature;s64}
+		end
+		/s-v idx $(/expr ${idx} + 1)
+	end
+	
+	sign --mode ECDSA --operation verifySign --hash SHA-256 --input ${tbsData} --rSign ${signatureR} --sSign ${signatureS} --eccpubkeyX ${caPublicKey;s2,64} --eccpubkeyY ${caPublicKey;s66}
+	if ${VERIFY_SIGN} != "TRUE"
+		return false
+	else 
+		return true
+	end 
+END 
+
+####################
+#
+#  f_root_authenticate
+#     Description:
+#        Generates script commands for performing SCP11c authentication at root level.
+#     Params:
+#              --applet-cert <applet certificate>: certificate extracted from the applet instance, using GET DATA BF21
+#              --applet-cert-ca <CA public key>: optional Applet certificate CA Public Key. If omitted the Applet Certificate is not validated before generating the script.
+#              --service-provider <SP config file>: point to one of the jcsh files under cfg/ServiceProvider. Specifies the SP which is performing authentication.
+#     Return:  void
+#     Usage:   f_root_authenticate --applet-cert <applet certificate> --service-provider <service provider cfg file> [--applet-cert-ca <CA public key>]
+DEFUN f_root_authenticate
+
+	/s-v bool_sp_cfg false
+	
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--applet-cert"
+			/s-v -g sgt.CERT.SD.ECKA ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--applet-cert-ca"
+			/s-v PK.CA.ECDSA ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--service-provider"
+			@${arg[1]}
+			/s-v bool_sp_cfg true
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${sgt.CERT.SD.ECKA;l} == 0
+		/error "[authenticate] missing mandatory parameter '--applet-cert'"
+	end
+	if ${bool_sp_cfg} == false
+		/error "[authenticate] missing mandatory parameter '--service-provider'"
+	else
+		# TODO verify all variables exist for the SP 
+	end
+	if ${PK.CA.ECDSA;l} == 0
+		/echo [WARNING] [authenticate] missing parameter '--applet-cert-ca'. 
+		/echo [WARNING] this parameter is recommended so the Applet Certificate is verified before generating the script.
+	else
+		/s-v verified $(f_verify_cert --cert ${sgt.CERT.SD.ECKA} --ca ${PK.CA.ECDSA})
+		if ${verified} == false
+			/error CERT.SD.ECKA could not be verified with given CA public key
+		end
+	end
+	
+	f_authenticate_scp11c --certSdEcka ${sgt.CERT.SD.ECKA} --certOceEcka ${sgt.CERT.SP.ECKA} --skOceEcka ${sgt.SK.SP.ECKA}
+END
+
+####################
+#
+#  f_adf_authenticate
+#     Description:
+#        Generates script commands for performing SCP11c authentication at ADF level.
+#     Params:
+#              --applet-cert <applet certificate>: certificate extracted from the applet instance, using GET DATA BF21
+#              --adf-data <config file>: configuration file containing ADF data (see files under adf folder)
+#     Return:  void
+#     Usage:   f_adf_authenticate --applet-cert <applet certificate> --adf-data <config file>
+DEFUN f_adf_authenticate
+
+	/s-v bool_adf_cfg false
+	
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--applet-cert"
+			/s-v -g sgt.CERT.SD.ECKA ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--adf-data"
+			@${arg[1]}
+			/s-v bool_adf_cfg true
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${sgt.CERT.SD.ECKA;l} == 0
+		/error "[authenticate_adf] missing mandatory parameter '--applet-cert'"
+	end
+	if ${bool_adf_cfg} == false
+		/error "[authenticate_adf] missing mandatory parameter '--adf-data'"
+	else
+		# TODO verify all variables exist for the adf data 
+	end
+	
+	# generate OCE keys
+	keygen --mode ECC --eccoperation keypairgen
+	/s-v skOceEcka ${KEY_ECC_PrivateKey}
+	/s-v pkOceEcka 04${KEY_ECC_PublicKeyX}${KEY_ECC_PublicKeyY}
+	
+	# generate OCE certificate and restrict its execution on the specific target device
+	/s-v targetDevice $(TLV_Get 93 $(TLV_Get 7F21 ${sgt.CERT.SD.ECKA}))
+	/s-v certOceEcka $(generateCertOceEcka --pkOceEcka ${pkOceEcka} --scp-id 04 --target-device ${targetDevice} --signingKey ${adf.provisioning.ca.privateKey})
+	
+	f_authenticate_scp11c --certSdEcka ${sgt.CERT.SD.ECKA} --certOceEcka ${certOceEcka} --skOceEcka ${skOceEcka}
+END
+
+####################
+#
+#  generateCertOceEcka
+#     Description:
+#        Generates a FiRa compliant offcard certificate
+#     Params:
+#              --signingKey <CA private key>: private key of the CA issuing the certificate
+#              --target-device <target device serial number>: OPTIONAL serial number of the device intended to run this script
+#              --scp-id <SCP ID>: identifier of the secure channel protocol - 04 for SCP11c
+#			   --ca-id <CA ID>: OPTIONAL identifier of the CA issuing the certificate
+#			   --cert-usage-descr <usage descriptor>: OPTIONAL descriptor of the certificate (refer to FiRa spec for possible values)
+#			   --oid-range <OID>: OPTIONAL range of OID allowed to be created with the certificate generated
+#			   --pkOceEcka <public key>: certificate public key value
+#     Return:  void
+#     Usage:   generateCertOceEcka --pkOceEcka <public key> --signingKey <CA private key> --scp-id 04 [...]
+DEFUN generateCertOceEcka
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--signingKey"
+			/s-v signingKey ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--target-device"
+			/s-v targetDevice ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--scp-id"
+			/s-v scpId ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--ca-id"
+			/s-v caId ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--cert-usage-descr"
+			/s-v certUsageDescr ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--oid-range"
+			/s-v oidRange ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--key-usage"
+			/s-v keyUsage ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--pkOceEcka"
+			/s-v pkOceEcka ${arg[1]}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end
+	
+	/s-v tag73 ""
+	if ${scpId;l} > 0 
+		/s-v tag73 ${tag73}90#(${scpId})
+	end
+	if ${targetDevice;l} > 0 
+		/s-v tag73 ${tag73}91#(${targetDevice})
+	end
+	if ${certUsageDescr;l} > 0 
+		/s-v tag73 ${tag73}92#(${certUsageDescr})
+	end
+	if ${oidRange;l} > 0 
+		/s-v tag73 ${tag73}93#(${oidRange})
+	end
+	
+	if ${tag73;l} > 0
+		/s-v tag73 73%(${tag73})
+	end
+	
+	/s-v tag42 ""
+	if ${caId;l} > 0 
+		/s-v tag42 42#(${caId})
+	end
+	
+	/s-v tag95 95#(0080)
+	if ${keyUsage;l} > 0 
+		/s-v tag95 95#(${keyUsage})
+	end
+	
+	/s-v tbsData 93#(${random;len=8})${tag42}5F20#(01020304050607080102030405060708)${tag95}${tag73}7F49%(B0#(${pkOceEcka})F0#(00))
+	sign --mode ECDSA --operation genSign --hash SHA-256 --input ${tbsData} --ecprivate ${signingKey}
+	
+	/s-v rv 7F21%(${tbsData}5F37#(${SIGNATURE_ECDSA_R}${SIGNATURE_ECDSA_S}))
+	return $(pad -b 1 -p NOPAD ${rv})
+END 
+
+####################
+#
+#  f_authenticate_scp11c
+#     Description:
+#        Generic SCP11c authentication function
+#     Params:
+#              --certSdEcka <applet certificate>: certificate extracted from the applet instance, using GET DATA BF21
+#              --certOceEcka <offcard certificate>: certificate of the offcard entity (e.g. Service Provider)
+#              --skOceEcka <offcard private key>: private key of the offcard entity
+#     Return:  void
+#     Usage:   f_authenticate_scp11c --certSdEcka <applet certificate> --certOceEcka <offcard certificate> --skOceEcka <offcard private key>
+DEFUN f_authenticate_scp11c
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--certSdEcka"
+			/s-v certSdEcka ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--certOceEcka"
+			/s-v certOceEcka ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--skOceEcka"
+			/s-v skOceEcka ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${certSdEcka;l} == 0
+		/error "[authenticate_scp11c] missing mandatory parameter '--certSdEcka'"
+	end
+	if ${certOceEcka;l} == 0
+		/error "[authenticate_scp11c] missing mandatory parameter '--certOceEcka'"
+	end
+	if ${skOceEcka;l} == 0
+		/error "[authenticate_scp11c] missing mandatory parameter '--skOceEcka'"
+	end
+
+	# extract Applet Public Key from certSdEcka
+	/s-v pkSdEcka $(TLV_Get B0 $(TLV_Get 7F49 $(TLV_Get 7F21 ${certSdEcka})))	
+	
+	# generate ephemeral keys
+	keygen --mode ECC --eccoperation keypairgen
+	
+	# compute ShS and session keys 
+	keygen --mode ECC --eccoperation calcShs -d ${skOceEcka} -x ${pkSdEcka;s2,64} -y ${pkSdEcka;s66}
+	/s-v ShSss ${ECC_SharedSecret}
+	keygen --mode ECC --eccoperation calcShs -d ${KEY_ECC_PrivateKey} -x ${pkSdEcka;s2,64} -y ${pkSdEcka;s66}
+	/s-v ShSes ${ECC_SharedSecret}
+
+	# derive session keys 
+	/s-v Shs ${ShSes}${ShSss}
+	/s-v sharedInfo 3C8810
+	
+	hash -m SHA-256 ${Shs}00000001${sharedInfo}
+	/s-v -g sgt.SESSION.RECEIPT ${last.return;s0,32}
+	/s-v -g sgt.SESSION.S-ENC ${last.return;s32}
+	hash -m SHA-256 ${Shs}00000002${sharedInfo}
+	/s-v -g sgt.SESSION.S-MAC ${last.return;s0,32}
+	/s-v -g sgt.SESSION.S-RMAC ${last.return;s32}
+	
+	/s-v -g sgt.SESSION.ENCRYPTION_COUNTER 1
+
+	/s-v CRT.TLV A6#(90#(1103)95#(3C)80#(88)81#(10))
+	/s-v PAYLOAD.MUTUAL_AUTH ${CRT.TLV}5F49#(04${KEY_ECC_PublicKeyX}${KEY_ECC_PublicKeyY})
+	
+	# generate the receipt 
+	mac -m M7 -k ${sgt.SESSION.RECEIPT} ${PAYLOAD.MUTUAL_AUTH}5F49#(${pkSdEcka})
+	/s-v -g sgt.SESSION.MCV ${last.return}
+
+	/echo [Shared Secret] ${Shs}
+	/echo [Receipt Key]   ${sgt.SESSION.RECEIPT}
+	/echo [S-ENC Key]     ${sgt.SESSION.S-ENC}
+	/echo [S-MAC Key]     ${sgt.SESSION.S-MAC}
+	/echo [S-RMAC Key]    ${sgt.SESSION.S-RMAC}
+	
+	# add PSO command 
+	/s-v -g fira_sgt_script[#] "802A0000#(${certOceEcka})"
+	
+	# add MA command
+	/s-v -g fira_sgt_script[#] "80820015#(${PAYLOAD.MUTUAL_AUTH})"
+END
+
+####################
+#
+#  f_add_secure
+#     Description:
+#        Wraps a command using SCP03 and adds it to the script
+#     Params:
+#              --apdu <apdu>: the full APDU command in plaintext to be wrapped and added to the script
+#     Return:  void
+#     Usage:   f_add_secure --apdu <apdu>
+DEFUN f_add_secure
+	
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--apdu"
+			/s-v apdu ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${apdu;l} == 0
+		/error "[add_secure] missing mandatory parameter '--apdu'"
+	end
+	
+	# perform SCP03 wrapping, first encrypt and then MAC
+	_payload=$(getPayload ${apdu})
+	if ${_payload;l} > 0
+		# encryption
+		_iv=$(encrypt -m AES/CBC -p NOPAD -k ${sgt.SESSION.S-ENC} ${sgt.SESSION.ENCRYPTION_COUNTER;h32})
+		_payload=$(encrypt -m AES/CBC -p M4 -i ${_iv} -k ${sgt.SESSION.S-ENC} ${_payload})
+	end
+	
+	# increment encryption counter
+	/s-v -g sgt.SESSION.ENCRYPTION_COUNTER $(/expr ${sgt.SESSION.ENCRYPTION_COUNTER} + 1)
+	
+	# MAC
+	_cla=$(getCla ${apdu})
+	_ins=$(getIns ${apdu})
+	_p1=$(getP1 ${apdu})
+	_p2=$(getP2 ${apdu})
+	_secApdu=$(/expr ${_cla} | 0x04)${_ins}${_p1}${_p2}
+	_payloadLen=$(/expr ${_payload;l} / 2)
+	_lc=$(/expr ${_payloadLen} + 8)
+	if $(isExtendedLengthApdu ${apdu}) == true || ${_lc} > 255 \
+		# extended case
+		_secApdu=${_secApdu}00${_lc;h4}
+	else
+		_secApdu=${_secApdu}${_lc;h2}
+	end
+	_secApdu=${_secApdu}${_payload}
+	_macInput=${sgt.SESSION.MCV}${_secApdu}
+	mac -m M7 -p NOPAD -k ${sgt.SESSION.S-MAC} ${_macInput}
+	/s-v -g sgt.SESSION.MCV ${last.return}
+	
+	_secApdu=${_secApdu}${sgt.SESSION.MCV;s0,16}
+	
+	/s-v -g fira_sgt_script[#] "${_secApdu}"
+END
+
+####################
+#
+#  f_add_plain
+#     Description:
+#        Adds a plain command to the script
+#     Params:
+#              --apdu <apdu>: the full APDU command 
+#     Return:  void
+#     Usage:   f_add_plain --apdu <apdu>
+DEFUN f_add_plain
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--apdu"
+			/s-v apdu ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${apdu;l} == 0
+		/error "[add_secure] missing mandatory parameter '--apdu'"
+	end
+	
+	/s-v -g fira_sgt_script[#] "${apdu}"
+	
+END
+
+####################
+#
+#  f_dump
+#     Description:
+#        Dump the script to a file
+#     Params:
+#              --folder <folder>: the folder to dump all outputs
+#			   --descr <descriptive name>: descriptive name to give to the script filename
+#     Return:  void
+#     Usage:   f_dump --folder "./output" --descr "controller-CREATE"
+DEFUN f_dump
+
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--folder"
+			/s-v outFolder ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		elseif ${arg[0];q} == "--descr"
+			/s-v descr ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+
+	/s-v i 0
+	while ${i} < ${fira_sgt_script[*];l}
+		/s-v -g fira_sgt_script[${i}] $(pad -b 1 -p NOPAD ${fira_sgt_script[${i}]})
+		/s-v i $(/expr ${i} + 1)
+	end
+		
+	/echo Dumping outputs to folder: ${outFolder}
+	dumpJCShell ${outFolder}/${descr}.jcsh
+	dumpRaw ${outFolder}/${descr}.raw.txt
+	
+END
+
+DEFUN dumpJCShell
+	> 3 ${argv[0]}
+	
+	/echo "# script generated by fira-sgt"
+	/echo ""
+	/s-v i 0
+	while ${i} < ${fira_sgt_script[*];l}
+		/echo "/send ${fira_sgt_script[${i}]}"
+		/s-v i $(/expr ${i} + 1)
+	end
+	
+	/echo ""
+	/echo "# end of script"
+	
+	> 3 - 
+END
+
+DEFUN dumpRaw
+	> 3 ${argv[0]}
+	/s-v i 0
+	while ${i} < ${fira_sgt_script[*];l}
+		/echo ${fira_sgt_script[${i}]}
+		/s-v i $(/expr ${i} + 1)
+	end
+	> 3 - 
+END
+
+DEFUN f_create_adf
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--adf-data"
+			/s-v adf.data ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${adf.data;l} == 0
+		/error "[create_adf] missing mandatory parameter '--adf-data'"
+	end
+	
+	# build CREATE ADF command 
+	@${adf.data}
+	/s-v command $(pad -b 1 -p NOPAD 80E00000#(${adf.oid}${adf.provisioning.keyset}))
+	/echo ADF command derived from adf.data: ${command}
+	f_add_secure --apdu ${command}
+END 
+
+DEFUN f_select_adf
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--adf-data"
+			/s-v adf.data ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${adf.data;l} == 0
+		/error "[create_adf] missing mandatory parameter '--adf-data'"
+	end
+	
+	# build SELECT ADF command 
+	@${adf.data}
+	/s-v command $(pad -b 1 -p NOPAD 80A50400#(800100${adf.oid}))
+	f_add_plain --apdu ${command}
+END 
+
+DEFUN f_delete_adf
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--adf-data"
+			/s-v adf.data ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${adf.data;l} == 0
+		/error "[create_adf] missing mandatory parameter '--adf-data'"
+	end
+	
+	# build DELETE ADF command 
+	@${adf.data}
+	/s-v command $(pad -b 1 -p NOPAD 80E40000#(${adf.oid}))
+	f_add_secure --apdu ${command}
+END 
+
+DEFUN f_manage_adf
+	# parameter parsing
+	/set-var arg[*] ${argv[*];qq}
+	while ${arg[*];l} > 0
+		if ${arg[0];q} == "--adf-data"
+			/s-v adf.data ${arg[1];q}
+			/set-var arg[*] ${arg[2..];q}
+		else
+			/error Unknown option ${arg[0];q}
+		end
+	end 
+	
+	# parameter checking 
+	if ${adf.data;l} == 0
+		/error "[create_adf] missing mandatory parameter '--adf-data'"
+	end
+	
+	# build MANAGE ADF commands
+	@${adf.data}
+	
+	f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0100#(${adf.uwbServicePreferences}))
+	
+	if ${adf.accessConditions;l} > 0
+		f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0100#(${adf.accessConditions}))
+	end
+	if ${adf.applicationData;l} > 0
+		f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0100#(${adf.applicationData}))
+	end
+	if ${adf.instanceUid;l} > 0
+		f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0100#(${adf.instanceUid}))
+	end
+	if ${adf.extendedOptions;l} > 0
+		f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0100#(${adf.extendedOptions}))
+	end
+	
+	f_add_secure --apdu $(pad -b 1 -p NOPAD 80EA0000#(${adf.secureChannel.keyset}))
+END 
+
+/set-var arg[*] ${argv[*];qq}
+if ${arg[0];q} == "new"
+	f_new_script ${arg[1..];q}
+elseif ${arg[0];q} == "authenticate"
+	f_root_authenticate ${arg[1..];q}
+elseif ${arg[0];q} == "authenticate_adf"
+	f_adf_authenticate ${arg[1..];q}
+elseif ${arg[0];q} == "add_secure"
+	f_add_secure ${arg[1..];q}
+elseif ${arg[0];q} == "add_plain"
+	f_add_plain ${arg[1..];q}
+elseif ${arg[0];q} == "create_adf"
+	f_create_adf ${arg[1..];q}
+elseif ${arg[0];q} == "manage_adf"
+	f_manage_adf ${arg[1..];q}
+elseif ${arg[0];q} == "select_adf"
+	f_select_adf ${arg[1..];q}
+elseif ${arg[0];q} == "delete_adf"
+	f_delete_adf ${arg[1..];q}
+elseif ${arg[0];q} == "dump"
+	f_dump ${arg[1..];q}
+else
+	# TODO print help
+	/error Unknown option ${arg[0];q}
+end
+
+

@@ -1,0 +1,4 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c:30:20:sems_lite_agent_load_package	3504	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c:250:14:sems_lite_agent_init_context	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c:279:14:sems_lite_agent_session_open	216	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c:338:14:sems_lite_agent_session_close	72	static

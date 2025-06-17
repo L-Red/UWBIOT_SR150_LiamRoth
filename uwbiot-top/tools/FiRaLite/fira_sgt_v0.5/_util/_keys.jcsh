@@ -1,0 +1,37 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+# TYPE specifies the key type is must be one of: AES, DES, DES-ECB, DES-CBC, RSA-PRIV, RSA-PUB, RSA-CRT, DSA-PRIV DSA-PUB.
+_keydefs_5[*]= # keyNo  keyType  key_part_enc                     key_part_mac                     key_part_dec 
+_keydefs_5[#]= " 01      AES      404142434445464748494A4B4C4D4E4F 404142434445464748494A4B4C4D4E4F 404142434445464748494A4B4C4D4E4F"
+_keydefs_5[#]= " 02      AES      505152535455565758595A5B5C5D5E5F 505152535455565758595A5B5C5D5E5F 505152535455565758595A5B5C5D5E5F"
+_keydefs_5[#]= " 00      AES      606162636465666768696A6B6C6D6E6F 606162636465666768696A6B6C6D6E6F 606162636465666768696A6B6C6D6E6F"
+
+# test key material
+/s-v PK.VENDOR-CA.X.AUT BFABCBE0779D691FD865835BD3AF64E3C48A0066AC2A22905AA85816D1E02371
+/s-v PK.VENDOR-CA.Y.AUT EFE66D32FECB5551FA38B64D69794AECC88B5E593F25B3BBD3B182F17DB41F01
+/s-v PK.VENDOR-CA.AUT 04${PK.VENDOR-CA.X.AUT}${PK.VENDOR-CA.Y.AUT}
+/s-v SK.VENDOR-CA.AUT 2D50EEB03A9F51C6675EA36A1CB390749F4F31A9AF882E5A42E813324AC5B6D2
+
+DEFUN F_GET_KEYSETs
+   _kvn=    ${argv[0]}
+   # ev _kvn
+   _keysets[*]=
+   
+   _curKeys[*]=   ${_keydefs_5[*];q}
+   # ar _curKeys
+   for _curKey ${_curKeys[*];q}
+      _curKey[*]=   ${_curKey[*]}
+      # ar _curKey
+      # ev _curKey
+      if ${_curKey[0]} == ${_kvn}
+         _keysets[#]=   "${_curKey[*];q}"         
+      end
+   end
+   # ar _keysets
+   return ${_keysets[*];q}
+END

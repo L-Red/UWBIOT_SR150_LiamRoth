@@ -1,0 +1,819 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+########################################
+#  ASSERTION LIBRARY
+########################################
+#  FUNCTION LIST:
+####################
+#     ASSERT_ArraysAreEqual
+#     ASSERT_VarsAreEmpty
+#     ASSERT_VarsAreNotEmpty
+#     ASSERT_Equals
+#     ASSERT_NotEquals
+#     ASSERT_LengthIs
+#     ASSERT_BytesLengthIs
+#     ASSERT_BytesLengthIsMultipleOf
+#     ASSERT_BytesLengthIsOneOf
+#     ASSERT_ValueIsOneOf
+#     ASSERT_ArrayLengthIs
+#     ASSERT_ValueMatches
+#     ASSERT_FilesExist
+#
+#     WARNING_ArraysAreEqual
+#     WARNING_VarsAreEmpty
+#     WARNING_VarsAreNotEmpty
+#     WARNING_Equals
+#     WARNING_NotEquals
+#     WARNING_LengthIs
+#     WARNING_BytesLengthIs
+#     WARNING_BytesLengthIsMultipleOf
+#     WARNING_BytesLengthIsOneOf
+#     WARNING_ValueIsOneOf
+#     WARNING_ArrayLengthIs
+#     WARNING_ValueMatches
+#     WARNING_FilesExist
+########################################
+ASSERTION_FAILED_PATTERN=  "ASSERTION FAILED: "
+########################################
+#  FUNCTION DECLARATIONS
+####################
+#
+#  ASSERT_ArraysAreEqual
+#     Description:
+#        Make sure that two arrays are equal in length and data, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first array
+#        argument 2:
+#           NAME of the second array
+#     Return:  none
+#     Usage:   ASSERT_ArraysAreEqual _array_1 _array_2
+#     Example: 
+#        ASSERT_ArraysAreEqual _array_before _array_after
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_ArraysAreEqual
+   arg[*]=     ${argv[*]}
+   _name1=     ${arg[0]}
+   _name2=     ${arg[1]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _arr_1[*]=  ${${_name1}[*];q}
+   _arr_2[*]=  ${${_name2}[*];q}
+   if ${_arr_1[*];l} != ${_arr_2[*];l}
+      # ar _arr_1
+      # ar _arr_2
+      /error "${ASSERTION_FAILED_PATTERN}Arrays '${_name1}[*]' and '${_name2}[*]' differ!"
+   end
+   _arrLen= ${_arr_2[*];l}
+   _cnt= 0
+   while ${_cnt} < ${_arrLen}
+      _item1=  ${_arr_1[${_cnt}]}
+      _item2=  ${_arr_2[${_cnt}]}
+      if "x${_item1}x" != "x${_item2}x"
+         # ar _arr_1
+         # ar _arr_2
+         /error "${ASSERTION_FAILED_PATTERN}Arrays '${_name1}[*]' and '${_name2}[*]' differ!"
+      end
+      # if !=
+      # end
+      _cnt= $(/expr 1 + ${_cnt})
+   end
+END
+#
+#  ASSERT_VarsAreEmpty
+#     Description:
+#        Make sure that one or more variables have no value assigned, raise an error otherwise
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   ASSERT_VarsAreEmpty var_1 [ var_2 ... var_n]
+#     Example: 
+#        ASSERT_VarsAreEmpty var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_VarsAreEmpty
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _varName ${arg[*]}
+      # ev ${_varName}
+      _assrt_val_= ${${_varName}}
+      if "x${_assrt_val_}x" != "xx"
+         /error "${ASSERTION_FAILED_PATTERN}Variable '${_varName}' is not empty: '${_assrt_val_}'"
+      end
+   end
+END
+#
+#  ASSERT_VarsAreNotEmpty
+#     Description:
+#        Make sure that one or more variables have value assigned, raise an error otherwise
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   ASSERT_VarsAreNotEmpty var_1 [ var_2 ... var_n]
+#     Example: 
+#        ASSERT_VarsAreNotEmpty var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_VarsAreNotEmpty
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _varName ${arg[*]}
+      # ev ${_varName}
+      _assrt_val_= ${${_varName}}
+      if "x${_assrt_val_}x" == "xx"
+         /error "${ASSERTION_FAILED_PATTERN}Variable '${_varName}' is empty!"
+      end
+   end
+END
+#
+#  ASSERT_Equals
+#     Description:
+#        Make sure that two variables have the same value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first variable to check
+#        argument 2:
+#           NAME of the second variables to check
+#     Return:  none
+#     Usage:   ASSERT_Equals var_1 var_2
+#     Example: 
+#        ASSERT_Equals var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_Equals
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _name1=  ${arg[0]}
+   _name2=  ${arg[1]}
+   _val1=   ${${arg[0]}}
+   _val2=   ${${arg[1]}}
+   if "x${_val1}x" != "x${_val2}x"
+      /error "${ASSERTION_FAILED_PATTERN}Variables ${_name1} and ${_name2} differ! '${_val1}' != '${_val2}'"
+   end
+END
+#
+#  ASSERT_NotEquals
+#     Description:
+#        Make sure that two variables have the different value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first variable to check
+#        argument 2:
+#           NAME of the second variables to check
+#     Return:  none
+#     Usage:   ASSERT_NotEquals var_1 var_2
+#     Example: 
+#        ASSERT_NotEquals var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_NotEquals
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _name1=  ${arg[0]}
+   _name2=  ${arg[1]}
+   _val1=   ${${arg[0]}}
+   _val2=   ${${arg[1]}}
+   if "x${_val1}x" == "x${_val2}x"
+      /error "${ASSERTION_FAILED_PATTERN}Variables ${_name1} and ${_name2} do not differ! '${_val1}' == '${_val2}'"
+   end
+END
+#
+#  ASSERT_LengthIs
+#     Description:
+#        Make sure that the length of a string variable is equal to a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the string variable to check
+#        argument 2:
+#           length the string shall have
+#     Return:  none
+#     Usage:   ASSERT_LengthIs var_1 len
+#     Example: 
+#        ASSERT_LengthIs var_1 13
+#     Note: the first argument is a NAME (i.e. no ${...} convention)
+DEFUN ASSERT_LengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _assrt_val_= ${${_varName};q}
+   if ${_assrt_val_;l} != ${_expLen}
+      /error "${ASSERTION_FAILED_PATTERN}Variable '${_varName}' has length ${_assrt_val_;l} instead of ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  ASSERT_BytesLengthIs
+#     Description:
+#        Make sure that the length of a byte string is equal to a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2:
+#           length the byte string shall have
+#     Return:  none
+#     Usage:   ASSERT_BytesLengthIs byte_string len
+#     Example: 
+#        ASSERT_BytesLengthIs application.cryptogram 8
+#     Note: the first argument is a NAME (i.e. no ${...} convention)
+DEFUN ASSERT_BytesLengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _expLenX=   $(/expr 2 * ${_expLen})
+   _assrt_val_= ${${_varName};q}
+   _assrt_val_lenX=   ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      /error "${ASSERTION_FAILED_PATTERN}Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=    $(/expr ${_assrt_val_lenX} / 2)
+   if ${_assrt_val_lenX} != ${_expLenX}
+      /error "${ASSERTION_FAILED_PATTERN}Byte array '${_varName}' has length ${_assrt_val_len} instead of ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  ASSERT_BytesLengthIsMultipleOf
+#     Description:
+#        Make sure that the length of a byte string is multiple of a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2:
+#           length the byte string shall be multiple of
+#     Return:  none
+#     Usage:   ASSERT_BytesLengthIsMultipleOf var_name len
+#     Example: 
+#        ASSERT_BytesLengthIsMultipleOf AFL 4
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_BytesLengthIsMultipleOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _expLenX=   $(/expr 2 * ${_expLen})
+   _assrt_val_= ${${_varName};q}
+   _assrt_val_lenX=   ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      /error "${ASSERTION_FAILED_PATTERN}Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=    $(/expr ${_assrt_val_lenX} / 2)
+   if ${_assrt_val_lenX} == 0 || $(/expr ${_assrt_val_lenX} % ${_expLenX}) != 0
+      /error "${ASSERTION_FAILED_PATTERN}Byte array '${_varName}' has length ${_assrt_val_len} instead of N * ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  ASSERT_BytesLengthIsOneOf
+#     Description:
+#        Make sure that the length of a byte string is one of multiple given values, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2+:
+#           length(s) the byte string shall be
+#     Return:  none
+#     Usage:   ASSERT_BytesLengthIsOneOf var_name len_1 len_2 [ ... len_n]
+#     Example: 
+#        ASSERT_BytesLengthIsOneOf keylength 16 24 32
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_BytesLengthIsOneOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=         ${argv[0]}
+   _assrt_val_=      ${${_varName};q}
+   _assrt_val_lenX=  ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      /error "${ASSERTION_FAILED_PATTERN}Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=   $(/expr ${_assrt_val_lenX} / 2)
+   _allOkLens[*]=    ${arg[1..]}
+   for _expLen ${_allOkLens[*]}
+      _expLenX=   $(/expr 2 * ${_expLen})
+      if ${_assrt_val_lenX} == ${_expLenX}
+         return
+      end
+   end
+   /error "${ASSERTION_FAILED_PATTERN}Byte array '${_varName}' has length ${_assrt_val_len} instead of ${_allOkLens}: '${${_varName}}'"
+END
+#
+#  ASSERT_ValueIsOneOf
+#     Description:
+#        Make sure that the value of a string is one of multiple given values, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the string variable to check
+#        argument 2+:
+#           values(s) that the string shall be equal to
+#     Return:  none
+#     Usage:   ASSERT_ValueIsOneOf var_name var_val_1 var_val_2 [... var_val_n]
+#     Example: 
+#        ASSERT_ValueIsOneOf cryptogram.version 01 05 95
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_ValueIsOneOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   # TODO: $(pad -b 1 xxx) in case it's a string
+   _varName=         ${argv[0]}
+   _assrt_val_=      ${${_varName};q}
+   _allOkVals[*]=    ${arg[1..]}
+   for _expVal ${_allOkVals[*];q}
+      if "x${_assrt_val_}x" == "x${_expVal}x"
+         return
+      end
+   end
+   /error "${ASSERTION_FAILED_PATTERN}Value of '${_varName}' is '${_assrt_val_}' instead of one of: ${_allOkVals[*]}"
+END
+#
+#  ASSERT_ArrayLengthIs
+#     Description:
+#        Make sure that the length of an array equals a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME(s) of the array to check
+#        argument 2:
+#           length the array shall have
+#     Return:  none
+#     Usage:   ASSERT_ArrayLengthIs array_name len
+#     Example: 
+#        ASSERT_ArrayLengthIs session.keys 3
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN ASSERT_ArrayLengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _arrName=      ${argv[0]}
+   _arrayLen=     ${${_arrName}[*];l}
+   _expectedLen=  ${arg[1]}
+   # ev _arrName
+   # ev _arrayLen
+   # ev _expectedLen
+   if ${_arrayLen} != ${_expectedLen}
+      /error "${ASSERTION_FAILED_PATTERN}Array '${_arrName}' has length ${_arrayLen} instead of ${_expectedLen} !"
+   end
+END
+#
+#  ASSERT_ValueMatches
+#     Description:
+#        Make sure that the value of a variable matches a given expression
+#     Params:
+#        argument 1:
+#           NAME(s) of the variable to check
+#        argument 2:
+#           expression to match the value against
+#     Return:  none
+#     Usage:   ASSERT_ValueMatches var_name expression
+#     Example: 
+#        ASSERT_ValueMatches ${last.response.data} 6F*4F*9000
+DEFUN ASSERT_ValueMatches
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _name1=  ${arg[0]}
+   _val2=   ${arg[1]}
+   _val1=   ${${arg[0]}}
+   if "x${_val1}x" =~ "x${_val2}x"
+   else
+      /error "${ASSERTION_FAILED_PATTERN}Variable '${_name1}' does not match expression '${_val2}': ${_val1}!"
+   end
+END
+#
+#  ASSERT_FilesExist
+#     Description:
+#        Make sure that one or more files matching a pattern exist
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   ASSERT_FilesExist filePattern_1 [ filePattern_2 ... filePattern_n]
+#     Example: 
+#        ASSERT_FilesExist "${myPath}/profile_*.jcsh" "${myPath}/run.jcsh" 
+DEFUN ASSERT_FilesExist
+   arg[*]=     ${argv[*];q}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _fileNamePattern ${arg[*];q}
+      # ev _fileNamePattern
+      _fileNamesFound[*]=   $(/glob "${_fileNamePattern}")
+      if ${_fileNamesFound[*];l} == 0
+         /error "${ASSERTION_FAILED_PATTERN}File(s) not found: '${_fileNamePattern}' !"
+      end
+   end
+END
+
+#  WARNING_ArraysAreEqual
+#     Description:
+#        Make sure that two arrays are equal in length and data, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first array
+#        argument 2:
+#           NAME of the second array
+#     Return:  none
+#     Usage:   WARNING_ArraysAreEqual _array_1 _array_2
+#     Example: 
+#        WARNING_ArraysAreEqual _array_before _array_after
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_ArraysAreEqual
+   arg[*]=     ${argv[*]}
+   _name1=     ${arg[0]}
+   _name2=     ${arg[1]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   elseif ${arg[*];l} == 2
+      # add default action
+      # arg[#]=  /error "Arrays ${_name1}[*] and ${_name2}[*] differ!"
+   end
+   _arr_1[*]=  ${${_name1}[*];q}
+   _arr_2[*]=  ${${_name2}[*];q}
+   if ${_arr_1[*];l} != ${_arr_2[*];l}
+      # ar _arr_1
+      # ar _arr_2
+      printsp +2 "WARNING: Arrays ${_name1}[*] and ${_name2}[*] differ!"
+      return
+      # ${arg[2..]}
+   end
+   _arrLen= ${_arr_2[*];l}
+   _cnt= 0
+   while ${_cnt} < ${_arrLen}
+      _item1=  ${_arr_1[${_cnt}]}
+      _item2=  ${_arr_2[${_cnt}]}
+      if "x${_item1}x" != "x${_item2}x"
+         # ar _arr_1
+         # ar _arr_2
+         printsp +2 "WARNING: Arrays ${_name1}[*] and ${_name2}[*] differ!"
+         return
+         # ${arg[2..]}
+      end
+      # if !=
+      # end
+      _cnt= $(/expr 1 + ${_cnt})
+   end
+END
+#
+#  WARNING_VarsAreEmpty
+#     Description:
+#        Make sure that one or more variables have no value assigned, raise an error otherwise
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   WARNING_VarsAreEmpty var_1 [ var_2 ... var_n]
+#     Example: 
+#        WARNING_VarsAreEmpty var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_VarsAreEmpty
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _varName ${arg[*]}
+      # ev ${_varName}
+      _assrt_val_= ${${_varName}}
+      if "x${_assrt_val_}x" != "xx"
+         printsp +2 "WARNING: Variable '${_varName}' is not empty: '${_assrt_val_}'"
+      end
+   end
+END
+#
+#  WARNING_VarsAreNotEmpty
+#     Description:
+#        Make sure that one or more variables have value assigned, raise an error otherwise
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   WARNING_VarsAreNotEmpty var_1 [ var_2 ... var_n]
+#     Example: 
+#        WARNING_VarsAreNotEmpty var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_VarsAreNotEmpty
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _varName ${arg[*]}
+      # ev ${_varName}
+      _assrt_val_= ${${_varName}}
+      if "x${_assrt_val_}x" == "xx"
+         printsp +2 "WARNING: Variable '${_varName}' is empty!"
+      end
+   end
+END
+#
+#  WARNING_Equals
+#     Description:
+#        Make sure that two variables have the same value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first variable to check
+#        argument 2:
+#           NAME of the second variables to check
+#     Return:  none
+#     Usage:   WARNING_Equals var_1 var_2
+#     Example: 
+#        WARNING_Equals var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_Equals
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _name1=  ${arg[0]}
+   _name2=  ${arg[1]}
+   _val1=   ${${arg[0]}}
+   _val2=   ${${arg[1]}}
+   if "x${_val1}x" != "x${_val2}x"
+      printsp +2 "WARNING: Variables ${_name1} and ${_name2} differ! '${_val1}' != '${_val2}'"
+   end
+END
+#
+#  WARNING_NotEquals
+#     Description:
+#        Make sure that two variables have the different value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first variable to check
+#        argument 2:
+#           NAME of the second variables to check
+#     Return:  none
+#     Usage:   WARNING_NotEquals var_1 var_2
+#     Example: 
+#        WARNING_NotEquals var_1 var_2
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_NotEquals
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _name1=  ${arg[0]}
+   _name2=  ${arg[1]}
+   _val1=   ${${arg[0]}}
+   _val2=   ${${arg[1]}}
+   if "x${_val1}x" == "x${_val2}x"
+      printsp +2 "WARNING: Variables ${_name1} and ${_name2} do not differ! '${_val1}' == '${_val2}'"
+   end
+END
+#
+#  WARNING_LengthIs
+#     Description:
+#        Make sure that the length of a string variable is equal to a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the string variable to check
+#        argument 2:
+#           length the string shall have
+#     Return:  none
+#     Usage:   WARNING_LengthIs var_1 len
+#     Example: 
+#        WARNING_LengthIs var_1 13
+#     Note: the first argument is a NAME (i.e. no ${...} convention)
+DEFUN WARNING_LengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _assrt_val_= ${${_varName};q}
+   if ${_assrt_val_;l} != ${_expLen}
+      printsp +2 "WARNING: Variable '${_varName}' has length ${_assrt_val_;l} instead of ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  WARNING_BytesLengthIs
+#     Description:
+#        Make sure that the length of a byte string is equal to a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2:
+#           length the byte string shall have
+#     Return:  none
+#     Usage:   WARNING_BytesLengthIs byte_string len
+#     Example: 
+#        WARNING_BytesLengthIs application.cryptogram 8
+#     Note: the first argument is a NAME (i.e. no ${...} convention)
+DEFUN WARNING_BytesLengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _expLenX=   $(/expr 2 * ${_expLen})
+   _assrt_val_= ${${_varName};q}
+   _assrt_val_lenX=   ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      printsp +2 "WARNING: Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=    $(/expr ${_assrt_val_lenX} / 2)
+   if ${_assrt_val_lenX} != ${_expLenX}
+      printsp +2 "WARNING: Byte array '${_varName}' has length ${_assrt_val_len} instead of ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  WARNING_BytesLengthIsMultipleOf
+#     Description:
+#        Make sure that the length of a byte string is multiple of a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2:
+#           length the byte string shall be multiple of
+#     Return:  none
+#     Usage:   WARNING_BytesLengthIsMultipleOf var_name len
+#     Example: 
+#        WARNING_BytesLengthIsMultipleOf AFL 4
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_BytesLengthIsMultipleOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=   ${argv[0]}
+   _expLen=    ${argv[1]}
+   _expLenX=   $(/expr 2 * ${_expLen})
+   _assrt_val_= ${${_varName};q}
+   _assrt_val_lenX=   ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      printsp +2 "WARNING: Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=    $(/expr ${_assrt_val_lenX} / 2)
+   if ${_assrt_val_lenX} == 0 || $(/expr ${_assrt_val_lenX} % ${_expLenX}) != 0
+      printsp +2 "WARNING: Byte array '${_varName}' has length ${_assrt_val_len} instead of N * ${_expLen}: '${${_varName}}'"
+   end
+END
+#
+#  WARNING_BytesLengthIsOneOf
+#     Description:
+#        Make sure that the length of a byte string is one of multiple given values, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the byte string variable to check
+#        argument 2+:
+#           length(s) the byte string shall be
+#     Return:  none
+#     Usage:   WARNING_BytesLengthIsOneOf var_name len_1 len_2 [ ... len_n]
+#     Example: 
+#        WARNING_BytesLengthIsOneOf keylength 16 24 32
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_BytesLengthIsOneOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _varName=         ${argv[0]}
+   _assrt_val_=      ${${_varName};q}
+   _assrt_val_lenX=  ${_assrt_val_;l}
+   if $(/expr ${_assrt_val_lenX} % 2) != 0
+      printsp +2 "WARNING: Odd number of hex digits in byte array '${_varName}': ${_assrt_val_lenX}"
+   end
+   _assrt_val_len=   $(/expr ${_assrt_val_lenX} / 2)
+   _allOkLens[*]=    ${arg[1..]}
+   for _expLen ${_allOkLens[*]}
+      _expLenX=   $(/expr 2 * ${_expLen})
+      if ${_assrt_val_lenX} == ${_expLenX}
+         return
+      end
+   end
+   printsp +2 "WARNING: Byte array '${_varName}' has length ${_assrt_val_len} instead of ${_allOkLens}: '${${_varName}}'"
+END
+#
+#  WARNING_ValueIsOneOf
+#     Description:
+#        Make sure that the value of a string is one of multiple given values, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the string variable to check
+#        argument 2+:
+#           values(s) that the string shall be equal to
+#     Return:  none
+#     Usage:   WARNING_ValueIsOneOf var_name var_val_1 var_val_2 [... var_val_n]
+#     Example: 
+#        WARNING_ValueIsOneOf cryptogram.version 01 05 95
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_ValueIsOneOf
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   # TODO: $(pad -b 1 xxx) in case it's a string
+   _varName=         ${argv[0]}
+   _assrt_val_=      ${${_varName};q}
+   _allOkVals[*]=    ${arg[1..]}
+   for _expVal ${_allOkVals[*];q}
+      if "x${_assrt_val_}x" == "x${_expVal}x"
+         return
+      end
+   end
+   printsp +2 "WARNING: Value of '${_varName}' is '${_assrt_val_}' instead of one of: ${_allOkVals[*]}"
+END
+#
+#  WARNING_ArrayLengthIs
+#     Description:
+#        Make sure that the length of an array equals a given value, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME(s) of the array to check
+#        argument 2:
+#           length the array shall have
+#     Return:  none
+#     Usage:   WARNING_ArrayLengthIs array_name len
+#     Example: 
+#        WARNING_ArrayLengthIs session.keys 3
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN WARNING_ArrayLengthIs
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments
+   end
+   _arrName=      ${argv[0]}
+   _arrayLen=     ${${_arrName}[*];l}
+   _expectedLen=  ${arg[1]}
+   # ev _arrName
+   # ev _arrayLen
+   # ev _expectedLen
+   if ${_arrayLen} != ${_expectedLen}
+       printsp +2 "WARNING: Array '${_arrName}' has length ${_arrayLen} instead of ${_expectedLen} !"
+   end
+END
+#
+#  WARNING_ValueMatches
+#     Description:
+#        Make sure that the value of a variable matches a given expression
+#     Params:
+#        argument 1:
+#           NAME(s) of the variable to check
+#        argument 2:
+#           expression to match the value against
+#     Return:  none
+#     Usage:   WARNING_ValueMatches var_name expression
+#     Example: 
+#        WARNING_ValueMatches ${last.response.data} 6F*4F*9000
+DEFUN WARNING_ValueMatches
+   arg[*]=     ${argv[*]}
+   if ${arg[*];l} < 2
+      /error not enough arguments   # what to do here: warning or error?
+   end
+   _name1=  ${arg[0]}
+   _val2=   ${arg[1]}
+   _val1=   ${${arg[0]}}
+   if "x${_val1}x" =~ "x${_val2}x"
+   else
+      printsp +2 "WARNING: Variable '${_name1}' does not match expression '${_val2}': ${_val1}!"
+   end
+END
+#
+#  WARNING_FilesExist
+#     Description:
+#        Make sure that one or more files matching a pattern exist
+#     Params:
+#        argument 1+:
+#           NAME(s) of the variables to check
+#     Return:  none
+#     Usage:   WARNING_FilesExist filePattern_1 [ filePattern_2 ... filePattern_n]
+#     Example: 
+#        WARNING_FilesExist "${myPath}/profile_*.jcsh" "${myPath}/run.jcsh" 
+DEFUN WARNING_FilesExist
+   arg[*]=     ${argv[*];q}
+   if ${arg[*];l} < 1
+      /error not enough arguments
+   end
+   
+   for _fileNamePattern ${arg[*];q}
+      # ev _fileNamePattern
+      _fileNamesFound[*]=   $(/glob "${_fileNamePattern}")
+      if ${_fileNamesFound[*];l} == 0
+        printsp +2 "WARNING: File(s) not found: '${_fileNamePattern}' !"
+      end
+   end
+END

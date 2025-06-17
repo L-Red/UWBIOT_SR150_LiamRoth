@@ -1,0 +1,14 @@
+@startuml
+
+    title Policy Types
+
+    sss_policy_t "1" --o "10" sss_policy_u
+
+    sss_policy_u --|> sss_policy_file_u : file
+    sss_policy_u --|> sss_policy_key_u : key
+    sss_policy_u --|> sss_policy_pcr_u : pcr
+    sss_policy_u --|> sss_policy_userid_u : pin
+    sss_policy_u --|> sss_policy_auth_u :  auth
+    sss_policy_u --|> sss_policy_common_u :  common
+
+@enduml

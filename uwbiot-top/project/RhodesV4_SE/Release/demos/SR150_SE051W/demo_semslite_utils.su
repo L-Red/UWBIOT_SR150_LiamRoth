@@ -1,0 +1,4 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/SR150_SE051W/demo_semslite_utils.c:28:14:JCOP4_GetDataIdentify	40	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/SR150_SE051W/demo_semslite_utils.c:73:14:demo_semslite_updateApplet	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/SR150_SE051W/demo_semslite_utils.c:68:14:delete_package	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/demos/SR150_SE051W/demo_semslite_utils.c:88:5:demo_semslite_secom_txrx_raw	16	static

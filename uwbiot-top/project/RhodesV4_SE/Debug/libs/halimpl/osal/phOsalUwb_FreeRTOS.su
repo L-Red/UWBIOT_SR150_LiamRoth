@@ -1,0 +1,16 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:44:7:phOsalUwb_GetMemory	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:55:6:phOsalUwb_FreeMemory	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:63:9:phOsalUwb_MemCompare	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:68:6:phOsalUwb_SetMemory	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:73:6:phOsalUwb_MemCopy	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:80:11:phOsalUwb_CreateSemaphore	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:111:11:phOsalUwb_ProduceSemaphore	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:140:11:phOsalUwb_ConsumeSemaphore_WithTimeout	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:170:11:phOsalUwb_DeleteSemaphore	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:189:11:phOsalUwb_CreateMutex	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:217:11:phOsalUwb_CreateBinSem	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:245:11:phOsalUwb_LockMutex	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:275:11:phOsalUwb_UnlockMutex	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:304:11:phOsalUwb_DeleteMutex	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:322:6:phOsalUwb_Delay	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c:327:6:phOsalUwb_GetTickCount	8	static

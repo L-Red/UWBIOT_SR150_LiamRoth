@@ -1,0 +1,27 @@
+
+@startuml
+box "FiRaLite Demo " #LightBlue
+	entity      SE051W_Init
+	entity      UWBD_SR150_Init
+	participant FiRaLite_Initiator
+	actor Orchestrator
+	participant FiRaLite_Responder
+	entity      UWBD_SR150_Resp
+	entity      SE051W_Resp
+end box
+
+FiRaLite_Initiator -> SE051W_Init :PutData(Make RDS available)
+SE051W_Init -->FiRaLite_Initiator :Returns APDU PutData(Make RDS available)
+FiRaLite_Initiator ->Orchestrator : PutData(Make RDS available)
+Orchestrator->FiRaLite_Responder:Send command to Responder
+FiRaLite_Responder -> SE051W_Resp:Se_API_Dispatch PutData(Make RDS available)
+SE051W_Resp --> FiRaLite_Responder : RDS available
+FiRaLite_Responder -> UWBD_SR150_Resp : Notify RDS available
+FiRaLite_Responder --> Orchestrator :Pass response to Initiator
+Orchestrator -> FiRaLite_Initiator :Send command to Initiator
+FiRaLite_Initiator ->SE051W_Init :Se_API_Dispatch(Response)
+SE051W_Init-->FiRaLite_Initiator : RDS available
+FiRaLite_Initiator -> UWBD_SR150_Init :RDS available
+FiRaLite_Initiator ->FiRaLite_Responder : Start Ranging
+
+@enduml

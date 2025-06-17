@@ -1,0 +1,159 @@
+----------------------------------------------------------------------------------------------------------------------
+Software Content Register
+
+Package:                    UWBIOT_SR150_v04.06.05
+
+Version:                    04.06.05
+
+Outgoing License:           LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+
+License File:               EULA.pdf
+
+Description and Comments:   UWB IOT Release Candidate for RhodesV4 SR150+SE051W
+
+Release Location:           https://www.nxp.com/
+
+Origin:                     NXP Proprietary, BSD-3-Clause, Apache-2.0 and MIT 
+
+----------------------------------------------------------------------------------------------------------------------
+
+Firmware Binaries
+-   Name: SR150 binaries
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: source code and binary files
+-   Description: SR150 related Firmware Binaries and images
+-   Origin: NXP Proprietary and Apache-2.0
+-   Location: /uwbiot-top/firmware_images
+
+----------------------------------------------------------------------------------------------------------------------
+
+Binaries
+-   Name: binaries
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: binary files
+-   Description: SE051W related Applet binaries and demos pre-build binaries
+-   Origin: NXP Proprietary
+-   Location: /uwbiot-top/binaries
+
+----------------------------------------------------------------------------------------------------------------------
+
+Boards
+-   Name: boards
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: source code
+-   Description: board related functionality
+-   Origin: NXP Proprietary and BSD-3-Clause
+-   Location: /uwbiot-top/boards
+
+----------------------------------------------------------------------------------------------------------------------
+
+Demos
+-   Name: demos
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Source code
+-   Description: SR150 and SE051W specific Demos
+-   Origin: NXP Proprietary, Apache-2.0 and BSD-3-Clause
+-   Location: /uwbiot-top/demos
+
+----------------------------------------------------------------------------------------------------------------------
+
+Docs
+-   Name: docs
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: HTML reports
+-   Description: SR150 specific documentation details
+-   Origin: NXP Proprietary
+-   Location: /uwbiot-top/docs
+
+----------------------------------------------------------------------------------------------------------------------
+
+External Boards
+-   Name: External boards
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Source code
+-   Description: Contents from SDK teams for various boards
+-   Origin: BSD-3-Clause and Apache-2.0
+-   Location: /uwbiot-top/ext/boards
+
+----------------------------------------------------------------------------------------------------------------------
+
+External FreeRTOS
+-   Name: External freertos
+-   Version: 10.3.1
+-   Outgoing License: MIT License
+-   Format: Source code
+-   Description: FreeRTOS related functionality
+-   Origin: MIT License and BSD-3-Clause
+-   Location: /uwbiot-top/ext/freertos
+
+----------------------------------------------------------------------------------------------------------------------
+
+External Mbedtls
+-   Name: External mbedtls
+-   Version: 10.3.1
+-   Outgoing License: Apache-2.0 and BSD-3-Clause
+-   Format: Source code
+-   Description: mbedtls library related functionality
+-   Origin: Apache-2.0 and BSD-3-Clause
+-   Location: /uwbiot-top/ext/mbedtls
+
+----------------------------------------------------------------------------------------------------------------------
+
+Libs
+-   Name: libs
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Source code
+-   Description: UWB Library related functionality
+-   Origin: NXP Proprietary, BSD-3-Clause and Apache-2.0
+-   Location: /uwbiot-top/libs
+
+----------------------------------------------------------------------------------------------------------------------
+
+Projects
+-   Name: project
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Source code
+-   Description: project files
+-   Origin: NXP Proprietary and Apache-2.0
+-   Location: /uwbiot-top/project
+
+----------------------------------------------------------------------------------------------------------------------
+
+Scripts
+-   Name: scripts
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Scripts
+-   Description: Supporting scripts for building Middleware
+-   Origin: NXP Proprietary
+-   Location: /uwbiot-top/scripts
+
+----------------------------------------------------------------------------------------------------------------------
+
+SE MW
+-   Name: se_mw
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Source code
+-   Description: SE051W Library related functionality
+-   Origin: NXP Proprietary, BSD-3-Clause and Apache-2.0
+-   Location: /uwbiot-top/se_mw
+
+----------------------------------------------------------------------------------------------------------------------
+
+FiRa Lite adf provisioning helper
+-   Name: Provisioning helper
+-   Version: 04.06.05
+-   Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Section 2.3 applies
+-   Format: Scripts
+-   Description: Helps to Provision FiRaLite in SE051W
+-   Origin: NXP Proprietary
+-   Location: /uwbiot-top/tools/FiRaLite

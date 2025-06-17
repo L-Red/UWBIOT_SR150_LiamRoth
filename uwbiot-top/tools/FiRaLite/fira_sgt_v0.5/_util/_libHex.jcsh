@@ -1,0 +1,115 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+@_util/_lib3d
+@_util/_libBool
+
+DEFUN toAscii
+                     
+  /set-var ascii[*] "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    " " "!" "\"" "#" "$" "%" "&" "'" "(" ")" "*" "+" "," "-" "." "/" \
+                    "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" ":" ";" "<" "=" ">" "?" \
+                    "@" "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" \
+                    "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" "[" "\\" "]" "^" "_" \
+                    "." "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" \
+                    "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" "{" "|" "}" "~" "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." \
+                    "." "." "." "." "." "." "." "." "." "." "." "." "." "." "." "."
+  
+  /set-var inputString "${argv[0]}"
+  /set-var idx 0
+  /set-var len ${inputString;l}
+  
+  if "${inputString}" == undef
+    return undef
+  end
+  
+  /set-var rc ""
+  while ${len} > 0
+    /set-var rc "${rc}${ascii[0x${inputString;s${idx},2}]}"
+    /set-var len $(/expr ${len} - 2)
+    /set-var idx $(/expr ${idx} + 2)
+  end
+  
+  return ${rc;q} 
+END
+
+DEFUN hex2dec
+  return $(/expr 0 + 0x${argv[0]})
+END
+
+DEFUN formatAID
+  _curAid=${argv[0]}
+  _str=${_curAid}
+  _isASCII=true
+  while ${_str;l} > 0
+    _char= ${_str;s0,2}
+    _val=$(/expr 0 + 0x${_char})
+    # ev _char
+    # ev _val
+    if ${_val} < 32 || ${_val} > 127
+      _isASCII=false
+      # ev _char
+      # ev _val
+      break
+    end
+    _str=${_str;s2}
+  end
+  
+  if ${_isASCII} == true
+    _curAid="|$(toAscii ${_curAid})|"
+  end
+  
+  # ev _curAid
+  return ${_curAid}
+END
+
+DEFUN formatLifeCycle
+  _lifeCycleTxt=
+  t9F70_ApplicationLifecycleState= ${argv[0]}
+  if ${t9F70_ApplicationLifecycleState;s0,2} == "01"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Loaded      "
+  elseif ${t9F70_ApplicationLifecycleState;s0,2} == "03"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Installed   "
+  elseif ${t9F70_ApplicationLifecycleState;s0,2} == "07"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Selectable  "
+  elseif ${t9F70_ApplicationLifecycleState;s0,2} == "0F"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Personalized"
+  elseif ${t9F70_ApplicationLifecycleState;s0,2} == "81"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Terminated  "
+  elseif ${t9F70_ApplicationLifecycleState;s0,2} == "87"
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Locked      "
+  else
+    _lifeCycleTxt= "${t9F70_ApplicationLifecycleState;s0,2}-Unknown     "
+  end
+  if ${t9F70_ApplicationLifecycleState;l} == 4
+    # /echo ${inst;s4,2}
+    if ${t9F70_ApplicationLifecycleState;s2,2} == "00"
+      _lifeCycleTxt= "${_lifeCycleTxt} | ${t9F70_ApplicationLifecycleState;s2,2}-Deactivated"
+    elseif ${t9F70_ApplicationLifecycleState;s2,2} == "01"
+      _lifeCycleTxt= "${_lifeCycleTxt} | ${t9F70_ApplicationLifecycleState;s2,2}-Activated"
+    elseif ${t9F70_ApplicationLifecycleState;s2,2} == "80"
+      _lifeCycleTxt= "${_lifeCycleTxt} | ${t9F70_ApplicationLifecycleState;s2,2}-Non Activable"
+    else
+      _lifeCycleTxt= "${_lifeCycleTxt} | ${t9F70_ApplicationLifecycleState;s2,2}-Unknown"
+    end
+  end
+  return ${_lifeCycleTxt;q}
+END
+
+# Return the hexadecimal representation of a string
+DEFUN hexlify
+   JCipher
+   return $(pad -p NOPAD -b 1 "|${argv[*]}|")
+END

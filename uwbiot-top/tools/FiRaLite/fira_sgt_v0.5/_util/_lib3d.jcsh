@@ -1,0 +1,818 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+########################################
+#  FUNCTION DESCRIPTIONS (incomplete list)
+####################
+#  ev              : DEBUG (EValuate) the content of a variable by its name   -> ev _myVar
+#  ar              : DEBUG the content of an ARray by its name                -> ar _myArray
+#  setPrintSpacing : Sets the number of whitespaces to add when printing with 'println'
+#  println         : Print test including spacing
+#  replaceAll      : Replace a char with a string in a given string           -> path=$(replaceAll "${path}" "\\" "/")
+#  byteSubs        : Return a substring in a bytestring                       -> _cvr= $(byteSubs _IAD 3 1) # return the bytestring starting from byte 3 and 1 byte long
+#  JCipher         : Select the com.ibm.jc.tools.CryptoPlugin plugin
+#  CardManager     : Select the CardManager plugin
+#  min             : Return the minimum value between given two               -> _min= $(min ${_val_1} ${_val_2})
+#  max             : Return the maximum value between given two               -> _max= $(max ${_val_1} ${_val_2})
+#  F_TOKENIZE      : Seperates a given string by a given token into a value seperated array
+########################################
+
+path=$(replaceAll "${path}" "\\" "/")
+
+@${script.name;dirname}/_libAssert
+DEFUN ev
+   /set-var _tmp_var ${argv[0]}
+   /printf "DEBUG: ${_tmp_var} (${${_tmp_var};l}) = ${${_tmp_var};qq}\r\n"
+END
+
+DEFUN ar
+   /set-var _tmp_array ${argv[0]}
+   # ev _tmp_array
+   /printf "DEBUG: ${argv[0]}[*] (length=${${_tmp_array}[*];l})\r\n"
+   _cnt= 0
+   for _elem ${${_tmp_array}[*];q}
+      _spaces= $(/expr 1 + ${${_tmp_array}[*];l;l} - ${_cnt;l})
+      /printf " [${_cnt}]%${_spaces}s-> ${_elem;q}\r\n"
+      _cnt= $(/expr ${_cnt} + 1)
+   end
+END
+
+if ${g_spacing[*];l} == 0
+   g_spacing[*]= 0
+end
+if ${g_PrintInfoLvl[*];l} == 0
+   # 0- none 1- main-function-args 2-secondary-functions-args 3- apdus-cmds -10 keys
+   g_PrintInfoLvl[*]=   0
+end
+# 
+
+DEFUN setPrintSpacing
+   _sp= ${argv[0]}
+   # ev _sp
+   if "_${_sp;s0,1}" == "_+" || "_${_sp;s0,1}" == "_-"
+      #  relative spacing
+      _sign=${_sp;s0,1}
+      _num=${_sp;s1}
+      # ev _sign
+      # ev _num
+      g_spacing[0]= $(/expr ${g_spacing[0]} ${_sign} ${_num})
+   else
+      #  absolute spacing
+      g_spacing[0]= $(/expr 0 + ${_sp})
+   end
+END
+
+DEFUN printsp
+   _sp= ${argv[0]}
+   if "_${_sp;s0,1}" == "_+" || "_${_sp;s0,1}" == "_-"
+      #  relative spacing
+      _sign=${_sp;s0,1}
+      _num=${_sp;s1}
+      # ev _sign
+      # ev _num
+      _sp= $(/expr ${g_spacing[0]} ${_sign} ${_num})
+      # /echo HELLOOOO: (/expr ${g_spacing[0]} ${_sign} ${_num})
+   end
+   # /echo /printf "%${_sp}s${argv[1..]}\r\n"
+   /printf "%${_sp}s${argv[1..]}\r\n"
+END
+
+DEFUN println
+   # ar g_spacing
+   # /echo /printf "%${g_spacing[0]}s${argv[*]}\r\n"
+   /printf "%${g_spacing[0]}s${argv[*]}\r\n"
+END
+
+DEFUN sprint
+   _txt=    "${argv[*]}"
+   _fmt=    "%${g_spacing[0]}s"
+   _cStr=   "$(/printf -0 '%s%s' '${_fmt}' '${_txt}')"
+   # ev _cStr
+   return ${_cStr;q}
+END
+DEFUN sprintln
+   return "$(sprint ${argv[*];q})\r\n"
+END
+
+DEFUN printArray
+   /set-var _tmp_args[*] ${argv[*];qq}
+   while ${_tmp_args[*];l}
+      println "${_tmp_args[0]}"
+      /set-var _tmp_args[*] ${_tmp_args[1..];q}
+   end 
+END
+
+if ${argv[*];l} > 0
+   println $(${argv[*];q})
+end
+
+DEFUN replaceAll
+   if ${argv[*];l} != 3
+      /error 3 args needed. Usage: replaceAll <string> <char_to_replace> <new_char>
+   end
+   # /printf "${{argv[*]}\n"
+   /set-var oldstr ${argv[0];q}
+   /set-var char_to_replace "${argv[1]}"
+   /set-var new_char "${argv[2]}"
+   /set-var newstr ""
+
+   while ${oldstr;l} > 0
+      /set-var cur_char "${oldstr;s0,1}"
+      if "${cur_char;q}" == "${char_to_replace;q}"
+         /set-var newstr "${newstr}${new_char}"
+      else
+         /set-var newstr "${newstr}${cur_char}"
+      end
+      /set-var oldstr "${oldstr;s1}"
+   end
+   return ${newstr;q}
+END
+
+DEFUN getPaths
+   _paths[*]=
+   oldstr= ${path;q}
+   char_to_replace= ";"
+
+   while ${oldstr;l} > 0
+      cur_char= "${oldstr;s0,1}"
+      if "${cur_char;q}" == "${char_to_replace;q}"
+         _paths[#]= "${newstr}"
+      else
+         newstr= "${newstr}${cur_char}"
+      end
+      if ${oldstr;l} == 1
+         _paths[#]= "${newstr}"
+      end
+      oldstr= "${oldstr;s1}"
+   end
+   if ${argv[*];l} == 1
+      return ${_paths[${argv[0]}];q}      
+   else
+      return ${_paths[*];q}
+   end
+END
+
+DEFUN sort
+   ASSERT_ValueIsOneOf comparisonSign > <
+   /set-var i 0
+   
+   while ${i} < ${argv[*];l}
+      /set-var j $(/expr ${i} + 1)
+      while ${j} < ${argv[*];l}
+         name_i=${argv[${i}];q}
+         name_j=${argv[${j}];q}
+         if "${name_i;filename}" ${comparisonSign} "${name_j;filename}"
+            /set-var tmp ${argv[${i}];q}
+            /set-var argv[${i}] ${argv[${j}];q}
+            /set-var argv[${j}] ${tmp;q}
+         end
+         /set-var j $(/expr ${j} + 1)
+      end
+      /set-var i $(/expr ${i} + 1)
+   end
+   
+   return ${argv[*];q}
+END
+DEFUN sortFiles
+   comparisonSign= >
+   return $(sort ${argv[*];q})
+END
+DEFUN sortASC
+   comparisonSign= >
+   return $(sort ${argv[*];q})
+END
+DEFUN sortDESC
+   comparisonSign= <
+   return $(sort ${argv[*];q})
+END
+# Sorts an array of arrays by column #
+DEFUN sortArrayByColumn
+   ASSERT_ValueIsOneOf comparisonSign > <
+   columnId=   ${argv[0]}
+   ASSERT_VarsAreNotEmpty columnId
+   argv[*]=    ${argv[1..];q}
+   # ev columnId
+   i= 0
+   
+   while ${i} < ${argv[*];l}
+      j= $(/expr ${i} + 1)
+      while ${j} < ${argv[*];l}
+         val_i[*]=   ${argv[${i}]}
+         val_j[*]=   ${argv[${j}]}
+         val_i=   ${val_i[${columnId}]}
+         val_j=   ${val_j[${columnId}]}
+         # ev val_i
+         # ev val_j
+         if "x${val_i}x" ${comparisonSign} "x${val_j}x"
+            tmp=        "${argv[${j}]}"
+            argv[${j}]=
+            argv[${i}]= "${tmp}" "${argv[${i}]}"
+         end
+         j= $(/expr ${j} + 1)
+      end
+      i= $(/expr ${i} + 1)
+   end
+   
+   return ${argv[*];q}
+END
+DEFUN sortArrayByColumnASC
+   comparisonSign= >
+   return $(sortArrayByColumn ${argv[*];q})
+END
+DEFUN sortArrayByColumnDESC
+   comparisonSign= <
+   return $(sortArrayByColumn ${argv[*];q})
+END
+DEFUN F_PRINT_OPTS
+   args[*]= ${argv[*];q}
+   # ar args
+   if ${argv[*];l} != 1
+      return
+   end
+   for __curOpts ${${argv[0]}[*];q}
+      __curOpts[*]=  ${__curOpts[*]}
+      _spacing= 10
+      _cur_action=   ${__curOpts[0]}
+      _cur_desc=     ${__curOpts[3];q}
+      /printf "  ${_cur_action} %$(/expr ${_spacing} - ${_cur_action;l})s ${_cur_desc}\r\n"
+      __curOpts[*]=${__curOpts[4..];q}
+   end
+END
+
+DEFUN INC_PARSE_OPTS
+   # ar args
+   if ${argv[*];l} < 2
+      return
+   end
+   __curArgs[*]= ${argv[1..];q}
+   __unk_args[*]=
+   # ev argv[0]
+   for __curArg ${__curArgs[*];q}
+      __curOpts[*]=  ${${argv[0]}[*];q}
+      # ar __curOpts
+      __optFound= false
+      __skip=     0
+      for __optDef ${__curOpts[*];q}
+         __optDef[*]=   ${__optDef[*]}
+         __opt=      ${__optDef[0]}
+         __skip=     0
+         if "${__curArg}" == "${__opt}"
+            __optFound= true
+            __cmds[*]=  $(replaceAll "${__optDef[1];q}" ";" " ")
+            __cmds[*]=  ${__cmds[*]}
+            __skip=     ${__optDef[2]}
+            # ar __cmds
+            for _cmd ${__cmds[*]}
+               ${_cmd}
+            end
+            # ev g_gen_csv
+         end
+         # ar __curOpts
+      end
+      if "true" != "${__optFound}"
+         __unk_args[#]= ${__curArg;q}
+      end
+      __curArgs[*]= ${__curArgs[$(/expr 1 + ${__skip})..];q}
+   end
+   
+   # ar __unk_args
+   return ${__unk_args[*];q}
+END
+
+DEFUN F_PRINT_OPTS_NEW
+   args[*]= ${argv[*];q}
+   # ar args
+   if ${argv[*];l} != 1
+      return
+   end
+   for __curOpts ${${argv[0]}[*];q}
+      __curOpts[*]=  ${__curOpts[*]}
+      _spacing= 10
+      _cur_action=   ${__curOpts[0]}
+      _cur_desc=     ${__curOpts[4];q}
+      /printf "  ${_cur_action} %$(/expr ${_spacing} - ${_cur_action;l})s ${_cur_desc}\r\n"
+      __curOpts[*]=${__curOpts[4..];q}
+   end
+END
+DEFUN I_PARSE_OPTS
+   if ${argv[*];l} < 1
+      return
+   end
+   __unk_args[*]= ${argv[1..];q}
+   # ev argv[0]
+   # for __curArg ${__curArgs[*];q}
+   # " '-m'     M        '@I_SetAlg'   1         'Set algorithm (DES/CBC or AES/CBC)'  "
+   __curOpts[*]=  ${${argv[0]}[*];q}
+   # ar __curOpts
+   for __curOpt ${__curOpts[*];q}
+      __curOpt[*]=   ${__curOpt[*]}
+      # ar __curOpt
+      # ar __unk_args
+      __opt=         ${__curOpt[0]}
+      __presence=    ${__curOpt[1];uc}
+      __cmd=         ${__curOpt[2]}
+      __skip=        ${__curOpt[3]}
+      __optFound=    false
+      
+      __curArgs[*]=  ${__unk_args[*];q}
+      __index=       0
+      while ${__index} < ${__curArgs[*];l}
+         __arg=   ${__curArgs[${__index}]}
+         # ev __opt
+         # ev __arg
+         if "${__opt}" == "${__arg}"
+            # option found among arguments
+            __optFound=    true
+            __unk_args[*]= ${__curArgs[0+${__index}];q} ${__curArgs[$(/expr 1 + ${__index} + ${__skip})..];q}
+               # ar __unk_args
+            __index= $(/expr 1 + ${__index})
+            __args[*]=  ${__curArgs[${__index}+${__skip}];q}
+            # ar __args
+            # ev __index
+            # ev __skip
+            # ev __cmd
+            ${__cmd} ${__args[*];q}
+            __curArgs[*]= ${__curArgs[${__skip}..];q}
+               
+            break
+         end
+         __index= $(/expr 1 + ${__index})
+      end
+      if "${__presence}" == "M" && "${__optFound}" != "true"
+         /error "Mandatory option '${__opt}' was not found in arguments"
+      end
+   end
+   # ev __unk_args
+   return ${__unk_args[*];q}
+END
+DEFUN I_PARSE_OPTS_BREAK
+   # ar args
+   if ${argv[*];l} < 2
+      return
+   end
+   __unk_args[*]= # ${argv[1..];q}
+   # ev argv[0]
+   # for __curArg ${__curArgs[*];q}
+   # " '-m'     M        '@I_SetAlg'   1         'Set algorithm (DES/CBC or AES/CBC)'  "
+   __curArgs[*]= ${argv[1..];q}
+   __curOpts[*]=  ${${argv[0]}[*];q}
+   # check mandatory options
+   for __curOpt ${__curOpts[*];q}
+      __curOpt[*]=   ${__curOpt[*]}
+      if "${__curOpt[1];uc}" == "M"
+         __optMandatory[#]=   1
+      else
+         __optMandatory[#]=   0
+      end
+   end
+   __index=       0
+   while ${__index} < ${__curArgs[*];l}
+      __arg=   ${__curArgs[${__index}];q}
+      # ev __opt
+      # ev __arg
+      # ar __curOpts
+      __optFound=    false
+      __optIndex=   0
+      for __curOpt ${__curOpts[*];q}
+         __curOpt[*]=   ${__curOpt[*]}
+         # ar __curOpt
+         # ar __unk_args
+         __opt=         ${__curOpt[0]}
+         __presence=    ${__curOpt[1];uc}
+         __cmd=         ${__curOpt[2]}
+         __skip=        ${__curOpt[3]}
+         
+         if "${__opt}" == "${__arg}"
+            # check that the argument list contains at least __index + __skip elements
+            if $(/expr 1 + ${__index} + ${__skip}) > ${__curArgs[*];l}
+               /error "Not enough arguments. '${__opt}' needs ${__skip} arguments"
+            end
+            # ev __opt
+            # ev __arg
+            # option found among arguments
+            __optFound=    true
+            # __unk_args[*]= ${__curArgs[0+${__index}];q} ${__curArgs[$(/expr 1 + ${__index} + ${__skip})..];q}
+               # ar __unk_args
+            # __index= $(/expr 1 + ${__index})
+            __args[*]=  ${__curArgs[$(/expr 1 + ${__index})+${__skip}];q}
+            # ar __args
+            __index= $(/expr ${__skip} + ${__index})
+            
+            # ar __args
+            # ev __index
+            # ev __skip
+            # ev __cmd
+            ${__cmd} ${__args[*];q}
+            # __curArgs[*]= ${__curArgs[${__skip}..];q}
+            
+            if "${__presence}" == "M"
+               # do what?
+               __optMandatory[${__optIndex}]=   0
+               
+            end
+            break
+         end
+         if "${__optFound}" == "true"
+            break
+         end
+         __optIndex=   $(/expr 1 + ${__optIndex})
+      end
+      # __curArgs[*]=  ${__unk_args[*];q}
+      if "${__optFound}" != "true"
+         return ${__curArgs[${__index}..];q}
+         # F_INFO 5 argument not recognized "${__arg}"
+         __unk_args[#]= ${__arg;q}
+      end
+      __index= $(/expr 1 + ${__index})
+   end
+   # ev __unk_args
+   # ar __optMandatory
+   __optIndex= 0
+   _err=
+   for __curOpt ${__curOpts[*];q}
+      __curOpt[*]=   ${__curOpt[*]}
+      __opt=         ${__curOpt[0]}
+      __optRequired= ${__optMandatory[${__optIndex}]}
+      if ${__optRequired} == 1
+         _err= "${_err}\r\n mandatory option '${__opt}' is missing"
+      end
+      __optIndex=   $(/expr 1 + ${__optIndex})
+   end
+   if ${_err;l} > 0 
+      println "ERROR:${_err}"
+      /error "${_err}"
+   end
+   return ${__unk_args[*];q}
+END
+
+# byte substring. usage: "_var= $(byteSubs response 0 1)"
+DEFUN byteSubs
+#_arguments[*]= ${argv[*];q} 
+#ar _arguments
+   _var=    ${${argv[0]}}
+   _start=  $(/expr 0 + ${argv[1]})
+   _start=  $(/expr 2 * ${_start})
+   if ${argv[*];l} > 2
+      _len=    $(/expr 0 + ${argv[2]})
+      _len=    $(/expr 2 * ${_len})
+      _sub= ${_var;s${_start},${_len}}
+   else
+      _sub= ${_var;s${_start}}
+   end
+   return ${_sub}
+END
+#  substring. usage: "_ver= $(subs someString 0 1)"
+DEFUN subs
+   _var=    ${${argv[0]}}
+   _start=  $(/expr ${argv[1]})
+   _len=    $(/expr ${argv[2]})
+   # ev _var
+   # ev _start
+   # ev _len
+   _sub= ${_var;s${_start},${_len}}
+   return ${_sub}
+END
+# return the last N bytes of a bytestring: usage: "_mac= $(lastBytes last.response.data 8)"
+DEFUN lastBytes
+   _var=    ${${argv[0]}}
+   _start=  $(/expr ${_var;l} - ${argv[1]} - ${argv[1]})
+   _sub= ${_var;s${_start}}
+   return ${_sub}
+END
+
+DEFUN JCipher
+   for cryptoAlias crypto cipher JCipher
+      try
+         /applet ${cryptoAlias}
+         return
+      catch "${last.error}" =~ "*No applet plugin with nickname*${cryptoAlias}*registered*"
+      end
+   end
+   /register JCipher |JCipher com.ibm.jc.tools.CryptoPlugin
+   /applet JCipher
+END
+
+DEFUN CardManager
+   try
+      /applet cm
+   catch "${last.error}" =~ "*No applet plugin with nickname*registered*"
+      /register cm A000000151000000 CardManager
+      /applet cm
+   end 
+END
+DEFUN F_ReverseArrayOrder
+   _curArray[*]= ${argv[*];q}
+   _revArray[*]=
+   for _cur ${_curArray[*];q}
+      _revArray[*]="${_cur}" ${_revArray[*];q}
+   end
+   
+   return ${_revArray[*];q}
+END
+
+DEFUN F_CMD
+   cmd[*]=  ${argv[*];q}
+   if "${cfgShowCommand}" == "false"
+      ${cmd[*];q}
+   else
+      printsp +1 ________________________________________________________________________
+      printsp +1 "Command: ${cmd[*]}"
+      ${cmd[*];q}
+      printsp +1 Response: ${last.response.data;uc} ${last.response.status;uc}
+      # setPrintSpacing +2
+      # if ${last.response.data;l} > 0
+         # println ${last.response.data;uc}
+      # else
+         # println ${last.response.status;uc}
+      # end
+      # setPrintSpacing -2
+      println
+   end
+
+   if ${cmd;s0,8;q} == "/send 90" 
+      # ISO wrapped
+      /s-v -g _transaction_information[#] "02${cmd;s8,2}${last.response.status;s2}"
+   elseif ${cmd;s0,8;q} == "/send -r" 
+      # native
+      /s-v -g _transaction_information[#] "03${cmd;s9,2}${response;s0,2}"
+   else
+      # ISO 7416
+      /s-v -g _transaction_information[#] "01${cmd;s6,8}${last.response.status}"
+   end
+END
+
+DEFUN min
+   _min_op1= ${argv[0]}
+   _min_op2= ${argv[1]}
+   ASSERT_VarsAreNotEmpty _min_op1 _min_op2
+   if ${_min_op1} < ${_min_op2}
+      return ${_min_op1}
+   else
+      return ${_min_op2}
+   end
+END
+DEFUN max
+   _max_op1= ${argv[0]}
+   _max_op2= ${argv[1]}
+   ASSERT_VarsAreNotEmpty _max_op1 _max_op2
+   if ${_max_op1} > ${_max_op2}
+      return ${_max_op1}
+   else
+      return ${_max_op2}
+   end
+END
+DEFUN F_GenerateRandomDecimal
+   _retNum=
+   _inLen=  ${argv[0]}
+   ASSERT_VarsAreNotEmpty _inLen
+   _len=    ${_inLen}
+   while ${_len} > 0
+      _chLen=  $(min ${_len} 9)
+      _num=    $(/printf -0 "%0${_chLen}d" ${random;max=$(/printf -0 "1%0${_chLen}s")})
+      _retNum= ${_retNum}${_num}
+      _len=    $(/expr ${_len} - ${_chLen})
+   end
+   ASSERT_LengthIs _retNum ${_inLen}
+   return ${_retNum}
+END
+
+DEFUN F_TRY
+   args[*]= ${argv[*];q}
+   ASSERT_VarsAreNotEmpty args
+   local.last.error= 
+   local.last.errorlog=
+   try
+      ${args[*]}
+   catch 1
+      local.last.error=    "${last.error}"
+      local.last.errorlog= "${last.errorlog}"
+   end
+END
+DEFUN F_THROW
+   if "${local.last.error}" != ""
+      /error "${local.last.error}"
+   end
+END
+#
+#  setIfNot
+#     Description:
+#        set
+#     Params:
+#        argument 1:
+#           variable name
+#        argument 2:
+#           value to set
+#     Return:  none
+#     Usage:   @setIfNot var_name value
+#     Example: 
+#        @setIfNot key 0102030405060708
+DEFUN setIfNot
+   __var_=  ${argv[0]}
+   __data_= ${argv[1]}
+   if "x${${__var_}}x" == "xx"
+      # println "${__var_}=  ${__data_}"
+      ${__var_}=  ${__data_}
+   end
+END
+#
+#  ASSERT_ArraysAreEqual
+#     Description:
+#        Make sure that two arrays are equal in length and data, raise an error otherwise
+#     Params:
+#        argument 1:
+#           NAME of the first array
+#        argument 2:
+#           NAME of the second array
+#     Return:  none
+#     Usage:   ASSERT_ArraysAreEqual _array_1 _array_2
+#     Example: 
+#        ASSERT_ArraysAreEqual _array_before _array_after
+#     Note: the arguments are NAMES (i.e. no ${...} convention)
+DEFUN RESET
+   -/reset
+   /atr
+END
+
+#
+#  I_AssignArrayToVars
+#     Description:
+#        Utility function to make argument parsing easier.
+#        Assign values in an array of arguments each to variables
+#     Params:
+#        argument 1:
+#           NAME of the array containing values
+#        argument 2+:
+#           NAME of variable to assign the value at position x to
+#     Return:  none
+#     Usage:   @I_AssignArrayToVars _array_name_ _var_1 ... _var_n
+#     Example: 
+#        @I_AssignArrayToVars _arguments _AID _PID _MID _privs
+#     Note: the function shall be called with @ (inclusion)
+DEFUN I_AssignArrayToVars
+   __argsArray__[*]= ${${argv[0]}[*];q}
+   __varsArray__[*]= ${argv[1..];q}
+   # ar __argsArray__
+   # ar __varsArray__
+   __argCount__= 0
+   while ${__argCount__} < ${__argsArray__[*];l}
+      __varName__=   ${__varsArray__[${__argCount__}]}
+      ASSERT_VarsAreNotEmpty __varName__
+      _itemValue__=   ${__argsArray__[${__argCount__}]}
+      ${__varName__}=   ${_itemValue__}
+      # ev __varName__
+      # ev ${__varName__}
+      __argCount__= $(/expr 1 + ${__argCount__})
+   end
+   if "${cfgShowArgs}" == "true"
+      for _theVar ${__varsArray__[*]}
+         F_INFO 5 "${_theVar} == '${${_theVar}}'"
+      end 
+   end
+END
+
+DEFUN F_FormatArgOpts
+   __optsArray__[*]= ${${argv[0]}[*];q}
+   # ar __optsArray__
+   _argOptString= "\r\n"
+   __cnt=   0
+   for __opt ${__optsArray__[*];q}
+      __cnt=   $(/expr 1 + ${__cnt})
+      __opt[*]=   ${__opt[*]}
+      # ar __opt
+      _argOptString= "${_argOptString}  $(sprintln '${__cnt}. ${__opt[0]}')"
+      _argOptString= "${_argOptString}  $(sprintln '  ${__opt[1]} ')"
+   end
+   return "${_argOptString}"
+END
+DEFUN I_ParseArgsOrHelp
+   __cmd__=          "${argv[0]}"
+   __argsArray__[*]= ${${argv[1]}[*];q}
+   __optsArray__[*]= ${${argv[2]}[*];q}
+   __cnt=   0
+   while ${__cnt} < ${__optsArray__[*];l}
+      __otps[*]=  ${__optsArray__[${__cnt}]}
+      __arg=      ${__argsArray__[${__cnt}]}
+      if ${__arg;l} == 0
+         println "Not enough arguments for '${__cmd__}'"
+         println "Required:$(F_FormatArgOpts __optsArray__)"
+         /error "MISSING ARGUMENT in '${__cmd__}'!"
+      end
+      ${__otps[0]}=  "${__arg}"
+      __opt=   ${__otps[0]}
+      __cnt=   $(/expr 1 + ${__cnt})
+   end
+END
+DEFUN SetPrintInfoLevel
+   g_PrintInfoLvl[0]=   ${argv[0]}
+END
+DEFUN F_INFO
+   _lvl= ${argv[0]}
+   if ${_lvl} > ${g_PrintInfoLvl[0]}
+      return
+   end
+   _spacing=   $(/expr 2 * ${_lvl})
+   setPrintSpacing +${_spacing}
+   println ${argv[1..];q}
+   setPrintSpacing -${_spacing}
+END
+DEFUN F_INFO_CMD
+   _lvl= ${argv[0]}
+   cmd[*]=  ${argv[1..];q}
+   if ${_lvl} > ${g_PrintInfoLvl[0]}
+      return
+   end
+   _spacing=   $(/expr 2 * ${_lvl})
+   setPrintSpacing +${_spacing}
+   println "________________________________________________________________________"
+   println "Command: ${cmd[*]}"
+   ${cmd[*];q}
+   println "Response: ${last.response.data;uc} ${last.response.status;uc}"
+   setPrintSpacing -${_spacing}
+   println
+END
+DEFUN EXEC
+   # path=${_pkgPath;q}
+   println ${argv[*];q}
+   return $(${argv[*];q})
+END
+DEFUN F_ModeRun
+   if ${argv[*];l} == 0
+      println "Current mode:"
+      /mode
+      return
+   end
+   operation=  ${argv[0];uc}
+   # ev operation
+   ASSERT_ValueIsOneOf operation LOAD SAVE
+   F_Mode_${operation}
+END
+DEFUN F_Mode_LOAD
+   # ev exec.dir
+   @"${exec.dir}\_savedMode.jcsh"
+   /mode trace       ${trace}
+   /mode echo        ${echo}
+   -/mode remote-echo ${remote-echo}
+   /mode debug       ${debug}
+   -/mode commDetails ${commDetails}
+   -/mode verbose     ${verbose}
+   -/mode internal    ${internal}
+END
+DEFUN F_Mode_SAVE
+   try
+      > 2 "${exec.dir}\_savedMode.jcsh"
+      _modeLogIsOn=   1
+      /mode
+   catch 1
+   end
+   if ${_modeLogIsOn}
+      > 2 -
+      > 3
+   end
+END
+DEFUN short
+   _num= ${argv[0]}
+   # ev _num
+   _sNnum= $(/expr ${_num} << 16)
+   _sNnum= $(/expr ${_sNnum} >> 16)
+   # ev _sNnum
+   return ${_sNnum}
+END
+DEFUN byte
+   _num= ${argv[0]}
+   # ev _num
+   _sNnum= $(/expr ${_num} << 24)
+   _sNnum= $(/expr ${_sNnum} >> 24)
+   # ev _sNnum
+   return ${_sNnum}
+END
+
+# Function F_TOKENIZE: Splits a string seperated with a special character into an array
+# Arguments: 
+# - @param: string to tokenize
+# - @param: token/special character for splitting
+# - @return: array that contains the tokenized string
+DEFUN F_TOKENIZE
+  /s-v string_to_tokenize "${argv[0]}"
+  /s-v token              "${argv[1]}"
+
+  /s-v string_len ${string_to_tokenize;l}
+  /s-v token_len  ${token;l}
+  /s-v cnt 0
+  /s-v prev_token 0
+  /s-v token_list[*]
+
+  while ${cnt} < ${string_len}
+    if "x${string_to_tokenize;s${cnt},${token_len}}x" == "x${token}x"
+      token_list[#]= "${string_to_tokenize;s${prev_token},$(/expr ${cnt} - ${prev_token});qq}"
+      prev_token= $(/expr ${cnt} + ${token_len})
+    end
+    cnt= $(/expr ${cnt} + 1)
+  end
+  token_list[#]= "${string_to_tokenize;s${prev_token},$(/expr ${cnt} - ${prev_token});qq}"
+
+  return ${token_list[*]}
+END

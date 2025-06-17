@@ -1,0 +1,18 @@
+@startuml
+
+    title Asymmetric : Sign
+
+    participant app as "Application"
+    participant asym as "Asymmetric"
+    === Session & Key Store Init ==
+    === Get KeyObject ==
+    app -> asym : sss_asymmetric_context_init(\n\
+    algorithm \n\
+    mode)
+    app -> asym : sss_asymmetric_sign_digest(\n\
+    input msg)
+    app -> asym : sss_asymmetric_context_free
+    === Free KeyObject ==
+    === Session & Key Store Close ==
+
+@enduml

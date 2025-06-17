@@ -1,0 +1,6 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:52:6:UWB_HeliosCE	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:72:17:phHbci_GetStatus	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:89:17:phHbci_GeneralStatus	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:333:17:phHbci_Master	40	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:378:9:phHbci_CalcLrc	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/fwd/SR1XX/phNxpUciHal_fwd.c:410:5:phNxpUciHal_fw_download	16	static

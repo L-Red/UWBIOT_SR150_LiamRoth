@@ -1,0 +1,5 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c:48:10:phOsalUwb_msgget	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c:75:6:phOsalUwb_msgrelease	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c:104:11:phOsalUwb_msgsnd	16	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c:162:11:phOsalUwb_msgrcv	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c:192:5:phOsalUwb_queueSpacesAvailable	0	static

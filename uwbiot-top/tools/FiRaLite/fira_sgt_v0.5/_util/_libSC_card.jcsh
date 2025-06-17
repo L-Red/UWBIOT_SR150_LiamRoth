@@ -1,0 +1,415 @@
+# Copyright 2020-2021 NXP.
+# NXP Confidential. This software is owned or controlled by NXP and may only be used strictly in accordance with the
+# applicable license terms. By expressly accepting such terms or by downloading, installing, activating and/or
+# otherwise using the software, you are agreeing that you have read, and that you agree to comply with and are bound
+# by, such license terms. If you do not agree to be bound by the applicable license terms, then you may not retain,
+# install, activate or otherwise use the software.
+
+########################################
+#   GLOBAL PLATFORM SECURE CHANNEL PROTOCOL SC02 FUNCTIONS
+########################################
+#   FUNCTION LIST:
+####################
+#   SC02_ExternalAuthenticate
+#   SC02_GenerateSessionKeys
+#   SC02_KeyDerivation
+########################################
+#   IMPORTS
+####################
+@${script.dir}/_lib3d
+@${script.dir}/_libCrypto
+@${script.dir}/_keys
+@${script.dir}/_libTlv
+########################################
+#  DEFINITIONS
+####################
+DDC.CardCryptogram=     00
+DDC.HostCryptogram=     01
+DDC.DerivationS_ENC=    04
+DDC.DerivationS_MAC=    06
+DDC.DerivationS_RMAC=   07
+# Key derivation constants
+CARD.cryptogram.L=   0080
+HOST.cryptogram.L=   0080
+MAC.chainingValue=   00000000000000000000000000000000
+# SECURITY LEVELS
+SCP_SecLevel_=             00
+SCP_SecLevel_PLAIN=        00   #   0x00 "No secure messaging (default)"
+SCP_SecLevel_MAC=          01   #   0x01 "Command MAC (C-MAC) generation"
+SCP_SecLevel_ENC=          03   #   0x03 "Command data encryption (C-ENC) and C-MAC generation"
+SCP_SecLevel_RMAC=         10   #   0x10 "Response MAC (R-MAC) generation"
+SCP_SecLevel_CRMAC=        11   #   0x11 "C-MAC and R-MAC generation"
+SCP_SecLevel_CRMACENC=     13   #   0x13 "C-MAC, R-MAC and C-ENC"
+SCP_SecLevel_CRMACENCRENC= 33   #   0x33 "C-MAC, R-MAC ,R-ENC and C-ENC"
+########################################
+# 
+#AUTHENTICATION_METHODS for GA ASYMM
+SCP_AM_SYM_AES128=              00  # Symmetric authentication with AES128 
+SCP_AM_ASYM_UL_NIST_P256=       40  #  Asymmetric unilateral authentication with NIST P-256
+SCP_AM_ASYM_UL_SAMS_NIST_P256=  48  #  Asymmetric unilateral authentication with seamless authentication method switch allowed with NIST P-256
+SCP_AM_ASYM_MA_NIST_P256=       80  #  Asymmetric mutual authentication with NIST P-256
+SCP_AM_ASYM_MA_SAMS_NIST_P256=  88  #  Asymmetric mutual authentication with seamless authentication method switch allowed with NIST P-256
+
+########################################
+g_SCP_SessionInfo[*]=
+g_SCP_SessionInfo[#]=   "" #  0: SCP Version          ${_SCP}"
+g_SCP_SessionInfo[#]=   "" #  1: KVN                  ${_KVN} (0x${_KVN;h2})"
+g_SCP_SessionInfo[#]=   "" #  2: Security Level       ${_securityLevel}"
+g_SCP_SessionInfo[#]=   "" #  3: Host Challenge       ${HOST.challenge}"
+g_SCP_SessionInfo[#]=   "" #  4: Diversification Data ${_KeyDiversificationData}"
+g_SCP_SessionInfo[#]=   "" #  5: Master Key ENC       ${_SCP0xKeyset[0]}"
+g_SCP_SessionInfo[#]=   "" #  6: Master Key MAC       ${_SCP0xKeyset[1]}"
+g_SCP_SessionInfo[#]=   "" #  7: Master Key DEK       ${_SCP0xKeyset[2]}"
+g_SCP_SessionInfo[#]=   "" #  8: Static S-ENC         ${S.ENC}"
+g_SCP_SessionInfo[#]=   "" #  9: Static S-MAC         ${S.MAC}"
+g_SCP_SessionInfo[#]=   "" # 10: Static DEK           ${S.DEK}"
+g_SCP_SessionInfo[#]=   "" # 11: Static S-RMAC        ${S.RMAC}"
+g_SCP_SessionInfo[#]=   "" # 12: Card Challenge       ${CARD.challenge}"
+g_SCP_SessionInfo[#]=   "" # 13: Sequence Counter     ${SequenceCounter}"
+g_SCP_SessionInfo[#]=   "" # 14: Card Cryptogram      ${CARD.cryptogram}"
+g_SCP_SessionInfo[#]=   "" # 15: Host Cryptogram      ${HOST.cryptogram}"
+g_SCP_SessionInfo[#]=   "" # 16: CMAC                 ${MAC.chainingValue}"
+g_SCP_SessionInfo[#]=   "" # 17: SESSION KEY          ${S.UWB.KEY}"
+g_SCP_SessionInfo[#]=   "" # 18: SESSION ID           ${S.UWB.ID}"
+
+/app JCipher
+
+########################################
+#   FUNCTION DECLARATIONS
+####################
+#
+#   SC02_GeneralAuthenticate_1
+#      Description:
+#         Perform GENERAL AUTHENTICATE - part 1 according to Fira SC02 protocol
+#      Params: 
+#         argument 1: (optional)
+#            Host Challenge
+#         argument 2: (optional)
+#            Key Version Number
+#      Return:  Host challenge and GENERAL AUTHENTICAT response from card
+#      Usage:   SC02_GeneralAuthenticate_1 [hostChallenge] [kvn] [keyID]
+#      Example: 
+#         _iuResp[*]= $(SCP_InitializeUpdate)
+DEFUN Card_SC02_S_GeneralAuthenticate_1
+    /mode trace off
+    _cmd=             ${argv[0]}
+    #ev _cmd
+    _clains=          $(byteSubs _cmd 0 2)
+    # TODO: Check CLAINS
+    _KVN=             $(byteSubs _cmd 2 1)
+    # TODO: Check if card has KVN
+    _KID=             $(byteSubs _cmd 3 1)
+    _data=            $(byteSubs _cmd 5 )
+    #ev _data
+    _tag7C=           $(TLV_Get 7C ${_data})
+    _HOST.challenge=  $(TLV_Get 81 ${_tag7C}) # Host challenge
+    #ev _HOST.challenge
+    _SequenceCounter= 1
+    
+
+    _CARD.challenge= ${random;len=16}
+    #ev _CARD.challenge
+    _KeyDiversificationData= 00000000000000000000
+    _KeyInformation= ${_KVN}0200 # KVN||SCP||SCPi
+
+    # TODO: Get keys from MANAGE ADF
+    # _KVN= $(/expr 0 + 0x${_KVN})
+    # ev  _KVN
+    # _SC02Keys[*]= $(F_GET_KEYSETs ${_KVN})
+    # ar         _SC02Keys
+   
+    #_SCP0xKeyset= ${_SC02Keys[*];q}
+    _SCP0xKeyset[#]= "606162636465666768696A6B6C6D6E6F 606162636465666768696A6B6C6D6E6F 606162636465666768696A6B6C6D6E6F"
+    #ar _SCP0xKeyset
+
+    S_Keys[*]=  $(SC02_GenerateSessionKeys ${_SCP0xKeyset[*]} ${_HOST.challenge} ${_CARD.challenge})
+      ASSERT_ArrayLengthIs S_Keys 5
+      
+    # ar       S_Keys
+    S.ENC=      ${S_Keys[0]}
+    S.MAC=      ${S_Keys[1]}
+    S.RMAC=     ${S_Keys[2]}
+    S.UWB.KEY=  ${S_Keys[3]}
+    S.UWB.ID=   ${S_Keys[4]}
+
+    CARD.cryptogram=   $(SC02_KeyDerivation  ${DDC.CardCryptogram} ${CARD.cryptogram.L} ${_HOST.challenge}${_CARD.challenge} ${S.MAC})
+    CARD.cryptogram=   $(byteSubs CARD.cryptogram 0 16)
+    
+    g_SCP_SessionInfo[3]=   "${_HOST.challenge}"
+    g_SCP_SessionInfo[5]=   "${_SCP0xKeyset[0]}"
+    g_SCP_SessionInfo[6]=   "${_SCP0xKeyset[1]}"
+    g_SCP_SessionInfo[7]=   "${_SCP0xKeyset[2]}"
+    g_SCP_SessionInfo[8]=   "${S.ENC}"
+    g_SCP_SessionInfo[9]=   "${S.MAC}"
+    g_SCP_SessionInfo[10]=  "${S.DEK}"
+    g_SCP_SessionInfo[11]=  "${S.RMAC}"
+    g_SCP_SessionInfo[12]=  "${_CARD.challenge}"
+    g_SCP_SessionInfo[13]=  "${_SequenceCounter}"
+    g_SCP_SessionInfo[14]=  "${CARD.cryptogram}"
+    g_SCP_SessionInfo[17]=  "${S.UWB.KEY}"
+    g_SCP_SessionInfo[18]=  "${S.UWB.ID}"
+
+    _resp= 7C#(82#(${_KeyDiversificationData}${_KeyInformation}${_CARD.challenge}${CARD.cryptogram}))9000
+    /mode trace on
+    return ${_resp}
+END
+#
+#  SC02_ExternalAuthenticate
+#     Description:
+#        Perform External authenticate according to SC02
+#     Params:
+#        argument 1:
+#           Security Level, See SECURITY LEVELS above
+#     Return:  none
+#     Usage:   SC02_ExternalAuthenticate sec_level
+#     Example: 
+#        SC02_ExternalAuthenticate plain
+#     Note: Key values are retrieved from a pool of well-known keys defined in _keys.jcsh
+DEFUN Card_SC02_S_GeneralAuthenticate_2
+    /mode trace off
+   _SecurityLevel=      "${g_SCP_SessionInfo[2]}"  
+   _HOST.challenge=     "${g_SCP_SessionInfo[3]}"
+   S.ENC=               "${g_SCP_SessionInfo[8]}"
+   S.MAC=               "${g_SCP_SessionInfo[9]}"
+   S.DEK=               "${g_SCP_SessionInfo[10]}"
+   S.RMAC=              "${g_SCP_SessionInfo[11]}"
+   _CARD.challenge=     "${g_SCP_SessionInfo[12]}"
+   _SequenceCounter=    "${g_SCP_SessionInfo[13]}"
+
+    _cmd=             ${argv[0]}
+    #ev _cmd
+    _clains=          $(byteSubs _cmd 0 2)
+    # TODO: Check CLAINS
+    _SecurityLevel=   $(byteSubs _cmd 2 1)
+    #ev _SecurityLevel
+    # _P2=             $(byteSubs _cmd 3 1)
+    _data=            $(byteSubs _cmd 5 )
+    #ev _data
+    _tag7C=           $(TLV_Get 7C ${_data})
+    _HOST.cryptogram= $(TLV_Get 82 ${_tag7C}) # Host cryptogram
+    _HOST.mac=        $(TLV_Get 84 ${_tag7C}) # Mac
+
+    # ev _CARD.challenge
+    # ev _HOST.cryptogram
+    # calculate HOST cryptogram
+    _HOST.mine.cryptogram=  $(SC02_KeyDerivation  ${DDC.HostCryptogram} ${HOST.cryptogram.L} ${_HOST.challenge}${_CARD.challenge} ${S.MAC})
+    _HOST.mine.cryptogram=  $(byteSubs _HOST.mine.cryptogram 0 16)
+    # ev _HOST.mine.cryptogram
+    if ${_HOST.mine.cryptogram} != ${_HOST.cryptogram}
+        /echo "ERROR in Card_SC02_S_GeneralAuthenticate_2. Host cryptogram invalid"
+        return 6982
+    end
+    # Calculate RMAC over the GENERAL AUTHENTICATE response
+    _resp= 9000 # No Data
+    MAC.chainingValue= ${_HOST.mac}
+    # RMAC is not calculted for GA2
+    
+    g_SCP_SessionInfo[2]=   "${_SecurityLevel}"
+    g_SCP_SessionInfo[8]=   "${S.ENC}"
+    g_SCP_SessionInfo[9]=   "${S.MAC}"
+    g_SCP_SessionInfo[10]=  "${S.DEK}"
+    g_SCP_SessionInfo[11]=  "${S.RMAC}"
+    g_SCP_SessionInfo[13]=  "${_SequenceCounter}"
+    g_SCP_SessionInfo[15]=  "${_HOST.cryptogram}"
+    g_SCP_SessionInfo[16]=  "${MAC.chainingValue}"
+    /mode trace on
+    return ${_resp}
+END
+DEFUN Card_PutData
+    
+    _cmd=             ${argv[0]}
+    # ev _cmd
+    _clains=          $(byteSubs _cmd 0 2)
+    # TODO: Check CLAINS
+    _P12=             $(byteSubs _cmd 2 2)
+    # TODO: Check if P12= 3FFF
+    # Add Extended lenght handling
+    _data=            $(byteSubs _cmd 5 )
+    # ev _data
+    _tags[*]=           $(TLV_GetAll ${_data})
+    # ar _tags
+    # ev _tags[0]
+    _tag[*]= ${_tags[0]}
+    # ar _tag
+    if ${_tag[0]} == 'BF78'
+        _tags= $(TLV_GetAll ${_tag[2]})    
+        _tag[*]= ${_tags[0]}
+        # ev _tag
+        if ${_tag[0]} == '87'
+          # MAKE RDS available
+          # Get SESSION data
+          S.UWB.KEY= ${g_SCP_SessionInfo[17]}
+          S.UWB.ID=  ${g_SCP_SessionInfo[18]}
+          _resp= 9000 ${S.UWB.KEY} ${S.UWB.ID}
+        else
+        # Curently no other tag is supported
+        _resp= 6A83  
+      end  
+    else
+      # Curently no other tag is supported
+      _resp= 6A83
+    end 
+
+    return ${_resp}
+END
+
+DEFUN Card_SC02_Receive
+    /mode trace off
+    _capdu=             $(pad -p NOPAD -b 1 ${argv[0]})
+    # ev  _capdu
+    _capdu_length=      $(/expr ${_capdu;l} / 2)
+    _SecurityLevel=     "${g_SCP_SessionInfo[2]}"  
+    S.ENC=              "${g_SCP_SessionInfo[8]}"
+    S.MAC=              "${g_SCP_SessionInfo[9]}"
+    S.DEK=              "${g_SCP_SessionInfo[10]}"
+    S.RMAC=             "${g_SCP_SessionInfo[11]}"
+    _SequenceCounter=   "${g_SCP_SessionInfo[13]}"
+    #MAC.chainingValue= "${g_SCP_SessionInfo[16]}"
+    # ev_SecurityLevel
+
+    _newLc= 0
+    # check if there is CDATA
+    if ${_capdu_length} > 5
+        _lc= $(/expr 0 + 0x${_capdu;s8,2}) # to dec
+        # ev   _lc
+
+        #Check for Le
+        if ${_lc} == $(/expr ${_capdu_length} - 5)
+            # No Le present
+            # /printf "Case 3\n"
+            _le= ""      
+            _mac_index= $(/expr ${_capdu_length} - 16 )
+        else
+            # Le present
+            #/printf "Case 4 \n"
+            _le= $(byteSubs _capdu $(/expr 5 + ${_lc}) 1)
+            _mac_index= $(/expr ${_capdu_length} - 17 )
+        end
+
+        # ev _le
+           
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+            CDATA= $(byteSubs _capdu 5 $(/expr ${_lc} - 16))
+            # CDATA need to be decrypted
+            # Prepare IV
+            # ev _SequenceCounter
+            _iv= $(encrypt -m AES/CBC -p NOPAD -k ${S.ENC} $(F_C_SequenceCounter ${_SequenceCounter}))
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            # decrypt data
+            # ev CDATA
+            # ev _iv
+            # ev S.ENC
+            CDATA= $(decrypt -m AES/CBC -p M4 -k ${S.ENC} -i ${_iv} ${CDATA})
+            # ev CDATA
+            MAC.chainingValue=  $(byteSubs _capdu ${_mac_index} 16)
+            # ev MAC.chainingValue
+        elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+            CDATA= $(byteSubs _capdu 5 $(/expr ${_lc} - 16))
+            MAC.chainingValue=  $(byteSubs _capdu ${_mac_index} 16)
+            # evMAC.chainingValue
+            _newLc= $(/expr ${_lc} + 16)
+        else
+          # no encryption for data
+          _newLc= ${_lc}
+        end
+    elseif ${_capdu_length} == 5 
+        # Case 2, no CDATA
+        # /printf "Case 2\n"
+        _le= $(byteSubs _capdu 4 1)
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            # Increment shall be done even if there is no data
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            _newLc= $(/expr ${_lc} + 16)
+        elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+            _newLc= $(/expr ${_lc} + 16)
+        else
+            # no CMAC
+            _newLc= ${_lc}
+        end
+    else
+        # Case 1 CAPDU, no Le
+        /printf "Case 1\n"
+        _le= ""
+        if "${_SecurityLevel;s1,1}" == "3" # CENC
+            # increment only global sequenceCounter. Keep local counter the same for response decryption
+            # Increment shall be done even if there is no data
+            g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+            _newLc= 20
+        elseif "${_SecurityLevel;s1,1}" == "1" # CMAC
+            _newLc= 20
+        else
+            # no CMAC
+            _newLc= 4
+        end
+    end
+    # ev  _newLc
+
+    if "${_SecurityLevel;s1,1}" == "1" || "${_SecurityLevel;s1,1}" == "3" # CMAC 
+        #_cmacInput= ${_cla}$(byteSubs _capdu 1 3)${_newLc;h2}${CDATA}8410
+        # ev   _cmacInput
+        #MAC.chainingValue=   $(CRYPTO_AES_CMAC ${MAC.chainingValue}${_cmacInput} ${S.MAC})
+        #MAC.chainingValue=   $(byteSubs MAC.chainingValue 0 16)
+        g_SCP_SessionInfo[16]=  "${MAC.chainingValue}"
+        # ev g_SCP_SessionInfo[16]
+    end
+    _cdata_lenght= $(/expr ${CDATA;l} / 2)
+    _capdu= $(byteSubs _capdu 0 4)${_cdata_lenght;h2}${CDATA}${_le}
+    # ev_capdu
+    /mode trace on
+    return ${_capdu}
+END
+
+## Card_SC02_Respond
+#     Description:
+#        Prepare response from the card in SC if needed.
+#     Params:
+#        argument 1: 
+#           RAPDU response
+#     Return:  response in SC or plain depending on SecurityLevel
+#     Usage:   Card_SC02_Respond response
+#     Example: 
+#        Card_SC02_Respond 6F128410A00000039654530000000104500000009000
+DEFUN Card_SC02_Respond
+    /mode trace off    
+    _rapdu=  $(pad -p NOPAD -b 1 ${argv[0]})
+    # ev	 _rapdu
+    _rapdu_length= $(/expr ${_rapdu;l} / 2) 
+    #ev _rapdu_length
+    _sw= $(byteSubs _rapdu $(/expr ${_rapdu_length} - 2))
+    #ev _sw
+    _data= $(byteSubs _rapdu 0 $(/expr ${_rapdu_length} - 2))         # DATA need to be encrypted
+    #ev _data
+    _SecurityLevel=      "${g_SCP_SessionInfo[2]}"  
+    S.ENC=               "${g_SCP_SessionInfo[8]}"
+    S.MAC=               "${g_SCP_SessionInfo[9]}"
+    S.DEK=               "${g_SCP_SessionInfo[10]}"
+    S.RMAC=              "${g_SCP_SessionInfo[11]}"
+    _SequenceCounter=    "${g_SCP_SessionInfo[13]}"
+    MAC.chainingValue=   "${g_SCP_SessionInfo[16]}"
+    #ev _SecurityLevel
+      
+    if ${_rapdu_length} > 2 && "${_SecurityLevel;s0,1}" == "3" # RENC
+        # Prepare IV
+        _iv= $(encrypt -m AES/CBC -p NOPAD -k ${S.ENC} $(F_C_SequenceCounter ${_SequenceCounter}))
+        # increment only global sequenceCounter. Keep local counter the same for response decryption
+        g_SCP_SessionInfo[13]= $(/expr ${_SequenceCounter} + 1)
+        # encrypt data
+        _data= $(encrypt -m AES/CBC -p M4 -k ${S.ENC} -i ${_iv} ${_data})
+    end  
+
+    if "${_SecurityLevel;s0,1}" == "1" || "${_SecurityLevel;s0,1}" == "3" # RMAC OR RENC 
+        _rmacInput= ${_data}${_sw}
+        ev	 _rmacInput
+        ev MAC.chainingValue
+        MAC.chainingValue=   $(CRYPTO_AES_CMAC ${MAC.chainingValue}${_rmacInput} ${S.RMAC})
+        MAC.chainingValue=   $(byteSubs MAC.chainingValue 0 16)
+        #g_SCP_SessionInfo[16]=  "${MAC.chainingValue}"
+    end
+
+    _rapdu= ${_data}${MAC.chainingValue}${_sw}
+    # ev_rapdu
+    /mode trace on
+    return ${_rapdu}
+END

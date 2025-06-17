@@ -1,0 +1,3 @@
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/Api/SR1XX/UwbApi_Proprietary_Fm.c:47:24:UwbApi_FactoryInit	32	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/Api/SR1XX/UwbApi_Proprietary_Fm.c:75:24:UwbApi_RecoverFactoryUWBS	24	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/Api/SR1XX/UwbApi_Proprietary_Fm.c:266:24:UwbApi_WriteOtpCmd	16	static
