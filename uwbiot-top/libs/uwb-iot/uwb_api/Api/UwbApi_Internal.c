@@ -48,9 +48,11 @@ tUWBAPI_STATUS recoverUWBS()
     sep_SetWaitEvent(UWA_DM_DEVICE_STATUS_NTF_EVT);
     status = (uint8_t)UwbDeviceInit(TRUE);
     NXPLOG_UWBAPI_D("%s: uwb device init status: %d", __FUNCTION__, status);
-    if (status == UWBAPI_STATUS_OK) {
+    if (status == UWBAPI_STATUS_OK)
+    {
         status = setDefaultCoreConfigs();
-        if (status != UWBAPI_STATUS_OK) {
+        if (status != UWBAPI_STATUS_OK)
+        {
             NXPLOG_UWBAPI_E("%s: setDefaultCoreConfigs is failed:", __FUNCTION__);
             return status;
         }
@@ -58,7 +60,8 @@ tUWBAPI_STATUS recoverUWBS()
         // Update UWBC device info
         status = getDeviceInfo();
     }
-    else {
+    else
+    {
         sep_SetWaitEvent(DEFAULT_EVENT_TYPE);
         NXPLOG_UWBAPI_E("%s: DownloadFirmware is failed:", __FUNCTION__);
         return status;
@@ -94,16 +97,17 @@ void cleanUp()
  *******************************************************************************/
 tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode)
 {
-    tUWBAPI_STATUS status                = UWBAPI_STATUS_FAILED;
+    tUWBAPI_STATUS status = UWBAPI_STATUS_FAILED;
     const tHAL_UWB_ENTRY *halFuncEntries = NULL;
     phUwb_LogInit();
     NXPLOG_UWBAPI_D("%s: enter", __FUNCTION__);
     if (uwbContext.isUfaEnabled == TRUE)
         return UWBAPI_STATUS_OK;
     uwbContext.sessionInfo.state = UWBAPI_SESSION_ERROR;
-    uwbContext.pAppCallback      = pCallback;
-    uwbContext.receivedEventId   = DEFAULT_EVENT_TYPE;
-    if (phOsalUwb_CreateSemaphore(&uwbContext.devMgmtSem, 0) != UWBSTATUS_SUCCESS) {
+    uwbContext.pAppCallback = pCallback;
+    uwbContext.receivedEventId = DEFAULT_EVENT_TYPE;
+    if (phOsalUwb_CreateSemaphore(&uwbContext.devMgmtSem, 0) != UWBSTATUS_SUCCESS)
+    {
         return status;
     }
     NXPLOG_UWBAPI_D("UWA_Init");
@@ -119,20 +123,25 @@ tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode
 #else
     status = UWA_Enable(&ufaDeviceManagementRspCallback, &ufaDeviceManagementNtfCallback);
 #endif // UWBFTR_DataTransfer
-    if (status == UWBAPI_STATUS_OK) {
+    if (status == UWBAPI_STATUS_OK)
+    {
         if (phOsalUwb_ConsumeSemaphore_WithTimeout(uwbContext.devMgmtSem, UWB_MAX_DEV_MGMT_RSP_TIMEOUT) !=
-            UWBSTATUS_SUCCESS) {
+            UWBSTATUS_SUCCESS)
+        {
             LOG_E("%s : UWA_DM_ENABLE_EVT timedout", __FUNCTION__);
             status = UWBAPI_STATUS_TIMEOUT;
             goto Error;
         }
         status = uwbContext.wstatus;
-        if (status == UWBAPI_STATUS_OK) {
+        if (status == UWBAPI_STATUS_OK)
+        {
             sep_SetWaitEvent(UWA_DM_REGISTER_EXT_CB_EVT);
             status = UWA_RegisterExtCallback(&extDeviceManagementCallback);
-            if (status == UWBAPI_STATUS_OK) {
+            if (status == UWBAPI_STATUS_OK)
+            {
                 if (phOsalUwb_ConsumeSemaphore_WithTimeout(uwbContext.devMgmtSem, UWB_MAX_DEV_MGMT_RSP_TIMEOUT) !=
-                    UWBSTATUS_SUCCESS) {
+                    UWBSTATUS_SUCCESS)
+                {
                     LOG_E("%s : UWA_DM_REGISTER_EXT_CB_EVT timedout", __FUNCTION__);
                     status = UWBAPI_STATUS_TIMEOUT;
                     goto Error;
@@ -144,7 +153,8 @@ tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode
                 NXPLOG_UWBAPI_D("%s: DownloadFirmware status: %d", __FUNCTION__, status);
                 /* Set operating mode */
                 Hal_setOperationMode(mode);
-                if (status == UWBAPI_STATUS_OK) {
+                if (status == UWBAPI_STATUS_OK)
+                {
                     status = setDefaultCoreConfigs();
                     if (status != UWBAPI_STATUS_OK)
                         goto Error;
@@ -152,8 +162,10 @@ tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode
                     // Update UWBS capability info
                     phUwbCapInfo_t devCap;
                     status = getCapsInfo();
-                    if (status == UWBAPI_STATUS_OK) {
-                        if (parseCapabilityInfo(&devCap) == FALSE) {
+                    if (status == UWBAPI_STATUS_OK)
+                    {
+                        if (parseCapabilityInfo(&devCap) == FALSE)
+                        {
                             NXPLOG_UWBAPI_E("%s: Parsing Capability Information Failed", __FUNCTION__);
                             status = UWBAPI_STATUS_FAILED;
                         }
@@ -162,17 +174,20 @@ tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode
                         goto Error;
 #endif // UWBFTR_DataTransfer
                 }
-                else {
+                else
+                {
                     sep_SetWaitEvent(DEFAULT_EVENT_TYPE);
                     goto Error;
                 }
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_D("%s: UWA_Enable status: %d", __FUNCTION__, status);
                 return status;
             }
         }
-        else {
+        else
+        {
             return status;
         }
         return status;
@@ -180,13 +195,16 @@ tUWBAPI_STATUS uwbInit(tUwbApi_AppCallback *pCallback, Uwb_operation_mode_t mode
 Error:
     uwbContext.isUfaEnabled = FALSE;
     sep_SetWaitEvent(UWA_DM_DISABLE_EVT);
-    if (UWA_Disable(FALSE) == UWBAPI_STATUS_OK) {
+    if (UWA_Disable(FALSE) == UWBAPI_STATUS_OK)
+    {
         if (UWBSTATUS_SUCCESS !=
-            phOsalUwb_ConsumeSemaphore_WithTimeout(uwbContext.devMgmtSem, UWB_MAX_DEV_MGMT_RSP_TIMEOUT)) {
+            phOsalUwb_ConsumeSemaphore_WithTimeout(uwbContext.devMgmtSem, UWB_MAX_DEV_MGMT_RSP_TIMEOUT))
+        {
             LOG_E("%s : phOsalUwb_ConsumeSemaphore_WithTimeout failed", __FUNCTION__);
         }
     }
-    else {
+    else
+    {
         NXPLOG_UWBAPI_E("%s: UFA Disable is failed:", __FUNCTION__);
     }
     cleanUp();
@@ -205,11 +223,13 @@ Error:
  *******************************************************************************/
 void parseRangingParams(uint8_t *rspPtr, uint8_t noOfParams, phRangingParams_t *pRangingParams)
 {
-    for (int i = 0; i < noOfParams; i++) {
+    for (int i = 0; i < noOfParams; i++)
+    {
         uint8_t paramId = *rspPtr++;
-        uint8_t length  = *rspPtr++;
-        uint8_t *value  = rspPtr;
-        switch (paramId) {
+        uint8_t length = *rspPtr++;
+        uint8_t *value = rspPtr;
+        switch (paramId)
+        {
         case UCI_PARAM_ID_DEVICE_ROLE:
             /*  Device Role */
             UWB_STREAM_TO_UINT8(pRangingParams->deviceRole, value);
@@ -261,23 +281,24 @@ eResponse_Rsp_Event processInternalRsp(uint8_t oid, uint16_t len, uint8_t *event
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     /* process the message based on the opcode and message type */
-    switch (oid) {
+    switch (oid)
+    {
     case UCI_ENABLE: /* enable */
-        dmEvent            = UWA_DM_ENABLE_EVT;
+        dmEvent = UWA_DM_ENABLE_EVT;
         uwbContext.wstatus = *eventData;
         uwa_dm_cb.flags |= UWA_DM_FLAGS_DM_IS_ACTIVE;
         break;
     case UCI_DISABLE: /* disable */
-        dmEvent            = UWA_DM_DISABLE_EVT;
+        dmEvent = UWA_DM_DISABLE_EVT;
         uwbContext.wstatus = UWBAPI_STATUS_OK;
         uwa_dm_cb.flags &= (uint32_t)(~UWA_DM_FLAGS_DM_IS_ACTIVE);
         break;
     case UCI_REG_EXT_CB: /* register external CB */
-        dmEvent            = UWA_DM_REGISTER_EXT_CB_EVT;
+        dmEvent = UWA_DM_REGISTER_EXT_CB_EVT;
         uwbContext.wstatus = UWBAPI_STATUS_OK;
         break;
     case UCI_TIMEOUT: /* response timeout event */
-        dmEvent            = UWA_DM_UWBD_RESP_TIMEOUT_EVT;
+        dmEvent = UWA_DM_UWBD_RESP_TIMEOUT_EVT;
         uwbContext.wstatus = UWBAPI_STATUS_TIMEOUT;
         break;
     default:
@@ -301,77 +322,95 @@ eResponse_Rsp_Event processCoreRsp(uint8_t oid, uint16_t len, uint8_t *eventData
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL)) {
+    if ((len != 0) && (eventData != NULL))
+    {
         uint16_t timestampLen;
 
         /* process the message based on the opcode and message type */
-        switch (oid) {
+        switch (oid)
+        {
         case UCI_MSG_CORE_DEVICE_RESET:
-            dmEvent            = UWA_DM_DEVICE_RESET_RSP_EVT;
+            dmEvent = UWA_DM_DEVICE_RESET_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
-        case UCI_MSG_CORE_DEVICE_INFO: {
-            dmEvent                  = UWA_DM_CORE_GET_DEVICE_INFO_RSP_EVT;
+        case UCI_MSG_CORE_DEVICE_INFO:
+        {
+            dmEvent = UWA_DM_CORE_GET_DEVICE_INFO_RSP_EVT;
             uint16_t device_info_len = (uint16_t)(len - sizeof(uint8_t)); // exclude status length
-            uwbContext.wstatus       = *eventData++;
-            if (uwbContext.wstatus == UCI_STATUS_OK && device_info_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UCI_STATUS_OK && device_info_len <= sizeof(uwbContext.rsp_data))
+            {
                 uwbContext.rsp_len = device_info_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, device_info_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_GET_CORE_DEVICE_CAP failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
-        case UCI_MSG_CORE_GET_CAPS_INFO: {
-            dmEvent               = UWA_DM_GET_CORE_DEVICE_CAP_RSP_EVT;
+        }
+        break;
+        case UCI_MSG_CORE_GET_CAPS_INFO:
+        {
+            dmEvent = UWA_DM_GET_CORE_DEVICE_CAP_RSP_EVT;
             uint16_t cap_info_len = (uint16_t)(len - TLV_BUFFER_OFFSET);
-            uwbContext.wstatus    = *eventData++;
-            if (uwbContext.wstatus == UCI_STATUS_OK && cap_info_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UCI_STATUS_OK && cap_info_len <= sizeof(uwbContext.rsp_data))
+            {
                 eventData++; // skip no of TLVs
                 uwbContext.rsp_len = cap_info_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, cap_info_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_GET_CORE_DEVICE_CAP failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
-        case UCI_MSG_CORE_GET_CONFIG: {
+        }
+        break;
+        case UCI_MSG_CORE_GET_CONFIG:
+        {
             /* Result of UWA_GetCoreConfig */
-            dmEvent                = UWA_DM_CORE_GET_CONFIG_RSP_EVT;
+            dmEvent = UWA_DM_CORE_GET_CONFIG_RSP_EVT;
             uint16_t core_info_len = (uint16_t)(len - TLV_BUFFER_OFFSET);
-            uwbContext.wstatus     = *eventData++;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK && core_info_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK && core_info_len <= sizeof(uwbContext.rsp_data))
+            {
                 eventData++; // skip no of TLVs
                 uwbContext.rsp_len = core_info_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, core_info_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_GET_CORE_CONFIG failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
         case UCI_MSG_CORE_SET_CONFIG:
             /* Result of UWA_SetCoreConfig */
-            dmEvent            = UWA_DM_CORE_SET_CONFIG_RSP_EVT;
+            dmEvent = UWA_DM_CORE_SET_CONFIG_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_CORE_QUERY_UWBS_TIMESTAMP:
-            dmEvent            = UWA_DM_PROP_QUERY_TIMESTAMP_RESP_EVT;
+            dmEvent = UWA_DM_PROP_QUERY_TIMESTAMP_RESP_EVT;
             uwbContext.wstatus = *eventData;
-            timestampLen       = len - sizeof(uint8_t); // Exclude the status
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
-                if (timestampLen == UCI_MSG_CORE_UWBS_TIMESTAMP_LEN) {
+            timestampLen = len - sizeof(uint8_t); // Exclude the status
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
+                if (timestampLen == UCI_MSG_CORE_UWBS_TIMESTAMP_LEN)
+                {
                     uwbContext.rsp_len = len;
                     phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
                 }
-                else {
+                else
+                {
                     NXPLOG_UWBAPI_E("%s: Invalid response", __FUNCTION__);
                     uwbContext.rsp_len = 0;
                 }
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UCI_MSG_CORE_QUERY_UWBS_TIMESTAMP failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
@@ -398,64 +437,74 @@ eResponse_Rsp_Event processSessionManagementRsp(uint8_t oid, uint16_t len, uint8
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL) && (len < (MAX_UCI_HEADER_SIZE + MAX_API_PACKET_SIZE))) {
-        switch (oid) {
+    if ((len != 0) && (eventData != NULL) && (len < (MAX_UCI_HEADER_SIZE + MAX_API_PACKET_SIZE)))
+    {
+        switch (oid)
+        {
         case UCI_MSG_SESSION_INIT:
-            dmEvent            = UWA_DM_SESSION_INIT_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_INIT_RSP_EVT;
             uwbContext.wstatus = *eventData;
             uwbContext.rsp_len = len;
             phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, len);
             break;
         case UCI_MSG_SESSION_DEINIT:
-            dmEvent            = UWA_DM_SESSION_DEINIT_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_DEINIT_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
-        case UCI_MSG_SESSION_GET_APP_CONFIG: {
-            dmEvent                 = UWA_DM_SESSION_GET_CONFIG_RSP_EVT;
+        case UCI_MSG_SESSION_GET_APP_CONFIG:
+        {
+            dmEvent = UWA_DM_SESSION_GET_CONFIG_RSP_EVT;
             uint16_t get_config_len = (uint16_t)(len - TLV_BUFFER_OFFSET);
-            uwbContext.wstatus      = *eventData++;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK && get_config_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK && get_config_len <= sizeof(uwbContext.rsp_data))
+            {
                 eventData++; // skip no of TLVs
                 uwbContext.rsp_len = get_config_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, get_config_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_GET_APP_CONFIG failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
         case UCI_MSG_SESSION_SET_APP_CONFIG:
-            dmEvent            = UWA_DM_SESSION_SET_CONFIG_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_SET_CONFIG_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_SESSION_GET_STATE:
-            dmEvent            = UWA_DM_SESSION_GET_STATE_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_GET_STATE_RSP_EVT;
             uwbContext.wstatus = *eventData++;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_data[0] = *eventData;
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: get session state Request is failed", __FUNCTION__);
             }
             break;
         case UCI_MSG_SESSION_UPDATE_CONTROLLER_MULTICAST_LIST:
-            dmEvent            = UWA_DM_SESSION_MC_LIST_UPDATE_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_MC_LIST_UPDATE_RSP_EVT;
             uwbContext.wstatus = *eventData;
             NXPLOG_UWBAPI_D("%s: Received Multicast List Status.\n", __FUNCTION__);
             break;
 #if UWBIOT_UWBD_SR1XXT
         case UCI_MSG_UPDATE_ACTIVE_ROUNDS_OF_ANCHOR_DEVICE:
-            dmEvent            = UWA_DM_SESSION_UPDATE_DT_ANCHOR_RANGING_ROUNDS_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_UPDATE_DT_ANCHOR_RANGING_ROUNDS_RSP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_ERROR_ROUND_INDEX_NOT_ACTIVATED) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_ERROR_ROUND_INDEX_NOT_ACTIVATED)
+            {
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, (uint32_t)(len - 1));
                 uwbContext.rsp_len = len;
             }
             break;
         case UCI_MSG_UPDATE_ACTIVE_ROUNDS_OF_RECEIVER_DEVICE:
-            dmEvent            = UWA_DM_SESSION_UPDATE_DT_TAG_RANGING_ROUNDS_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_UPDATE_DT_TAG_RANGING_ROUNDS_RSP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_ERROR_ROUND_INDEX_NOT_ACTIVATED) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_ERROR_ROUND_INDEX_NOT_ACTIVATED)
+            {
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, (uint32_t)(len - 1));
                 uwbContext.rsp_len = len;
             }
@@ -464,7 +513,8 @@ eResponse_Rsp_Event processSessionManagementRsp(uint8_t oid, uint16_t len, uint8
         case UCI_MSG_SESSION_SET_HUS_CONTROLLER_CONFIG_CMD:
             dmEvent = UWA_DM_SESSION_SET_HUS_CONTROLLER_CONFIG_RSP_EVT;
             UWB_STREAM_TO_UINT8(uwbContext.wstatus, eventData);
-            if (uwbContext.wstatus != UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus != UWBAPI_STATUS_OK)
+            {
                 NXPLOG_UWBAPI_E(
                     "%s: Received HUS Controller Config Response Error: %d\n", __FUNCTION__, uwbContext.wstatus);
             }
@@ -472,18 +522,22 @@ eResponse_Rsp_Event processSessionManagementRsp(uint8_t oid, uint16_t len, uint8
         case UCI_MSG_SESSION_SET_HUS_CONTROLEE_CONFIG_CMD:
             dmEvent = UWA_DM_SESSION_SET_HUS_CONTROLEE_CONFIG_RSP_EVT;
             UWB_STREAM_TO_UINT8(uwbContext.wstatus, eventData);
-            if (uwbContext.wstatus != UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus != UWBAPI_STATUS_OK)
+            {
                 NXPLOG_UWBAPI_E(
                     "%s: Received HUS Controlee Config Response Error: %d\n", __FUNCTION__, uwbContext.wstatus);
             }
             break;
-        case UCI_MSG_SESSION_DATA_TRANSFER_PHASE_CONFIG: {
+        case UCI_MSG_SESSION_DATA_TRANSFER_PHASE_CONFIG:
+        {
             dmEvent = UWA_DM_SESSION_DATA_TRANSFER_PHASE_CONFIG_RSP_EVT;
             UWB_STREAM_TO_UINT8(uwbContext.wstatus, eventData);
-            if (uwbContext.wstatus != UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus != UWBAPI_STATUS_OK)
+            {
                 NXPLOG_UWBAPI_E("%s: Received DTPCM Config Response Error: %d\n", __FUNCTION__, uwbContext.wstatus);
             }
-        } break;
+        }
+        break;
 #if !(UWBIOT_UWBD_SR040)
         case UCI_MSG_SESSION_QUERY_DATA_SIZE_IN_RANGING:
             dmEvent = UWA_DM_SESSION_QUERY_DATA_SIZE_IN_RANGING_RSP_EVT;
@@ -495,17 +549,21 @@ eResponse_Rsp_Event processSessionManagementRsp(uint8_t oid, uint16_t len, uint8
              */
             /** Increment  the pointer with 4 hence it will point to the status */
             uwbContext.wstatus = *(eventData + 4);
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
-                if (len <= sizeof(uwbContext.rsp_data)) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
+                if (len <= sizeof(uwbContext.rsp_data))
+                {
                     phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, len);
                     uwbContext.rsp_len = len;
                 }
-                else {
+                else
+                {
                     LOG_E("%s : Not enough buffer to store %d bytes", __FUNCTION__, len);
                     uwbContext.rsp_len = 0;
                 }
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E(
                     "%s: Received Query status  Config Response Error: %d\n", __FUNCTION__, uwbContext.wstatus);
                 uwbContext.rsp_len = 0;
@@ -534,18 +592,20 @@ eResponse_Rsp_Event processRangeManagementRsp(uint8_t oid, uint16_t len, uint8_t
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL)) {
-        switch (oid) {
+    if ((len != 0) && (eventData != NULL))
+    {
+        switch (oid)
+        {
         case UCI_MSG_RANGE_START:
-            dmEvent            = UWA_DM_RANGE_START_RSP_EVT;
+            dmEvent = UWA_DM_RANGE_START_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_RANGE_STOP:
-            dmEvent            = UWA_DM_RANGE_STOP_RSP_EVT;
+            dmEvent = UWA_DM_RANGE_STOP_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_RANGE_BLINK_DATA_TX:
-            dmEvent            = UWA_DM_SEND_BLINK_DATA_RSP_EVT;
+            dmEvent = UWA_DM_SEND_BLINK_DATA_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         default:
@@ -570,44 +630,50 @@ eResponse_Rsp_Event processTestManagementRsp(uint8_t oid, uint16_t len, uint8_t 
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL)) {
-        switch (oid) {
-        case UCI_MSG_TEST_GET_CONFIG: {
-            dmEvent                  = UWA_DM_TEST_GET_CONFIG_RSP_EVT;
+    if ((len != 0) && (eventData != NULL))
+    {
+        switch (oid)
+        {
+        case UCI_MSG_TEST_GET_CONFIG:
+        {
+            dmEvent = UWA_DM_TEST_GET_CONFIG_RSP_EVT;
             uint16_t test_config_len = (uint16_t)(len - TLV_BUFFER_OFFSET);
-            uwbContext.wstatus       = *eventData++;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK && test_config_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK && test_config_len <= sizeof(uwbContext.rsp_data))
+            {
                 eventData++; // skip no of TLVs
                 uwbContext.rsp_len = test_config_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, test_config_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_TEST_GET_CONFIG_EVT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
         case UCI_MSG_TEST_SET_CONFIG:
-            dmEvent            = UWA_DM_TEST_SET_CONFIG_RSP_EVT;
+            dmEvent = UWA_DM_TEST_SET_CONFIG_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_TEST_PERIODIC_TX:
-            dmEvent            = UWA_DM_TEST_PERIODIC_TX_RSP_EVT;
+            dmEvent = UWA_DM_TEST_PERIODIC_TX_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_TEST_PER_RX:
-            dmEvent            = UWA_DM_TEST_PER_RX_RSP_EVT;
+            dmEvent = UWA_DM_TEST_PER_RX_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_TEST_LOOPBACK:
-            dmEvent            = UWA_DM_TEST_LOOPBACK_RSP_EVT;
+            dmEvent = UWA_DM_TEST_LOOPBACK_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_TEST_RX:
-            dmEvent            = UWA_DM_TEST_RX_RSP_EVT;
+            dmEvent = UWA_DM_TEST_RX_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         case UCI_MSG_TEST_STOP_SESSION:
-            dmEvent            = UWA_DM_TEST_STOP_SESSION_RSP_EVT;
+            dmEvent = UWA_DM_TEST_STOP_SESSION_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
         default:
@@ -632,132 +698,175 @@ eResponse_Rsp_Event processProprietaryRsp(uint8_t oid, uint16_t len, uint8_t *ev
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL)) {
-        switch (oid) {
+    if ((len != 0) && (eventData != NULL))
+    {
+        switch (oid)
+        {
 #if UWBIOT_UWBD_SR1XXT_SR2XXT
-        case EXT_UCI_MSG_SE_GET_BINDING_COUNT: {
-            dmEvent            = UWA_DM_PROP_GET_BINDING_COUNT_RESP_EVT;
+        case EXT_UCI_MSG_SE_GET_BINDING_COUNT:
+        {
+            dmEvent = UWA_DM_PROP_GET_BINDING_COUNT_RESP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_PROP_GET_BINDING_COUNT_RESP_EVT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_QUERY_TEMPERATURE: {
-            dmEvent            = UWA_DM_PROP_QUERY_TEMPERATURE_RESP_EVT;
+        case EXT_UCI_MSG_QUERY_TEMPERATURE:
+        {
+            dmEvent = UWA_DM_PROP_QUERY_TEMPERATURE_RESP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_PROP_QUERY_TEMPERATURE_RESP_EVT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
 
 #endif // UWBIOT_UWBD_SR1XXT_SR2XXT
 
 #if (UWBIOT_UWBD_SR100T)
-        case EXT_UCI_MSG_GENERATE_TAG: {
-            dmEvent            = UWA_DM_PROP_GENERATE_TAG_RESP_EVT;
+        case EXT_UCI_MSG_GENERATE_TAG:
+        {
+            dmEvent = UWA_DM_PROP_GENERATE_TAG_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_CALIBRATION_INTEGRITY_PROTECTION: {
-            dmEvent            = UWA_DM_PROP_CALIB_INTEGRITY_PROTECTION_RESP_EVT;
+        case EXT_UCI_MSG_CALIBRATION_INTEGRITY_PROTECTION:
+        {
+            dmEvent = UWA_DM_PROP_CALIB_INTEGRITY_PROTECTION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_VERIFY_CALIB_DATA: {
-            dmEvent            = UWA_DM_PROP_VERIFY_CALIB_DATA_RESP_EVT;
+        case EXT_UCI_MSG_VERIFY_CALIB_DATA:
+        {
+            dmEvent = UWA_DM_PROP_VERIFY_CALIB_DATA_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_CONFIGURE_AUTH_TAG_OPTIONS_CMD: {
-            dmEvent            = UWA_DM_PROP_CONFIGURE_AUTH_TAG_OPTION_RESP_EVT;
+        case EXT_UCI_MSG_CONFIGURE_AUTH_TAG_OPTIONS_CMD:
+        {
+            dmEvent = UWA_DM_PROP_CONFIGURE_AUTH_TAG_OPTION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_CONFIGURE_AUTH_TAG_VERSION_CMD: {
-            dmEvent            = UWA_DM_PROP_CONFIGURE_AUTH_TAG_VERSION_RESP_EVT;
+        case EXT_UCI_MSG_CONFIGURE_AUTH_TAG_VERSION_CMD:
+        {
+            dmEvent = UWA_DM_PROP_CONFIGURE_AUTH_TAG_VERSION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
 #if UWBFTR_SE_SN110
-        case EXT_UCI_MSG_SE_DO_TEST_LOOP: {
-            dmEvent            = UWA_DM_PROP_SE_TEST_LOOP_RESP_EVT;
+        case EXT_UCI_MSG_SE_DO_TEST_LOOP:
+        {
+            dmEvent = UWA_DM_PROP_SE_TEST_LOOP_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 #endif // UWBFTR_SE_SN110
 #endif // UWBIOT_UWBD_SR100T
 #if UWBIOT_UWBD_SR040
         case EXT_UCI_MSG_GET_ALL_UWB_SESSIONS:
-            dmEvent            = UWA_DM_VENDOR_GET_ALL_UWB_SESSION_RSP_EVT;
+            dmEvent = UWA_DM_VENDOR_GET_ALL_UWB_SESSION_RSP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_VENDOR_GET_ALL_UWB_SESSION_RSP_EVT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
             break;
         case EXT_UCI_MSG_GET_TRNG:
-            dmEvent            = UWA_DM_PROP_TRNG_RESP_EVENT;
+            dmEvent = UWA_DM_PROP_TRNG_RESP_EVENT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_PROP_TRNG_RESP_EVENT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
             break;
-        case EXT_UCI_MSG_DEVICE_SUSPEND_CMD: {
-            dmEvent            = UWA_DM_PROP_SUSPEND_DEVICE_RSP_ENVT;
+        case EXT_UCI_MSG_DEVICE_SUSPEND_CMD:
+        {
+            dmEvent = UWA_DM_PROP_SUSPEND_DEVICE_RSP_ENVT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_SESSION_NVM_MANAGE_CMD: {
-            dmEvent            = UWA_DM_SESSION_NVM_PAYLOAD_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_SESSION_NVM_MANAGE_CMD:
+        {
+            dmEvent = UWA_DM_SESSION_NVM_PAYLOAD_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_TEST_START_CMD: {
-            dmEvent            = UWA_DM_START_TEST_MODE_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_TEST_START_CMD:
+        {
+            dmEvent = UWA_DM_START_TEST_MODE_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_TEST_STOP_CMD: {
-            dmEvent            = UWA_DM_STOP_TEST_MODE_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_TEST_STOP_CMD:
+        {
+            dmEvent = UWA_DM_STOP_TEST_MODE_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_SET_TRIM_VALUES_CMD: {
-            dmEvent            = UWA_DM_SET_CALIB_TRIM_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_SET_TRIM_VALUES_CMD:
+        {
+            dmEvent = UWA_DM_SET_CALIB_TRIM_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_GET_TRIM_VALUES_CMD: {
-            dmEvent            = UWA_DM_GET_CALIB_TRIM_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_GET_TRIM_VALUES_CMD:
+        {
+            dmEvent = UWA_DM_GET_CALIB_TRIM_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case EXT_UCI_MSG_SET_PROFILE: {
-            dmEvent            = UWA_DM_PROP_PROFILE_BLOB_RSP_EVENT;
+        }
+        break;
+        case EXT_UCI_MSG_SET_PROFILE:
+        {
+            dmEvent = UWA_DM_PROP_PROFILE_BLOB_RSP_EVENT;
             uwbContext.wstatus = *eventData;
             /* catch the length in the response of the PROP_SET_PROFILE_CMD*/
-            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data))) {
+            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data)))
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, len);
             }
-        } break;
-        case EXT_UCI_MSG_BYPASS_CURRENT_LIMITER_CMD: {
-            dmEvent            = UWA_DM_GET_BYPASS_CURRENT_LIMITER;
+        }
+        break;
+        case EXT_UCI_MSG_BYPASS_CURRENT_LIMITER_CMD:
+        {
+            dmEvent = UWA_DM_GET_BYPASS_CURRENT_LIMITER;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 #endif // UWBIOT_UWBD_SR040
         default:
             NXPLOG_UWBAPI_E("%s: unknown oid:0x%x", __FUNCTION__, oid);
@@ -781,89 +890,116 @@ eResponse_Rsp_Event processVendorRsp(uint8_t oid, uint16_t len, uint8_t *eventDa
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL) && (len < (MAX_UCI_HEADER_SIZE + MAX_API_PACKET_SIZE))) {
-        switch (oid) {
-        case VENDOR_UCI_MSG_DO_VCO_PLL_CALIBRATION: {
-            dmEvent            = UWA_DM_VENDOR_DO_VCO_PLL_CALIBRATION_RESP_EVT;
+    if ((len != 0) && (eventData != NULL) && (len < (MAX_UCI_HEADER_SIZE + MAX_API_PACKET_SIZE)))
+    {
+        switch (oid)
+        {
+        case VENDOR_UCI_MSG_DO_VCO_PLL_CALIBRATION:
+        {
+            dmEvent = UWA_DM_VENDOR_DO_VCO_PLL_CALIBRATION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
-        case UCI_MSG_SESSION_VENDOR_GET_APP_CONFIG: {
-            dmEvent                 = UWA_DM_SESSION_GET_VENDOR_CONFIG_RSP_EVT;
+        }
+        break;
+        case UCI_MSG_SESSION_VENDOR_GET_APP_CONFIG:
+        {
+            dmEvent = UWA_DM_SESSION_GET_VENDOR_CONFIG_RSP_EVT;
             uint16_t get_config_len = (uint16_t)(len - TLV_BUFFER_OFFSET);
-            uwbContext.wstatus      = *eventData++;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK && get_config_len <= sizeof(uwbContext.rsp_data)) {
+            uwbContext.wstatus = *eventData++;
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK && get_config_len <= sizeof(uwbContext.rsp_data))
+            {
                 eventData++; // skip no of TLVs
                 uwbContext.rsp_len = get_config_len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, get_config_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_GET_APP_CONFIG failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
         case UCI_MSG_SESSION_VENDOR_SET_APP_CONFIG:
-            dmEvent            = UWA_DM_SESSION_SET_VENDOR_CONFIG_RSP_EVT;
+            dmEvent = UWA_DM_SESSION_SET_VENDOR_CONFIG_RSP_EVT;
             uwbContext.wstatus = *eventData;
             break;
 
-        case VENDOR_UCI_MSG_SET_DEVICE_CALIBRATION: {
-            dmEvent            = UWA_DM_VENDOR_SET_DEVICE_CALIBRATION_RESP_EVT;
+        case VENDOR_UCI_MSG_SET_DEVICE_CALIBRATION:
+        {
+            dmEvent = UWA_DM_VENDOR_SET_DEVICE_CALIBRATION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case VENDOR_UCI_MSG_GET_DEVICE_CALIBRATION: {
-            dmEvent            = UWA_DM_VENDOR_GET_DEVICE_CALIBRATION_RESP_EVT;
+        case VENDOR_UCI_MSG_GET_DEVICE_CALIBRATION:
+        {
+            dmEvent = UWA_DM_VENDOR_GET_DEVICE_CALIBRATION_RESP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
-                if (sizeof(uwbContext.rsp_data) >= (size_t)len) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
+                if (sizeof(uwbContext.rsp_data) >= (size_t)len)
+                {
                     uwbContext.rsp_len = len;
                     phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
                 }
-                else {
+                else
+                {
                     LOG_E("%s : Not enough buffer to store %d bytes", __FUNCTION__, len);
                     uwbContext.rsp_len = 0;
                 }
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_VENDOR_GET_DEVICE_CALIBRATION_RESP_EVT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-        } break;
+        }
+        break;
 
-        case VENDOR_UCI_MSG_GET_ALL_UWB_SESSIONS: {
-            dmEvent            = UWA_DM_VENDOR_GET_ALL_UWB_SESSION_RSP_EVT;
+        case VENDOR_UCI_MSG_GET_ALL_UWB_SESSIONS:
+        {
+            dmEvent = UWA_DM_VENDOR_GET_ALL_UWB_SESSION_RSP_EVT;
             uwbContext.wstatus = *eventData;
-            if (uwbContext.wstatus == UWBAPI_STATUS_OK) {
+            if (uwbContext.wstatus == UWBAPI_STATUS_OK)
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: VENDOR_GET_ALL_UWB_SESSION failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
-
-        } break;
+        }
+        break;
 
 #if (UWBFTR_SE_SN110)
-        case VENDOR_UCI_MSG_SE_DO_TEST_CONNECTIVITY: {
-            dmEvent            = UWA_DM_PROP_TEST_CONNECTIVITY_RESP_EVT;
+        case VENDOR_UCI_MSG_SE_DO_TEST_CONNECTIVITY:
+        {
+            dmEvent = UWA_DM_PROP_TEST_CONNECTIVITY_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case VENDOR_UCI_MSG_ESE_BINDING_CHECK_CMD: {
-            dmEvent            = UWA_DM_PROP_GET_BINDING_STATUS_RESP_EVT;
+        case VENDOR_UCI_MSG_ESE_BINDING_CHECK_CMD:
+        {
+            dmEvent = UWA_DM_PROP_GET_BINDING_STATUS_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case VENDOR_UCI_MSG_URSK_DELETION_REQ: {
-            dmEvent            = UWA_DM_PROP_URSK_DELETION_REQUEST_RESP_EVT;
+        case VENDOR_UCI_MSG_URSK_DELETION_REQ:
+        {
+            dmEvent = UWA_DM_PROP_URSK_DELETION_REQUEST_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case VENDOR_UCI_MSG_SE_DO_BIND: {
-            dmEvent            = UWA_DM_PROP_DO_BIND_RESP_EVT;
+        case VENDOR_UCI_MSG_SE_DO_BIND:
+        {
+            dmEvent = UWA_DM_PROP_DO_BIND_RESP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
 #endif // (UWBFTR_SE_SN110)
         default:
@@ -890,46 +1026,59 @@ eResponse_Rsp_Event processProprietarySeRsp(uint8_t oid, uint16_t len, uint8_t *
 {
     eResponse_Rsp_Event dmEvent = UWA_DM_INVALID_RSP_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    if ((len != 0) && (eventData != NULL)) {
-        switch (oid) {
+    if ((len != 0) && (eventData != NULL))
+    {
+        switch (oid)
+        {
 #if UWBIOT_UWBD_SR150 || UWBIOT_UWBD_SR100S || UWBIOT_UWBD_SR160
-        case EXT_UCI_MSG_SET_PROFILE: {
-            dmEvent            = UWA_DM_PROP_PROFILE_BLOB_RSP_EVENT;
+        case EXT_UCI_MSG_SET_PROFILE:
+        {
+            dmEvent = UWA_DM_PROP_PROFILE_BLOB_RSP_EVENT;
             uwbContext.wstatus = *eventData;
             /* catch the sessionHandle in the response of the PROP_SET_PROFILE_CMD*/
-            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data))) {
+            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data)))
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, len);
             }
-        } break;
+        }
+        break;
         case EXT_UCI_MSG_GET_TRNG:
-            dmEvent            = UWA_DM_PROP_TRNG_RESP_EVENT;
+            dmEvent = UWA_DM_PROP_TRNG_RESP_EVENT;
             uwbContext.wstatus = *eventData;
-            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data))) {
+            if ((uwbContext.wstatus == UWBAPI_STATUS_OK) && (len <= sizeof(uwbContext.rsp_data)))
+            {
                 uwbContext.rsp_len = len;
                 phOsalUwb_MemCopy(uwbContext.rsp_data, eventData, uwbContext.rsp_len);
             }
-            else {
+            else
+            {
                 NXPLOG_UWBAPI_E("%s: UWA_DM_PROP_TRNG_RESP_EVENT failed", __FUNCTION__);
                 uwbContext.rsp_len = 0;
             }
             break;
 #endif // (UWBIOT_UWBD_SR150 || UWBIOT_UWBD_SR100S || UWBIOT_UWBD_SR160)
-        case EXT_UCI_MSG_WRITE_CALIB_DATA_CMD: {
-            dmEvent            = UWA_DM_PROP_WRITE_OTP_CALIB_DATA_RSP_EVT;
+        case EXT_UCI_MSG_WRITE_CALIB_DATA_CMD:
+        {
+            dmEvent = UWA_DM_PROP_WRITE_OTP_CALIB_DATA_RSP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
-        case EXT_UCI_MSG_READ_CALIB_DATA_CMD: {
-            dmEvent            = UWA_DM_PROP_READ_OTP_CALIB_DATA_RSP_EVT;
+        case EXT_UCI_MSG_READ_CALIB_DATA_CMD:
+        {
+            dmEvent = UWA_DM_PROP_READ_OTP_CALIB_DATA_RSP_EVT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 
 #if UWBIOT_UWBD_SR150
-        case EXT_UCI_MSG_SESSION_SET_LOCALIZATION_ZONE_CMD: {
-            dmEvent            = UWA_DM_SESSION_SET_LOCALIZATION_ZONE_RSP_EVENT;
+        case EXT_UCI_MSG_SESSION_SET_LOCALIZATION_ZONE_CMD:
+        {
+            dmEvent = UWA_DM_SESSION_SET_LOCALIZATION_ZONE_RSP_EVENT;
             uwbContext.wstatus = *eventData;
-        } break;
+        }
+        break;
 #endif // UWBIOT_UWBD_SR150
 
         default:
@@ -954,42 +1103,55 @@ eResponse_Ntf_Event processCoreManagementNtf(uint8_t oid, uint8_t *eventData)
 {
     eResponse_Ntf_Event dmEvent = UWA_DM_INVALID_NTF_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    switch (oid) {
-    case UCI_MSG_CORE_GENERIC_ERROR_NTF: {
+    switch (oid)
+    {
+    case UCI_MSG_CORE_GENERIC_ERROR_NTF:
+    {
         dmEvent = UWA_DM_CORE_GEN_ERR_STATUS_EVT;
-        if (UCI_STATUS_MESSAGE_RETRY == *eventData) {
+        if (UCI_STATUS_MESSAGE_RETRY == *eventData)
+        {
             /* Nothing to do */
         }
-        else {
+        else
+        {
             NXPLOG_UWBAPI_E("%s: UWA_DM_CORE_GEN_ERR_STATUS_EVT status %d", __FUNCTION__, *eventData);
         }
 #if (UWBIOT_UWBD_SR1XXT)
         /*
          * Notify application if STATUS_DEVICE_TEMP_REACHED_THERMAL_RUNAWAY is received.
          */
-        if (UCI_STATUS_DEVICE_TEMP_REACHED_THERMAL_RUNAWAY == *eventData) {
-            if (uwbContext.pAppCallback) {
+        if (UCI_STATUS_DEVICE_TEMP_REACHED_THERMAL_RUNAWAY == *eventData)
+        {
+            if (uwbContext.pAppCallback)
+            {
                 uwbContext.pAppCallback(UWBD_OVER_TEMP_REACHED, NULL);
             }
         }
 #endif
-    } break;
-    case UCI_MSG_CORE_DEVICE_STATUS_NTF: {
+    }
+    break;
+    case UCI_MSG_CORE_DEVICE_STATUS_NTF:
+    {
         dmEvent = UWA_DM_DEVICE_STATUS_NTF_EVT;
         // uwb_ucif_proc_core_device_status(eventData, len);
         uwbContext.dev_state = (eUWBD_DEVICE_STATUS_t)*eventData;
-        if (uwbContext.dev_state == UWBD_STATUS_ERROR) {
-            if (isCmdRespPending()) {
+        if (uwbContext.dev_state == UWBD_STATUS_ERROR)
+        {
+            if (isCmdRespPending())
+            {
                 uwbContext.wstatus = UWBAPI_STATUS_TIMEOUT;
             }
-            else {
+            else
+            {
                 // in case of uwb device err firmware crash, send recovery signal to app
-                if (uwbContext.pAppCallback) {
+                if (uwbContext.pAppCallback)
+                {
                     uwbContext.pAppCallback(UWBD_RECOVERY_NTF, &uwbContext.wstatus);
                 }
             }
         }
-        else if (uwbContext.dev_state == UWBAPI_STATUS_HPD_WAKEUP) {
+        else if (uwbContext.dev_state == UWBAPI_STATUS_HPD_WAKEUP)
+        {
             uwbContext.wstatus = UWBAPI_STATUS_HPD_WAKEUP;
             /* Keeping below code for future use in case we want to change the handling of HPD wakeup*/
             /* If Device Status Notification is 0xFC, then inform application to perform clean up */
@@ -998,11 +1160,13 @@ eResponse_Ntf_Event processCoreManagementNtf(uint8_t oid, uint8_t *eventData)
             // }
         }
 #if UWBIOT_UWBD_SR040
-        else if (uwbContext.dev_state == UWBAPI_STATUS_LOW_POWER_ERROR) {
+        else if (uwbContext.dev_state == UWBAPI_STATUS_LOW_POWER_ERROR)
+        {
             uwbContext.wstatus = UWBAPI_STATUS_LOW_POWER_ERROR;
         }
 #endif // UWBIOT_UWBD_SR040
-    } break;
+    }
+    break;
     default:
         NXPLOG_UWBAPI_E("%s: unknown oid:0x%x", __FUNCTION__, oid);
         break;
@@ -1024,8 +1188,12 @@ eResponse_Ntf_Event processSessionManagementNtf(uint8_t oid, uint8_t *eventData,
 {
     eResponse_Ntf_Event dmEvent = UWA_DM_INVALID_NTF_EVT;
     NXPLOG_UWBAPI_D("%s: Enter", __FUNCTION__);
-    switch (oid) {
-    case UCI_MSG_SESSION_STATUS_NTF: {
+    switch (oid)
+    {
+    case UCI_MSG_SESSION_STATUS_NTF:
+    {
+
+        NXPLOG_UWBAPI_D("Got SESSION_STATUS_NTF");
         dmEvent = UWA_DM_SESSION_STATUS_NTF_EVT;
         UWB_STREAM_TO_UINT32(uwbContext.sessionInfo.sessionHandle, eventData);
         UWB_STREAM_TO_UINT8(uwbContext.sessionInfo.state, eventData);
@@ -1033,31 +1201,39 @@ eResponse_Ntf_Event processSessionManagementNtf(uint8_t oid, uint8_t *eventData,
 
 #if (defined(UWBFTR_Radar) && (UWBFTR_Radar != 0))
         if ((uwbContext.sessionInfo.reason_code == UWB_SESSION_STOPPED_DUE_TO_INBAND_SIGNAL) ||
-            (uwbContext.sessionInfo.reason_code == UWB_SESSION_RADAR_FCC_LIMIT_REACHED)) {
+            (uwbContext.sessionInfo.reason_code == UWB_SESSION_RADAR_FCC_LIMIT_REACHED))
+        {
 #else
-        if (uwbContext.sessionInfo.reason_code == UWB_SESSION_STOPPED_DUE_TO_INBAND_SIGNAL) {
+        if (uwbContext.sessionInfo.reason_code == UWB_SESSION_STOPPED_DUE_TO_INBAND_SIGNAL)
+        {
 #endif                             // (defined(UWBFTR_Radar) && (UWBFTR_Radar != 0))
             *skip_sem_post = TRUE; // Skip posting session status in-band termination
         }
 
-        if (uwbContext.sessionInfo.reason_code != UWB_SESSION_STATE_CHANGED) {
-            if (uwbContext.pAppCallback) {
+        if (uwbContext.sessionInfo.reason_code != UWB_SESSION_STATE_CHANGED)
+        {
+            if (uwbContext.pAppCallback)
+            {
                 uwbContext.pAppCallback(UWBD_SESSION_DATA, &uwbContext.sessionInfo);
             }
         }
-    } break;
-    case UCI_MSG_SESSION_UPDATE_CONTROLLER_MULTICAST_LIST: {
+    }
+    break;
+    case UCI_MSG_SESSION_UPDATE_CONTROLLER_MULTICAST_LIST:
+    {
         dmEvent = UWA_DM_SESSION_MC_LIST_UPDATE_NTF_EVT;
         phMulticastControleeListNtfContext_t pControleeNtfContext;
         UWB_STREAM_TO_UINT32(pControleeNtfContext.sessionHandle, eventData);
         UWB_STREAM_TO_UINT8(pControleeNtfContext.remaining_list, eventData);
         UWB_STREAM_TO_UINT8(pControleeNtfContext.no_of_controlees, eventData);
 
-        if (pControleeNtfContext.no_of_controlees > MAX_NUM_CONTROLLEES) {
+        if (pControleeNtfContext.no_of_controlees > MAX_NUM_CONTROLLEES)
+        {
             NXPLOG_UWBAPI_E("%s: wrong number of controless : %d", __FUNCTION__, pControleeNtfContext.no_of_controlees);
             break;
         }
-        for (uint8_t i = 0; i < pControleeNtfContext.no_of_controlees; i++) {
+        for (uint8_t i = 0; i < pControleeNtfContext.no_of_controlees; i++)
+        {
 #if UWBIOT_UWBD_SR1XXT
             UWB_STREAM_TO_UINT16(pControleeNtfContext.controleeStatusList[i].controlee_mac_address, eventData);
 #endif
@@ -1065,22 +1241,27 @@ eResponse_Ntf_Event processSessionManagementNtf(uint8_t oid, uint8_t *eventData,
             UWB_STREAM_TO_UINT8(pControleeNtfContext.controleeStatusList[i].status, eventData);
         }
 
-        if (uwbContext.pAppCallback) {
+        if (uwbContext.pAppCallback)
+        {
             uwbContext.pAppCallback(UWBD_MULTICAST_LIST_NTF, &pControleeNtfContext);
         }
 
         uwbContext.wstatus = *eventData;
         NXPLOG_UWBAPI_D("%s: Received Multicast List data.\n", __FUNCTION__);
-    } break;
-    case UCI_MSG_SESSION_DATA_TRANSFER_PHASE_CONFIG: {
+    }
+    break;
+    case UCI_MSG_SESSION_DATA_TRANSFER_PHASE_CONFIG:
+    {
         dmEvent = UWA_DM_SESSION_DATA_TRANSFER_PHASE_CONFIG_NTF_EVT;
         phDataTxPhaseCfgNtf_t pDataTxPhCfgNtf;
         UWB_STREAM_TO_UINT32(pDataTxPhCfgNtf.sessionHandle, eventData);
         UWB_STREAM_TO_UINT8(pDataTxPhCfgNtf.status, eventData);
-        if (uwbContext.pAppCallback) {
+        if (uwbContext.pAppCallback)
+        {
             uwbContext.pAppCallback(UWBD_DATA_TRANSFER_PHASE_CONFIG_NTF, &pDataTxPhCfgNtf);
         }
-    } break;
+    }
+    break;
     default:
         NXPLOG_UWBAPI_E("%s: unknown oid:0x%x", __FUNCTION__, oid);
         break;
