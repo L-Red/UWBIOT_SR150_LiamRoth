@@ -1,11 +1,11 @@
 libs/uci-core/src/uwa_dm_api.o libs/uci-core/src/uwa_dm_api.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_api.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_api.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/halimpl/inc/phNxpLogApis_UciCore.h \
  ../../../libs/halimpl/inc/uwb_logging.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../boards/Host/Rhodes4/uwb_board.h \
  ../../../boards/Rhodes4_SPI/peripherals.h \
  ../../../boards/Rhodes4_SPI/pin_mux.h \
@@ -117,7 +117,7 @@ libs/uci-core/src/uwa_dm_api.o libs/uci-core/src/uwa_dm_api.d: \
 ../../../libs/halimpl/inc/uwb_logging.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../boards/Host/Rhodes4/uwb_board.h:
 ../../../boards/Rhodes4_SPI/peripherals.h:
 ../../../boards/Rhodes4_SPI/pin_mux.h:

@@ -1,10 +1,10 @@
 se_mw/sss/ex/src/ex_sss_boot_connectstring.o \
  se_mw/sss/ex/src/ex_sss_boot_connectstring.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/sss/ex/src/ex_sss_boot_connectstring.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/sss/ex/inc/ex_sss_boot.h \
  ../../../se_mw/sss/ex/inc/ex_sss.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/sss/inc/fsl_sss_api.h \
  ../../../se_mw/sss/inc/fsl_sss_config.h \
  ../../../se_mw/sss/inc/fsl_sss_policy.h \
@@ -80,7 +80,7 @@ se_mw/sss/ex/src/ex_sss_boot_connectstring.o \
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/sss/ex/inc/ex_sss_boot.h:
 ../../../se_mw/sss/ex/inc/ex_sss.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/sss/inc/fsl_sss_api.h:
 ../../../se_mw/sss/inc/fsl_sss_config.h:
 ../../../se_mw/sss/inc/fsl_sss_policy.h:

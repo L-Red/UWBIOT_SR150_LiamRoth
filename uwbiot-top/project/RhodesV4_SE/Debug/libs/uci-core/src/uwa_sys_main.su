@@ -1,5 +1,5 @@
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:51:6:uwa_sys_init	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:66:6:uwa_sys_event	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:100:6:uwa_sys_register	0	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:120:6:uwa_sys_disable_subsystems	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:143:6:uwa_sys_sendmsg	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:51:6:uwa_sys_init	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:66:6:uwa_sys_event	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:100:6:uwa_sys_register	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:120:6:uwa_sys_disable_subsystems	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_sys_main.c:143:6:uwa_sys_sendmsg	8	static

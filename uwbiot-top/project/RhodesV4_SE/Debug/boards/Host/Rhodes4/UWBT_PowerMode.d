@@ -1,15 +1,15 @@
 boards/Host/Rhodes4/UWBT_PowerMode.o boards/Host/Rhodes4/UWBT_PowerMode.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/bluetooth/framework/LowPower/interface/PWR_Interface.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.h \
  ../../../libs/halimpl/inc/phTmlUwb_transport.h \
  ../../../libs/halimpl/inc/phTmlUwb.h \
  ../../../libs/halimpl/inc/phNxpUciHal_utils.h \
  ../../../libs/halimpl/inc/phUwbStatus.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
  ../../../boards/Host/Rhodes4/UWB_Assert.h \
@@ -99,13 +99,13 @@ boards/Host/Rhodes4/UWBT_PowerMode.o boards/Host/Rhodes4/UWBT_PowerMode.d: \
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../ext/boards/qn9090/bluetooth/framework/LowPower/interface/PWR_Interface.h:
 ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Host/Rhodes4/UWBT_PowerMode.h:
 ../../../libs/halimpl/inc/phTmlUwb_transport.h:
 ../../../libs/halimpl/inc/phTmlUwb.h:
 ../../../libs/halimpl/inc/phNxpUciHal_utils.h:
 ../../../libs/halimpl/inc/phUwbStatus.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
 ../../../boards/Host/Rhodes4/UWB_Assert.h:

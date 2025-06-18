@@ -1,9 +1,9 @@
 libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.o \
  libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/halimpl/inc/phOsalUwb.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../ext/freertos/include/FreeRTOS.h \
  ../../../boards/Host/Rhodes4/FreeRTOSConfig.h \
  ../../../ext/freertos/include/projdefs.h \
@@ -90,7 +90,7 @@ libs/halimpl/osal/phOsalUwb_Queue_FreeRTOS.o \
  ../../../libs/halimpl/inc/uwb_board_values.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../libs/halimpl/inc/phOsalUwb.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../ext/freertos/include/FreeRTOS.h:
 ../../../boards/Host/Rhodes4/FreeRTOSConfig.h:
 ../../../ext/freertos/include/projdefs.h:

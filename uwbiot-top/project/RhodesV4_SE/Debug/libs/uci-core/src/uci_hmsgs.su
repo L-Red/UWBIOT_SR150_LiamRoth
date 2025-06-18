@@ -1,5 +1,5 @@
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:45:10:getGidOid	0	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:273:9:uci_snd_cmd	48	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:250:6:uci_snd_cmd_interface	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:365:6:uci_proc_raw_cmd_rsp	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:396:6:uci_proc_proprietary_ntf	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:45:10:getGidOid	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:273:9:uci_snd_cmd	48	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:250:6:uci_snd_cmd_interface	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:365:6:uci_proc_raw_cmd_rsp	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c:396:6:uci_proc_proprietary_ntf	8	static

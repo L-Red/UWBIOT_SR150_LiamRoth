@@ -1,9 +1,9 @@
 se_mw/se_hostlib/hostLib/se05x/src/se05x_ECC_curves.o \
  se_mw/se_hostlib/hostLib/se05x/src/se05x_ECC_curves.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/se05x/src/se05x_ECC_curves.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/se05x/src/se05x_ECC_curves.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_ecc_curves.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h \
@@ -74,7 +74,7 @@ se_mw/se_hostlib/hostLib/se05x/src/se05x_ECC_curves.o \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_ecc_curves_values.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_ecc_curves.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h:

@@ -1,6 +1,6 @@
 se_mw/se_hostlib/hostLib/libCommon/scp/scp.o \
  se_mw/se_hostlib/hostLib/libCommon/scp/scp.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/libCommon/scp/scp.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/libCommon/scp/scp.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/se_hostlib/hostLib/inc/scp.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h \
@@ -31,7 +31,7 @@ se_mw/se_hostlib/hostLib/libCommon/scp/scp.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h \
  ../../../libs/halimpl/inc/nxEnsure.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/se_hostlib/hostLib/inc/scp.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h:
@@ -62,4 +62,4 @@ se_mw/se_hostlib/hostLib/libCommon/scp/scp.o \
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h:
 ../../../libs/halimpl/inc/nxEnsure.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:

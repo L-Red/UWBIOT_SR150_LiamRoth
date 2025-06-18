@@ -1,6 +1,6 @@
 ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.o \
  ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h \
  ../../../ext/boards/qn9090/bluetooth/framework/TimersManager/interface/TimersManager.h \
@@ -70,7 +70,7 @@ ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../boards/Rhodes4_SPI/pin_mux.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Keyboard/interface/Keyboard.h \
  ../../../ext/boards/qn9090/bluetooth/framework/LowPower/interface/PWR_Interface.h
@@ -143,7 +143,7 @@ ext/boards/qn9090/bluetooth/framework/Keyboard/source/Keyboard.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../boards/Rhodes4_SPI/pin_mux.h:
 ../../../ext/boards/qn9090/bluetooth/framework/Keyboard/interface/Keyboard.h:
 ../../../ext/boards/qn9090/bluetooth/framework/LowPower/interface/PWR_Interface.h:

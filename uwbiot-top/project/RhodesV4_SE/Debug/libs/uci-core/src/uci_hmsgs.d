@@ -1,9 +1,9 @@
 libs/uci-core/src/uci_hmsgs.o libs/uci-core/src/uci_hmsgs.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uci_hmsgs.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/uwb-iot/uwb_core/include/uwb_target.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
  ../../../libs/uwb-iot/uwb_core/include/UwbAdaptation.h \
@@ -117,7 +117,7 @@ libs/uci-core/src/uci_hmsgs.o libs/uci-core/src/uci_hmsgs.d: \
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../libs/uwb-iot/uwb_core/include/uwb_target.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
 ../../../libs/uwb-iot/uwb_core/include/UwbAdaptation.h:

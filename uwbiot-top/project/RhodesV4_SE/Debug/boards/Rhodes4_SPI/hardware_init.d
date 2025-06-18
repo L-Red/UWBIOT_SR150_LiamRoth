@@ -1,8 +1,8 @@
 boards/Rhodes4_SPI/hardware_init.o boards/Rhodes4_SPI/hardware_init.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/hardware_init.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/hardware_init.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
  ../../../ext/boards/qn9090/devices/QN9090/QN9090.h \
  ../../../ext/boards/qn9090/CMSIS/Include/core_cm4.h \
@@ -20,7 +20,7 @@ boards/Rhodes4_SPI/hardware_init.o boards/Rhodes4_SPI/hardware_init.d: \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/psector_api.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/rom_psector.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/rom_common.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board_utility.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board_utility.h \
  ../../../ext/boards/qn9090/devices/QN9090/utilities/fsl_debug_console.h \
  ../../../ext/boards/qn9090/components/serial_manager/serial_manager.h \
  ../../../ext/boards/qn9090/components/serial_manager/serial_port_uart.h \
@@ -66,15 +66,15 @@ boards/Rhodes4_SPI/hardware_init.o boards/Rhodes4_SPI/hardware_init.d: \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../ext/boards/qn9090/bluetooth/framework/TimersManager/interface/TimersManager.h \
  ../../../boards/Host/Rhodes4/UWB_GPIOExtender.h \
  ../../../boards/Rhodes4_SPI/board.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board.h:
 ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h:
 ../../../ext/boards/qn9090/devices/QN9090/QN9090.h:
 ../../../ext/boards/qn9090/CMSIS/Include/core_cm4.h:
@@ -92,7 +92,7 @@ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/psector_api.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/rom_psector.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/rom_common.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board_utility.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board_utility.h:
 ../../../ext/boards/qn9090/devices/QN9090/utilities/fsl_debug_console.h:
 ../../../ext/boards/qn9090/components/serial_manager/serial_manager.h:
 ../../../ext/boards/qn9090/components/serial_manager/serial_port_uart.h:
@@ -138,7 +138,7 @@ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/board_utility
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../ext/boards/qn9090/bluetooth/framework/TimersManager/interface/TimersManager.h:
 ../../../boards/Host/Rhodes4/UWB_GPIOExtender.h:
 ../../../boards/Rhodes4_SPI/board.h:

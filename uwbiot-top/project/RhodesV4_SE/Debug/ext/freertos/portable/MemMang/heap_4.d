@@ -1,6 +1,6 @@
 ext/freertos/portable/MemMang/heap_4.o \
  ext/freertos/portable/MemMang/heap_4.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/freertos/portable/MemMang/heap_4.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/freertos/portable/MemMang/heap_4.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/freertos/include/FreeRTOS.h \
  ../../../boards/Host/Rhodes4/FreeRTOSConfig.h \

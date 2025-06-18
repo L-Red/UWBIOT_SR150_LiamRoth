@@ -1,6 +1,6 @@
 se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.o \
  se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/se05x_apis.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/ax_reset.h \
@@ -70,7 +70,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smComT1oI2C.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h \
@@ -78,7 +78,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_smCom.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/se05x_apis.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/ax_reset.h:
@@ -148,7 +148,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/se05x_reset.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smComT1oI2C.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h:
@@ -156,4 +156,4 @@ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_smCom.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:

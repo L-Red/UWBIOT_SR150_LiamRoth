@@ -1,6 +1,6 @@
 se_mw/semslite/lib/src/sems_lite_api.o \
  se_mw/semslite/lib/src/sems_lite_api.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_api.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/semslite/lib/inc/sems_lite_api.h \
  ../../../se_mw/sss/inc/fsl_sss_se05x_types.h \
@@ -29,7 +29,7 @@ se_mw/semslite/lib/src/sems_lite_api.o \
  ../../../ext/freertos/portable/GCC/ARM_CM4FQN9090/portmacro.h \
  ../../../ext/freertos/include/mpu_wrappers.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/inc/nxScp03_Types.h \
  ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h \
  ../../../se_mw/sss/inc/fsl_sss_mbedtls_types.h \
@@ -84,7 +84,7 @@ se_mw/semslite/lib/src/sems_lite_api.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/apduComm.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
  ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_dispatcher.h \
  ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_common.h \
  ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_config.h \
@@ -143,7 +143,7 @@ se_mw/semslite/lib/src/sems_lite_api.o \
 ../../../ext/freertos/portable/GCC/ARM_CM4FQN9090/portmacro.h:
 ../../../ext/freertos/include/mpu_wrappers.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/inc/nxScp03_Types.h:
 ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h:
 ../../../se_mw/sss/inc/fsl_sss_mbedtls_types.h:
@@ -198,7 +198,7 @@ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/apduComm.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
 ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_dispatcher.h:
 ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_common.h:
 ../../../se_mw/nxp_iot_agent/inc/nxp_iot_agent_config.h:

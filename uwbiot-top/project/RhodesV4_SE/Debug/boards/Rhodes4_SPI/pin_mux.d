@@ -1,5 +1,5 @@
 boards/Rhodes4_SPI/pin_mux.o boards/Rhodes4_SPI/pin_mux.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
@@ -17,7 +17,7 @@ boards/Rhodes4_SPI/pin_mux.o boards/Rhodes4_SPI/pin_mux.d: \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_gpio.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_inputmux.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_inputmux_connections.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:
 ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h:
@@ -35,4 +35,4 @@ boards/Rhodes4_SPI/pin_mux.o boards/Rhodes4_SPI/pin_mux.d: \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_gpio.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_inputmux.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_inputmux_connections.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/pin_mux.h:

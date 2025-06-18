@@ -1,11 +1,11 @@
 se_mw/semslite/lib/src/sems_lite_agent.o \
  se_mw/semslite/lib/src/sems_lite_agent.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
  ../../../se_mw/sss/ex/inc/ex_sss_boot.h \
  ../../../se_mw/sss/ex/inc/ex_sss.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/sss/inc/fsl_sss_api.h \
  ../../../se_mw/sss/inc/fsl_sss_config.h \
  ../../../se_mw/sss/inc/fsl_sss_policy.h \
@@ -117,10 +117,10 @@ se_mw/semslite/lib/src/sems_lite_agent.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/apduComm.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/infra/global_platf.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
 ../../../se_mw/sss/ex/inc/ex_sss_boot.h:
 ../../../se_mw/sss/ex/inc/ex_sss.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/sss/inc/fsl_sss_api.h:
 ../../../se_mw/sss/inc/fsl_sss_config.h:
 ../../../se_mw/sss/inc/fsl_sss_policy.h:

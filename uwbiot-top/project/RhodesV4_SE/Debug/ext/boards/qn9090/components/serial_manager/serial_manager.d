@@ -1,6 +1,6 @@
 ext/boards/qn9090/components/serial_manager/serial_manager.o \
  ext/boards/qn9090/components/serial_manager/serial_manager.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
@@ -15,10 +15,10 @@ ext/boards/qn9090/components/serial_manager/serial_manager.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_uart.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_swo.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_internal.h
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_uart.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_swo.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_internal.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:
 ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h:
@@ -33,7 +33,7 @@ ext/boards/qn9090/components/serial_manager/serial_manager.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_uart.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_swo.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_internal.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_manager.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_uart.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_swo.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/serial_manager/serial_port_internal.h:

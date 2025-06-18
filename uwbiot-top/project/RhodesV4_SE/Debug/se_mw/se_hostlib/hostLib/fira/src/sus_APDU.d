@@ -1,6 +1,6 @@
 se_mw/se_hostlib/hostLib/fira/src/sus_APDU.o \
  se_mw/se_hostlib/hostLib/fira/src/sus_APDU.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/fira/src/sus_APDU.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/fira/src/sus_APDU.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/se_hostlib/hostLib/inc/nxScp03_Const.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/smCom.h \
@@ -11,7 +11,7 @@ se_mw/se_hostlib/hostLib/fira/src/sus_APDU.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h \
  ../../../se_mw/se_hostlib/hostLib/fira/inc/sus_APDU.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h \
  ../../../se_mw/se_hostlib/hostLib/inc/Applet_SE050_Ver.h \
@@ -80,7 +80,7 @@ se_mw/se_hostlib/hostLib/fira/src/sus_APDU.o \
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog_DefaultConfig.h:
 ../../../se_mw/se_hostlib/hostLib/fira/inc/sus_APDU.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h:
 ../../../se_mw/se_hostlib/hostLib/inc/Applet_SE050_Ver.h:

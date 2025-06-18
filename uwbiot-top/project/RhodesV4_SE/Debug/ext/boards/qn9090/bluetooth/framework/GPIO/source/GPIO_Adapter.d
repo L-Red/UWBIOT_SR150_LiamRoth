@@ -1,6 +1,6 @@
 ext/boards/qn9090/bluetooth/framework/GPIO/source/GPIO_Adapter.o \
  ext/boards/qn9090/bluetooth/framework/GPIO/source/GPIO_Adapter.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/GPIO/source/GPIO_Adapter.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/GPIO/source/GPIO_Adapter.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_gpio.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \

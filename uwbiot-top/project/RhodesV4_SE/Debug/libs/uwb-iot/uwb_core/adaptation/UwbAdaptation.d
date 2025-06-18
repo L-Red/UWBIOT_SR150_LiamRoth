@@ -1,12 +1,12 @@
 libs/uwb-iot/uwb_core/adaptation/UwbAdaptation.o \
  libs/uwb-iot/uwb_core/adaptation/UwbAdaptation.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_core/adaptation/UwbAdaptation.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_core/adaptation/UwbAdaptation.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/uwb-iot/uwb_core/include/UwbAdaptation.h \
  ../../../libs/halimpl/inc/phNxpUciHal.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phNxpUciHal_Adaptation.h \
  ../../../libs/uci-core/inc/uwb_types.h \
  ../../../libs/uwb-iot/uwb_core/include/uwb_hal_api.h \
@@ -118,7 +118,7 @@ libs/uwb-iot/uwb_core/adaptation/UwbAdaptation.o \
 ../../../libs/halimpl/inc/phNxpUciHal.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phNxpUciHal_Adaptation.h:
 ../../../libs/uci-core/inc/uwb_types.h:
 ../../../libs/uwb-iot/uwb_core/include/uwb_hal_api.h:

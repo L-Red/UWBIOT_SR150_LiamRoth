@@ -1,6 +1,6 @@
 ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash.o \
  ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Flash/External/interface/Eeprom.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h \
@@ -67,7 +67,7 @@ ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../ext/boards/qn9090/bluetooth/framework/Flash/External/interface/Eeprom.h:
 ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h:
@@ -134,4 +134,4 @@ ext/boards/qn9090/bluetooth/framework/Flash/External/source/Eeprom_InternalFlash
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:

@@ -1,2 +1,2 @@
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/bluetooth/profiles/device_info/device_info_service.c:64:13:Dis_Start	48	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/bluetooth/profiles/device_info/device_info_service.c:116:13:Dis_Stop	0	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/bluetooth/profiles/device_info/device_info_service.c:64:13:Dis_Start	48	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/bluetooth/profiles/device_info/device_info_service.c:116:13:Dis_Stop	0	static

@@ -1,6 +1,6 @@
 se_mw/semslite/lib/src/sems_lite_keystore_se05x.o \
  se_mw/semslite/lib/src/sems_lite_keystore_se05x.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_keystore_se05x.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_keystore_se05x.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/semslite/lib/inc/sems_lite_keystore_se05x.h \
  ../../../se_mw/semslite/lib/inc/sems_lite_agent_context.h \
@@ -33,7 +33,7 @@ se_mw/semslite/lib/src/sems_lite_keystore_se05x.o \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h \
  ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h \
  ../../../se_mw/se_hostlib/hostLib/inc/Applet_SE050_Ver.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h \
  ../../../se_mw/se_hostlib/hostLib/inc/nxScp03_Types.h \
  ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h \
@@ -91,7 +91,7 @@ se_mw/semslite/lib/src/sems_lite_keystore_se05x.o \
  ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/Datastore.pb.h \
  ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/RPC.pb.h \
  ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/Hostcmd.pb.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h \
  ../../../se_mw/sss/ex/inc/ex_sss_boot.h \
  ../../../se_mw/sss/ex/inc/ex_sss.h \
  ../../../se_mw/sss/inc/fsl_sss_se05x_types.h \
@@ -149,7 +149,7 @@ se_mw/semslite/lib/src/sems_lite_keystore_se05x.o \
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_tlv.h:
 ../../../se_mw/se_hostlib/hostLib/inc/se05x_enums.h:
 ../../../se_mw/se_hostlib/hostLib/inc/Applet_SE050_Ver.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/log/nxLog.h:
 ../../../se_mw/se_hostlib/hostLib/inc/nxScp03_Types.h:
 ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h:
@@ -207,7 +207,7 @@ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.
 ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/Datastore.pb.h:
 ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/RPC.pb.h:
 ../../../se_mw/nxp_iot_agent/src/protobuf/../protobuf/Hostcmd.pb.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/semslite/lib/src/sems_lite_agent.h:
 ../../../se_mw/sss/ex/inc/ex_sss_boot.h:
 ../../../se_mw/sss/ex/inc/ex_sss.h:
 ../../../se_mw/sss/inc/fsl_sss_se05x_types.h:

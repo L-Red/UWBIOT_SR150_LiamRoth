@@ -1,5 +1,5 @@
 ext/mbedtls/port/ksdk/aes_alt.o ext/mbedtls/port/ksdk/aes_alt.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/mbedtls/port/ksdk/aes_alt.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/mbedtls/port/ksdk/aes_alt.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/mbedtls/library/common.h \
  ../../../ext/mbedtls/port/ksdk/ksdk_mbedtls_config.h \
@@ -30,7 +30,7 @@ ext/mbedtls/port/ksdk/aes_alt.o ext/mbedtls/port/ksdk/aes_alt.d: \
  ../../../ext/freertos/portable/GCC/ARM_CM4FQN9090/portmacro.h \
  ../../../ext/freertos/include/mpu_wrappers.h \
  ../../../se_mw/sss/port/ksdk/sss_ksdk_mbedtls_config.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/sss/port/ksdk/fsl_sss_types.h \
  ../../../ext/mbedtls/include/mbedtls/check_config.h \
  ../../../ext/mbedtls/include/mbedtls/aes.h \
@@ -67,7 +67,7 @@ ext/mbedtls/port/ksdk/aes_alt.o ext/mbedtls/port/ksdk/aes_alt.d: \
 ../../../ext/freertos/portable/GCC/ARM_CM4FQN9090/portmacro.h:
 ../../../ext/freertos/include/mpu_wrappers.h:
 ../../../se_mw/sss/port/ksdk/sss_ksdk_mbedtls_config.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/sss/port/ksdk/fsl_sss_types.h:
 ../../../ext/mbedtls/include/mbedtls/check_config.h:
 ../../../ext/mbedtls/include/mbedtls/aes.h:

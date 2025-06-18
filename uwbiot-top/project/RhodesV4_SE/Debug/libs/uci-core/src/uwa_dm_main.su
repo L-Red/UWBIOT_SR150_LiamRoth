@@ -1,3 +1,3 @@
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:80:6:uwa_dm_evt_hdlr	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:108:6:uwa_dm_sys_disable	8	static
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:62:6:uwa_dm_init	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:80:6:uwa_dm_evt_hdlr	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:108:6:uwa_dm_sys_disable	8	static
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c:62:6:uwa_dm_init	8	static

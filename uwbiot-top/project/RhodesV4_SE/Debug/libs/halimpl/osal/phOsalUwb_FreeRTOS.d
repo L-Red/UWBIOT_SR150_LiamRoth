@@ -1,11 +1,11 @@
 libs/halimpl/osal/phOsalUwb_FreeRTOS.o \
  libs/halimpl/osal/phOsalUwb_FreeRTOS.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_FreeRTOS.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/halimpl/inc/phNxpUciHal_utils.h \
  ../../../libs/halimpl/inc/phUwbStatus.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
  ../../../boards/Host/Rhodes4/UWB_Assert.h \
@@ -94,7 +94,7 @@ libs/halimpl/osal/phOsalUwb_FreeRTOS.o \
 ../../../libs/halimpl/inc/phNxpUciHal_utils.h:
 ../../../libs/halimpl/inc/phUwbStatus.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
 ../../../boards/Host/Rhodes4/UWB_Assert.h:

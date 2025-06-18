@@ -1,8 +1,8 @@
 libs/halimpl/osal/phOsalUwb_Thread_FreeRTOS.o \
  libs/halimpl/osal/phOsalUwb_Thread_FreeRTOS.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_Thread_FreeRTOS.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/osal/phOsalUwb_Thread_FreeRTOS.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phOsalUwb.h \
  ../../../ext/freertos/include/FreeRTOS.h \
  ../../../boards/Host/Rhodes4/FreeRTOSConfig.h \
@@ -92,7 +92,7 @@ libs/halimpl/osal/phOsalUwb_Thread_FreeRTOS.o \
  ../../../libs/halimpl/inc/uwb_board_values.h \
  ../../../libs/halimpl/inc/phNxpLogDefault.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phOsalUwb.h:
 ../../../ext/freertos/include/FreeRTOS.h:
 ../../../boards/Host/Rhodes4/FreeRTOSConfig.h:

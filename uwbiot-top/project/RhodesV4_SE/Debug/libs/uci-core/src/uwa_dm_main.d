@@ -1,11 +1,11 @@
 libs/uci-core/src/uwa_dm_main.o libs/uci-core/src/uwa_dm_main.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uci-core/src/uwa_dm_main.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/uci-core/inc/uwa_api.h \
  ../../../libs/uci-core/inc/uci_defs.h \
  ../../../libs/uwb-iot/uwb_core/include/uwb_hal_api.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/uwb-iot/uwb_api/Api/SR1XX/UwbApi_Types_Proprietary.h \
  ../../../libs/uwb-iot/uwb_api/Api/UwbApi_Types.h \
  ../../../libs/uci-core/inc/uci_defs.h \
@@ -116,7 +116,7 @@ libs/uci-core/src/uwa_dm_main.o libs/uci-core/src/uwa_dm_main.d: \
 ../../../libs/uci-core/inc/uci_defs.h:
 ../../../libs/uwb-iot/uwb_core/include/uwb_hal_api.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/uwb-iot/uwb_api/Api/SR1XX/UwbApi_Types_Proprietary.h:
 ../../../libs/uwb-iot/uwb_api/Api/UwbApi_Types.h:
 ../../../libs/uci-core/inc/uci_defs.h:

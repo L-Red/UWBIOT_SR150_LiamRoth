@@ -1,10 +1,10 @@
 ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.o \
  ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
  ../../../ext/boards/qn9090/devices/QN9090/QN9090.h \
  ../../../ext/boards/qn9090/CMSIS/Include/core_cm4.h \
@@ -14,8 +14,8 @@ ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.o \
  ../../../ext/boards/qn9090/CMSIS/Include/mpu_armv7.h \
  ../../../ext/boards/qn9090/devices/QN9090/system_QN9090.h \
  ../../../ext/boards/qn9090/devices/QN9090/QN9090_features.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h \
  ../../../ext/freertos/include/FreeRTOS.h \
  ../../../boards/Host/Rhodes4/FreeRTOSConfig.h \
  ../../../ext/freertos/include/projdefs.h \
@@ -30,9 +30,9 @@ ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.o \
  ../../../ext/freertos/include/semphr.h \
  ../../../ext/freertos/include/queue.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart_freertos.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:
 ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h:
 ../../../ext/boards/qn9090/devices/QN9090/QN9090.h:
 ../../../ext/boards/qn9090/CMSIS/Include/core_cm4.h:
@@ -42,8 +42,8 @@ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090
 ../../../ext/boards/qn9090/CMSIS/Include/mpu_armv7.h:
 ../../../ext/boards/qn9090/devices/QN9090/system_QN9090.h:
 ../../../ext/boards/qn9090/devices/QN9090/QN9090_features.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h:
-C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_clock.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h:
 ../../../ext/freertos/include/FreeRTOS.h:
 ../../../boards/Host/Rhodes4/FreeRTOSConfig.h:
 ../../../ext/freertos/include/projdefs.h:

@@ -172,7 +172,7 @@ main-build: RhodesV4_SE.axf
 RhodesV4_SE.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU C++ Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/../../ext/boards/qn9090/bluetooth/libs" -Xlinker -Map="RhodesV4_SE.map" -Xlinker --defsym=__stack_size__=0x400 -Xlinker --no-wchar-size-warning -Xlinker --defsym=__app_stated_size__=0x100000 -Xlinker --defsym=__ram_vector_table__=1 -Xlinker --defsym=gUseNVMLink_d=1 -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m4 -mthumb -T QN9090_UWB_TAG_FW.ld -L ../../../boards/Rhodes4_SPI/ -o "RhodesV4_SE.axf" $(OBJS) $(USER_OBJS) $(LIBS) -l_ble_5-0_host_cm4_noFP -lPDM -lRadio -l_ble_controller -l_crypto_m4
+	arm-none-eabi-gcc -nostdlib -L"/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/../../ext/boards/qn9090/bluetooth/libs" -Xlinker -Map="RhodesV4_SE.map" -Xlinker --defsym=__stack_size__=0x400 -Xlinker --no-wchar-size-warning -Xlinker --defsym=__app_stated_size__=0x100000 -Xlinker --defsym=__ram_vector_table__=1 -Xlinker --defsym=gUseNVMLink_d=1 -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m4 -mthumb -T QN9090_UWB_TAG_FW.ld -L ../../../boards/Rhodes4_SPI/ -o "RhodesV4_SE.axf" $(OBJS) $(USER_OBJS) $(LIBS) -l_ble_5-0_host_cm4_noFP -lPDM -lRadio -l_ble_controller -l_crypto_m4
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,9 +1,9 @@
 se_mw/sss/src/se05x/fsl_sss_se05x_apis.o \
  se_mw/sss/src/se05x/fsl_sss_se05x_apis.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/sss/src/se05x/fsl_sss_se05x_apis.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/sss/src/se05x/fsl_sss_se05x_apis.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/sss/inc/fsl_sss_se05x_apis.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/sss/inc/fsl_sss_se05x_types.h \
  ../../../se_mw/sss/inc/fsl_sss_api.h \
  ../../../se_mw/sss/inc/fsl_sss_config.h \
@@ -93,7 +93,7 @@ se_mw/sss/src/se05x/fsl_sss_se05x_apis.o \
  ../../../se_mw/se_hostlib/hostLib/libCommon/smCom/apduComm.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/sss/inc/fsl_sss_se05x_apis.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/sss/inc/fsl_sss_se05x_types.h:
 ../../../se_mw/sss/inc/fsl_sss_api.h:
 ../../../se_mw/sss/inc/fsl_sss_config.h:

@@ -1,6 +1,6 @@
 se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.o \
  se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.d: \
- C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.c \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h \
  ../../../boards/Rhodes4_SPI/board.h \
@@ -67,7 +67,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
+ /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
  ../../../ext/freertos/include/task.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h:
@@ -135,5 +135,5 @@ se_mw/se_hostlib/hostLib/platform/ksdk/timer_kinetis_freertos.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
+/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_LiamRoth/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
 ../../../ext/freertos/include/task.h:
