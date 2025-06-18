@@ -1,10 +1,10 @@
 libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.o \
  libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/uwb-iot/uwb_api/Api/PrintUtility.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
+ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
  ../../../libs/uwb-iot/uwb_api/Api/UwbApi_Types.h \
@@ -87,7 +87,7 @@ libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.o \
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../libs/uwb-iot/uwb_api/Api/PrintUtility.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
+C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:
 ../../../libs/uwb-iot/uwb_api/Api/UwbApi_Types.h:

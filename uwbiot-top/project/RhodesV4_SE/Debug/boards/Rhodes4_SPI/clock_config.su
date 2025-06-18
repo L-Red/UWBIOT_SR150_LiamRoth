@@ -1,2 +1,2 @@
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/clock_config.c:98:6:BOARD_BootClockRUN	8	static
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/boards/Rhodes4_SPI/clock_config.c:49:6:BOARD_InitBootClocks	8	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/clock_config.c:98:6:BOARD_BootClockRUN	8	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/boards/Rhodes4_SPI/clock_config.c:49:6:BOARD_InitBootClocks	8	static

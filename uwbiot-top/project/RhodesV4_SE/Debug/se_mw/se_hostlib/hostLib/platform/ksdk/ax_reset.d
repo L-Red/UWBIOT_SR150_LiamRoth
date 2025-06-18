@@ -1,6 +1,6 @@
 se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.o \
  se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../boards/Rhodes4_SPI/board.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
@@ -66,7 +66,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
+ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/ax_reset.h \
  ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h \
  ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h \
@@ -137,7 +137,7 @@ se_mw/se_hostlib/hostLib/platform/ksdk/ax_reset.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
+C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/ax_reset.h:
 ../../../se_mw/se_hostlib/hostLib/libCommon/infra/sm_types.h:
 ../../../se_mw/se_hostlib/hostLib/platform/inc/sm_timer.h:

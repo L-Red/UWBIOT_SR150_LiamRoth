@@ -68,7 +68,7 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
         /* mandatory as per config Digest Usage*/
         UWB_SET_APP_PARAM_VALUE(RFRAME_CONFIG, kUWB_RfFrameConfig_Sfd_Sts),
         UWB_SET_APP_PARAM_VALUE(STS_CONFIG, kUWB_StsConfig_StaticSts),
-        UWB_SET_APP_PARAM_VALUE(RANGING_ROUND_USAGE, kUWB_RangingMethod_TDoA),
+        UWB_SET_APP_PARAM_VALUE(RANGING_DURATION, 200),
         UWB_SET_APP_PARAM_VALUE(SESSION_INFO_NTF, 0),
         UWB_SET_APP_PARAM_VALUE(SFD_ID, 0),
         UWB_SET_APP_PARAM_VALUE(CHANNEL_NUMBER, 9),
@@ -102,11 +102,11 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
         goto exit;
     }
 
-    status = demo_set_common_app_config(RANGING_APP_SESSION_ID, kUWB_StsConfig_StaticSts);
-    if (status != UWBAPI_STATUS_OK) {
-        NXPLOG_APP_E("demo_set_common_app_config() Failed");
-        goto exit;
-    }
+//    status = demo_set_common_app_config(DEMO_RANGING_APP_SESSION_ID, kUWB_StsConfig_StaticSts);
+//    if (status != UWBAPI_STATUS_OK) {
+//        NXPLOG_APP_E("demo_set_common_app_config() Failed");
+//        goto exit;
+//    }
 
     status = UwbApi_SetAppConfigMultipleParams(
     		sessionHandle, sizeof(SetAppParamsList) / sizeof(SetAppParamsList[0]), &SetAppParamsList[0]);
@@ -148,7 +148,7 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
     /* Wait for 1 minute to send data by that time ranging data notification is received*/
     phOsalUwb_Delay(2 * 1000);
 
-    sendData.session_id = RANGING_APP_SESSION_ID;
+    sendData.session_id = sessionHandle;
     phOsalUwb_MemCopy(&sendData.mac_address, &DST_MAC_ADDR, MAC_EXT_ADD_LEN);
     sendData.dst_endpoint    = 0;
     sendData.sequence_number = 0;

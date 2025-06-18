@@ -247,13 +247,13 @@
 /* when UWBIOT_LOG=Verbose, set the baudrate to 3Mbps for viewing logs in terminal emulator(ex. Tera term)*/
 #define BOARD_DEBUG_UART_TYPE kSerialPort_Uart
 #if (UWBIOT_LOG_VERBOSE == 1)
-#define BOARD_DEBUG_UART_BAUDRATE 3000000U //3Mbps
-#pragma message("Logging Baud rate is set to 3Mbits. Please change settings on Serial port GUI")
-//#define BOARD_DEBUG_UART_BAUDRATE 115200 //115200bps
-//#pragma message("Logging Baud rate is set to 115200bits. Please change settings on Serial port GUI")
+//#define BOARD_DEBUG_UART_BAUDRATE 3000000U //3Mbps
+//#pragma message("Logging Baud rate is set to 3Mbits. Please change settings on Serial port GUI")
+#define BOARD_DEBUG_UART_BAUDRATE 115200 //115200bps
+#pragma message("Logging Baud rate is set to 115200bits. Please change settings on Serial port GUI")
 #else
-#define BOARD_DEBUG_UART_BAUDRATE 3000000U
-//#define BOARD_DEBUG_UART_BAUDRATE 115200
+//#define BOARD_DEBUG_UART_BAUDRATE 3000000U
+#define BOARD_DEBUG_UART_BAUDRATE 115200
 #endif
 /* doc-end:uart_logging */
 #endif

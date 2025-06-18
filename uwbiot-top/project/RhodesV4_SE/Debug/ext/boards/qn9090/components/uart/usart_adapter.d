@@ -1,6 +1,6 @@
 ext/boards/qn9090/components/uart/usart_adapter.o \
  ext/boards/qn9090/components/uart/usart_adapter.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/components/uart/usart_adapter.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/uart/usart_adapter.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
  ../../../ext/boards/qn9090/devices/QN9090/fsl_device_registers.h \
@@ -17,7 +17,7 @@ ext/boards/qn9090/components/uart/usart_adapter.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_flexcomm.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/components/uart/uart.h \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/uart/uart.h \
  ../../../ext/freertos/include/FreeRTOS.h \
  ../../../boards/Host/Rhodes4/FreeRTOSConfig.h \
  ../../../ext/freertos/include/projdefs.h \
@@ -41,7 +41,7 @@ ext/boards/qn9090/components/uart/usart_adapter.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_reset.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_usart.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_flexcomm.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/components/uart/uart.h:
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/components/uart/uart.h:
 ../../../ext/freertos/include/FreeRTOS.h:
 ../../../boards/Host/Rhodes4/FreeRTOSConfig.h:
 ../../../ext/freertos/include/projdefs.h:

@@ -1,6 +1,6 @@
 ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.o \
  ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../ext/boards/qn9090/devices/QN9090/utilities/fsl_debug_console.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
@@ -66,7 +66,7 @@ ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h \
  ../../../ext/freertos/include/portable.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
+ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
  ../../../ext/boards/qn9090/bluetooth/framework/TimersManager/interface/TimersManager.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../ext/boards/qn9090/devices/QN9090/utilities/fsl_debug_console.h:
@@ -133,5 +133,5 @@ ext/boards/qn9090/bluetooth/framework/Logging/source/dbg_logging.o \
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c_freertos.h:
 ../../../ext/freertos/include/portable.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_i2c.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
+C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
 ../../../ext/boards/qn9090/bluetooth/framework/TimersManager/interface/TimersManager.h:

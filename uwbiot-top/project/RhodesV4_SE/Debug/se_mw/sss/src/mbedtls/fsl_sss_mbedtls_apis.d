@@ -1,9 +1,9 @@
 se_mw/sss/src/mbedtls/fsl_sss_mbedtls_apis.o \
  se_mw/sss/src/mbedtls/fsl_sss_mbedtls_apis.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/se_mw/sss/src/mbedtls/fsl_sss_mbedtls_apis.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/se_mw/sss/src/mbedtls/fsl_sss_mbedtls_apis.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h \
+ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h \
  ../../../se_mw/sss/inc/fsl_sss_mbedtls_types.h \
  ../../../se_mw/sss/inc/fsl_sss_api.h \
  ../../../se_mw/sss/inc/fsl_sss_config.h \
@@ -67,7 +67,7 @@ se_mw/sss/src/mbedtls/fsl_sss_mbedtls_apis.o \
  ../../../se_mw/sss/inc/fsl_sss_util_asn1_der.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../se_mw/sss/inc/fsl_sss_mbedtls_apis.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/fsl_sss_ftr.h:
+C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/fsl_sss_ftr.h:
 ../../../se_mw/sss/inc/fsl_sss_mbedtls_types.h:
 ../../../se_mw/sss/inc/fsl_sss_api.h:
 ../../../se_mw/sss/inc/fsl_sss_config.h:

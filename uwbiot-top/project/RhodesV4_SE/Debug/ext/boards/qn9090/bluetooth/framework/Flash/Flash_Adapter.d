@@ -1,8 +1,8 @@
 ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.o \
  ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.h \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.h \
  ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_flash.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h \
@@ -45,7 +45,7 @@ ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.o \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/psector_api.h \
  ../../../ext/boards/qn9090/devices/QN9090/drivers/rom_psector.h
 ../../../boards/Host/Rhodes4/app_preinclude.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.h:
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/ext/boards/qn9090/bluetooth/framework/Flash/Flash_Adapter.h:
 ../../../ext/boards/qn9090/bluetooth/framework/Common/EmbeddedTypes.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_flash.h:
 ../../../ext/boards/qn9090/devices/QN9090/drivers/fsl_common.h:

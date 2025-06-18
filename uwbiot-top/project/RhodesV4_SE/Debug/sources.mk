@@ -58,6 +58,7 @@ demos/SR1XX/demo_test_rx \
 demos/SR1XX/demo_test_tx \
 demos/SR1XX/demo_ultdoa_anchor \
 demos/SR1XX/demo_ultdoa_sync_anchor \
+demos/SR1XX/demo_ultdoa_tag \
 demos/common \
 demos/mctt_pctt \
 demos/mctt_pctt/handlers \

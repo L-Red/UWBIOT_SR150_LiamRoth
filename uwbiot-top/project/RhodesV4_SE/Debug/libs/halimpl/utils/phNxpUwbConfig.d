@@ -1,9 +1,9 @@
 libs/halimpl/utils/phNxpUwbConfig.o libs/halimpl/utils/phNxpUwbConfig.d: \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/halimpl/utils/phNxpUwbConfig.c \
+ C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/halimpl/utils/phNxpUwbConfig.c \
  ../../../boards/Host/Rhodes4/app_preinclude.h \
  ../../../libs/halimpl/inc/phNxpUwbConfig.h \
  ../../../libs/halimpl/inc/uwb_board_values.h \
- /Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h \
+ C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h \
  ../../../libs/halimpl/inc/phNxpUciHal_CoreConfig.h \
  ../../../libs/halimpl/inc/phUwb_BuildConfig.h \
  ../../../libs/halimpl/inc/phUwbTypes.h \
@@ -97,7 +97,7 @@ libs/halimpl/utils/phNxpUwbConfig.o libs/halimpl/utils/phNxpUwbConfig.d: \
 ../../../boards/Host/Rhodes4/app_preinclude.h:
 ../../../libs/halimpl/inc/phNxpUwbConfig.h:
 ../../../libs/halimpl/inc/uwb_board_values.h:
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/project/RhodesV4_SE/uwb_iot_ftr.h:
+C:\Users\lr228\UWBIOT_SR150_LiamRoth\uwbiot-top\project\RhodesV4_SE/uwb_iot_ftr.h:
 ../../../libs/halimpl/inc/phNxpUciHal_CoreConfig.h:
 ../../../libs/halimpl/inc/phUwb_BuildConfig.h:
 ../../../libs/halimpl/inc/phUwbTypes.h:

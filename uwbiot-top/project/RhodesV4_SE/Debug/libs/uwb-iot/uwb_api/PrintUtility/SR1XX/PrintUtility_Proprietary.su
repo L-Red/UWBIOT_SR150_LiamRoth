@@ -1,4 +1,4 @@
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:18:14:printDeviceInfo	24	static
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:94:14:printDistance_Aoa	0	static
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:120:14:printDebugParams	0	static
-/Users/liam/Documents/nezami_project/code/murata-sdk/Type2BP_SDK_UWBIOT_SR150_v04.06.05_MCUx/UWBIOT_SR150_v04.06.05_MCUx/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:184:14:printTestLoopNtfData	0	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:18:14:printDeviceInfo	24	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:94:14:printDistance_Aoa	0	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:120:14:printDebugParams	0	static
+C:/Users/lr228/UWBIOT_SR150_LiamRoth/uwbiot-top/libs/uwb-iot/uwb_api/PrintUtility/SR1XX/PrintUtility_Proprietary.c:184:14:printTestLoopNtfData	0	static

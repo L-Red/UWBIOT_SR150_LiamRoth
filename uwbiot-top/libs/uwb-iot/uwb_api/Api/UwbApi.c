@@ -1487,6 +1487,12 @@ RetryUponKeyFetchError:
         status = waitforNotification(UWA_DM_SESSION_STATUS_NTF_EVT, UWB_NTF_TIMEOUT);
         if (status != UWBAPI_STATUS_OK || uwbContext.sessionInfo.sessionHandle != sessionHandle ||
             uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE) {
+        	if (status != UWBAPI_STATUS_OK)
+                NXPLOG_UWBAPI_E("status != UWBAPI_STATUS_OK", __FUNCTION__);
+        	if (uwbContext.sessionInfo.sessionHandle != sessionHandle)
+        		NXPLOG_UWBAPI_E("uwbContext.sessionInfo.sessionHandle != sessionHandle", __FUNCTION__);
+        	if (uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE)
+        		NXPLOG_UWBAPI_E("uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE: %d", __FUNCTION__, uwbContext.sessionInfo.state);
             NXPLOG_UWBAPI_E("%s: waitforNotification for event %d Failed", __FUNCTION__, UWA_DM_SESSION_STATUS_NTF_EVT);
             status = UWBAPI_STATUS_FAILED;
         }
