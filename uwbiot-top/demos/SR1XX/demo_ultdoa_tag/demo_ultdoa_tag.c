@@ -36,7 +36,7 @@
 
 #define DEMO_MAC_ADDR_MODE                 EXTENDED_MAC_ADDRESS_MODE_WITH_HEADER
 #define DEMO_RANGING_APP_SESSION_ID        0x22334455
-#define DEMO_RANGING_APP_NO_OF_ANCHORS_P2P 2
+#define DEMO_RANGING_APP_NO_OF_ANCHORS_P2P 1
 
 #if (DEMO_MAC_ADDR_MODE == SHORT_MAC_ADDRESS_MODE)
 #define DEMO_MAC_ADDR_LEN MAC_SHORT_ADD_LEN
@@ -70,7 +70,8 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
         UWB_SET_APP_PARAM_VALUE(STS_CONFIG, kUWB_StsConfig_StaticSts),
         UWB_SET_APP_PARAM_VALUE(RANGING_DURATION, 200),
         UWB_SET_APP_PARAM_VALUE(SESSION_INFO_NTF, 0),
-        UWB_SET_APP_PARAM_VALUE(SFD_ID, 0),
+        UWB_SET_APP_PARAM_VALUE(AOA_RESULT_REQ, 0),
+        UWB_SET_APP_PARAM_VALUE(SFD_ID, 2),
         UWB_SET_APP_PARAM_VALUE(CHANNEL_NUMBER, 9),
         UWB_SET_APP_PARAM_VALUE(PREAMBLE_CODE_INDEX, 10),
         UWB_SET_APP_PARAM_VALUE(MAC_FCS_TYPE, 0),
@@ -96,6 +97,7 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
         goto exit;
     }
 
+
     status = UwbApi_SessionInit(DEMO_RANGING_APP_SESSION_ID, UWBD_RANGING_SESSION, &sessionHandle);
     if (status != UWBAPI_STATUS_OK) {
         NXPLOG_APP_E("UwbApi_SessionInit() Failed");
@@ -107,6 +109,7 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
 //        NXPLOG_APP_E("demo_set_common_app_config() Failed");
 //        goto exit;
 //    }
+
 
     status = UwbApi_SetAppConfigMultipleParams(
     		sessionHandle, sizeof(SetAppParamsList) / sizeof(SetAppParamsList[0]), &SetAppParamsList[0]);
@@ -127,11 +130,13 @@ OSAL_TASK_RETURN_TYPE StandaloneTask(void *args)
         inRangingParams.deviceMacAddr[offset] = gkDeviceMacAddr[offset];
     }
 
+
     status = UwbApi_SetRangingParams(sessionHandle, &inRangingParams);
     if (status != UWBAPI_STATUS_OK) {
         NXPLOG_APP_E("UwbApi_SetRangingParams() Failed");
         goto exit;
     }
+
 
     status = UwbApi_StartRangingSession(sessionHandle);
     if (status != UWBAPI_STATUS_OK) {

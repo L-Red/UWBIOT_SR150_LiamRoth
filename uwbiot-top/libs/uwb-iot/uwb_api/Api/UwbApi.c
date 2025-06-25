@@ -456,6 +456,7 @@ EXTERNC tUWBAPI_STATUS UwbApi_SessionDeinit(uint32_t sessionHandle)
  */
 EXTERNC tUWBAPI_STATUS UwbApi_SetRangingParams(uint32_t sessionHandle, const phRangingParams_t *pRangingParam)
 {
+    NXPLOG_UWBAPI_W("BEFORE RANGING PARAMS: uwbContext.sessionInfo.state = ", uwbContext.sessionInfo.state);
     tUWBAPI_STATUS status;
     uint8_t paramLen          = 0;
     uint8_t addrLen           = 0;
@@ -724,6 +725,7 @@ EXTERNC tUWBAPI_STATUS UwbApi_SetAppConfig(uint32_t sessionHandle, eAppConfig pa
 tUWBAPI_STATUS UwbApi_SetAppConfigMultipleParams(
     uint32_t sessionHandle, uint8_t noOfparams, const UWB_AppParams_List_t *AppParams_List)
 {
+    NXPLOG_UWBAPI_W("BEFORE APP PARAMS: uwbContext.sessionInfo.state = ", uwbContext.sessionInfo.state);
     uint16_t paramLen = 0;
     uint16_t cmdLen   = 0;
     eAppConfig paramId;
@@ -1419,6 +1421,7 @@ EXTERNC tUWBAPI_STATUS UwbApi_GetDeviceConfig(eDeviceConfig param_id, phDeviceCo
  */
 EXTERNC tUWBAPI_STATUS UwbApi_StartRangingSession(uint32_t sessionHandle)
 {
+    NXPLOG_UWBAPI_W("BEFORE START: uwbContext.sessionInfo.state = ", uwbContext.sessionInfo.state);
     tUWBAPI_STATUS status;
     uint16_t cmdLen = 0;
 #if UWBFTR_SE_SN110
@@ -1492,7 +1495,7 @@ RetryUponKeyFetchError:
         	if (uwbContext.sessionInfo.sessionHandle != sessionHandle)
         		NXPLOG_UWBAPI_E("uwbContext.sessionInfo.sessionHandle != sessionHandle", __FUNCTION__);
         	if (uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE)
-        		NXPLOG_UWBAPI_E("uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE: %d", __FUNCTION__, uwbContext.sessionInfo.state);
+        		NXPLOG_UWBAPI_E("uwbContext.sessionInfo.state != UWB_SESSION_ACTIVE: %u", uwbContext.sessionInfo.state);
             NXPLOG_UWBAPI_E("%s: waitforNotification for event %d Failed", __FUNCTION__, UWA_DM_SESSION_STATUS_NTF_EVT);
             status = UWBAPI_STATUS_FAILED;
         }

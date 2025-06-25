@@ -1193,7 +1193,7 @@ eResponse_Ntf_Event processSessionManagementNtf(uint8_t oid, uint8_t *eventData,
     case UCI_MSG_SESSION_STATUS_NTF:
     {
 
-        NXPLOG_UWBAPI_D("Got SESSION_STATUS_NTF");
+        NXPLOG_UWBAPI_W("Got SESSION_STATUS_NTF");
         dmEvent = UWA_DM_SESSION_STATUS_NTF_EVT;
         UWB_STREAM_TO_UINT32(uwbContext.sessionInfo.sessionHandle, eventData);
         UWB_STREAM_TO_UINT8(uwbContext.sessionInfo.state, eventData);
@@ -2483,10 +2483,12 @@ tUWBAPI_STATUS waitforNotification(uint16_t waitEventId, uint32_t waitEventNtfti
         /*
          *  Wait for the event notification
          */
+        NXPLOG_UWBAPI_W("waitforNotification: waitEventId = %u", waitEventId);
         sep_SetWaitEvent(waitEventId);
 
         if (phOsalUwb_ConsumeSemaphore_WithTimeout(uwbContext.devMgmtSem, waitEventNtftimeout) == UWBSTATUS_SUCCESS) {
             status = UWBAPI_STATUS_OK;
+            NXPLOG_UWBAPI_W("phOsalUwb_ConsumeSemaphore_WithTimeout");
         }
         else {
             /*
@@ -2496,6 +2498,7 @@ tUWBAPI_STATUS waitforNotification(uint16_t waitEventId, uint32_t waitEventNtfti
              * already received. In any case, session state checking is done in the
              * Session init/deinit related API's.
              */
+            NXPLOG_UWBAPI_W("NOT phOsalUwb_ConsumeSemaphore_WithTimeout");
             if (UWA_DM_SESSION_STATUS_NTF_EVT == waitEventId) {
                 status = UWBAPI_STATUS_OK;
             }
@@ -2511,6 +2514,8 @@ tUWBAPI_STATUS waitforNotification(uint16_t waitEventId, uint32_t waitEventNtfti
      * Reset the received event id to default event.
      */
     uwbContext.receivedEventId = DEFAULT_EVENT_TYPE;
+
+    NXPLOG_UWBAPI_W("waitforNotification: STATUS = %u", status);
 
     return status;
 }
